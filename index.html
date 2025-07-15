@@ -4,6 +4,25 @@
         <title>SmartFlix</title>
     </head>
     <body>
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyAZO6g-4yxs7pdv5pqpVZCZgv07xMfkYnQ",
+                authDomain: "smartflix-b68e1.firebaseapp.com",
+                projectId: "smartflix-b68e1",
+                storageBucket: "smartflix-b68e1.firebasestorage.app",
+                messagingSenderId: "859134742852",
+                appId: "1:859134742852:web:3a4b86b4e74f748cf5c711"
+            };
+
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+        </script>
         <h1>SmartFlix</h1>
         <p>This is a website!</p>
     </body>
