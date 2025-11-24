@@ -36,6 +36,14 @@
             background-color: #896a67;
         }
 
+        #topbar p {
+            margin: 0 10px;
+            font-weight: bold;
+            font-size: 1.15em;
+            margin-left: auto;
+            margin-right: -960px;
+        }
+
         #login {
             margin-left: auto;
             padding: 10px 16px;

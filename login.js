@@ -2,6 +2,7 @@ const loginBtn = document.getElementById("login");
 const overlay = document.getElementById("overlay");
 const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
+const username = document.getElementById("username");
 
 const loginUsername = document.getElementById("loginUsername");
 const loginPassword = document.getElementById("loginPassword");
@@ -10,9 +11,41 @@ const signupUsername = document.getElementById("signupUsername");
 const signupEmail = document.getElementById("signupEmail");
 const signupPassword = document.getElementById("signupPassword");
 
+function checkLoginState() {
+    const currentUser = localStorage.getItem("currentUser");
+    const userDisplay = document.getElementById("userDisplay");
+
+    if (currentUser) {
+        //Currently logged in
+        if (userDisplay) userDisplay.textContent = `Welcome, ${currentUser}`;
+        loginBtn.textContent = "Sign Out";
+        username.textContent = currentUser;
+    } else {
+        //Currently logged out
+        if (userDisplay) userDisplay.textContent = "";
+        loginBtn.textContent = "Sign In";
+        username.textContent = "";
+    }
+}
+
+checkLoginState();
+
 loginBtn.addEventListener("click", () => {
-	overlay.style.display = "flex";
-	showLogin();
+    const currentUser = localStorage.getItem("currentUser");
+
+    if (currentUser) {
+    	//Logout
+        const confirmLogout = confirm("Are you sure you want to log out?");
+        if (confirmLogout) {
+            localStorage.removeItem("currentUser");
+            alert("You have been logged out.");
+            checkLoginState();
+        }
+    } else {
+        //Login
+        overlay.style.display = "flex";
+        showLogin();
+    }
 });
 
 function closeModal() {
@@ -95,26 +128,31 @@ signupForm.querySelector("button").addEventListener("click", () => {
 
 loginForm.querySelector("button").addEventListener("click", () => {
 	const username = loginUsername.value.trim();
-	const password = loginPassword.value;
+    const password = loginPassword.value;
 
-	if (!username || !password) {
-		alert("Please fill in both fields.");
-		return;
-	}
+    if (!username || !password) {
+        alert("Please fill in both fields.");
+        return;
+    }
 
-	const accounts = getAccounts();
-	const user = accounts.find(acc => acc.username === username || acc.email === username);
+    const accounts = getAccounts();
+    const user = accounts.find(acc => acc.username.toLowerCase() === username.toLowerCase() || acc.email === username);
 
-	if (!user) {
-		alert("User not found.");
-		return;
-	}
+    if (!user) {
+        alert("User not found.");
+        return;
+    }
 
-	if (user.password !== hashPassword(password)) {
-		alert("Incorrect password.");
-		return;
-	}
+    if (user.password !== hashPassword(password)) {
+        alert("Incorrect password.");
+        return;
+    }
 
-	alert(`Welcome back, ${user.username}!`);
-	closeModal();
+    localStorage.setItem("currentUser", user.username); 
+    
+    alert(`Welcome back, ${user.username}!`);
+
+    checkLoginState();
+    
+    closeModal();
 });
