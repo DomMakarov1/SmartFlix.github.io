@@ -81,6 +81,68 @@ function showMovieDetails(movieId) {
 	document.getElementById("sidebarRating").textContent = `⭐ ${movie.rating}`;
 	document.getElementById("sidebarDesc").textContent = movie.desc;
 
+	const markBtn = document.getElementById("markAsWatched");
+	const optionsDiv = document.getElementById("ratingOptions");
+	
+	markBtn.style.display = "block";
+    markBtn.style.opacity = "1";
+    optionsDiv.classList.remove("active", "hidden", "has-selection");
+    optionsDiv.style.display = "none";
+    
+    document.querySelectorAll(".rate-btn").forEach(btn => {
+        btn.classList.remove("selected");
+        const xBtn = btn.querySelector(".reset-rating");
+        if (xBtn) xBtn.remove();
+    });
+
+    document.getElementById("sidebarWatched").dataset.currentMovie = movieId;
+
+    const savedRating = getUserRating(movieId);
+
+    if (savedRating) {
+        // If saved, hide "Mark as Watched" and show the rating options
+        markBtn.style.display = "none";
+        markBtn.style.opacity = "0";
+        
+        optionsDiv.classList.remove("hidden");
+        optionsDiv.style.display = "flex";
+        optionsDiv.classList.add("active");
+        optionsDiv.classList.add("has-selection"); // Compress mode
+
+        // Find the correct button and select it
+        const targetBtn = document.querySelector(`.rate-btn[data-rating="${savedRating}"]`);
+        if (targetBtn) {
+            targetBtn.classList.add("selected");
+            
+            // Re-create the X button visually
+            const xBtn = document.createElement("span");
+            xBtn.className = "reset-rating";
+            xBtn.innerHTML = "&#10005;";
+            
+            // Re-attach the exact same listener logic 
+            // ( Ideally, extract the X listener to a named function to avoid code duplication, 
+            //   but for now, copy-pasting the X logic here works )
+            xBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                removeRating(movieId); // Delete from storage
+
+                // UI Reset
+                optionsDiv.classList.remove("has-selection");
+                targetBtn.classList.remove("selected");
+                xBtn.remove();
+                optionsDiv.classList.remove("active");
+                
+                setTimeout(() => {
+                    optionsDiv.classList.add("hidden"); 
+                    optionsDiv.style.display = "none";
+                    markBtn.style.display = "block";
+                    setTimeout(() => markBtn.style.opacity = "1", 10);
+                }, 300);
+            });
+            targetBtn.appendChild(xBtn);
+        }
+    }
+
 	const similarList = document.getElementById("sidebarSimilar");
 	similarList.innerHTML = "";
 	movie.similar?.forEach(id => {
@@ -105,6 +167,70 @@ function showMovieDetails(movieId) {
 		sequelsList.appendChild(li);
 	});
 }
+
+document.getElementById("markAsWatched").addEventListener("click", function() {
+	const markBtn = this;
+	const optionsDiv = document.getElementById("ratingOptions");
+
+	markBtn.style.opacity = "0";
+
+	setTimeout(() => {
+		markBtn.style.display = "none";
+		
+		optionsDiv.classList.remove("hidden");
+		optionsDiv.style.display = "flex";
+
+		setTimeout(() => {
+			optionsDiv.classList.add("active");
+		}, 10);
+	}, 300);
+});
+
+document.querySelectorAll(".rate-btn").forEach(btn => {
+    btn.addEventListener("click", function() {
+        const movieId = document.getElementById("sidebarWatched").dataset.currentMovie;
+        const ratingValue = this.dataset.rating;
+        const optionsDiv = document.getElementById("ratingOptions");
+        const markBtn = document.getElementById("markAsWatched");
+        
+        console.log(`User rated ${movieId} with score: ${ratingValue}`);
+        
+        optionsDiv.classList.add("has-selection");
+        this.classList.add("selected");
+
+        if (!this.querySelector(".reset-rating")) {
+            const xBtn = document.createElement("span");
+            xBtn.className = "reset-rating";
+            xBtn.innerHTML = "&#10005;";
+            
+            xBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                
+                removeRating(movieId);
+
+                optionsDiv.classList.remove("has-selection");
+                this.classList.remove("selected");
+                xBtn.remove();
+
+                optionsDiv.classList.remove("active");
+                optionsDiv.style.display = "none";
+                markBtn.style.display = "block";
+                setTimeout(() => markBtn.style.opacity = "1", 10);
+            });
+
+            this.appendChild(xBtn);
+        }
+
+        const saved = saveRating(movieId, ratingValue);
+        
+        if (!saved) {
+            optionsDiv.classList.remove("has-selection");
+            this.classList.remove("selected");
+            const xBtn = this.querySelector(".reset-rating");
+            if(xBtn) xBtn.remove();
+        }
+    });
+});
 
 document.querySelectorAll(".movie-container").forEach(container => {
 	container.addEventListener("click", () => {
@@ -131,3 +257,55 @@ document.querySelectorAll(".movie-container").forEach(container => {
 		if (e.key === "ArrowLeft") scroller.scrollLeft -= 160;
 	});
 })();
+
+// --- Persistence Logic ---
+
+function getRatings() {
+    // FIX: The || "{}" must be OUTSIDE the getItem parenthesis
+    return JSON.parse(localStorage.getItem("movieRatings") || "{}");
+}
+
+function getUserRating(movieId) {
+    const currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) return null;
+    
+    const ratings = getRatings();
+    // Safely check if the user and movie exist
+    if (ratings && ratings[currentUser]) {
+        return ratings[currentUser][movieId];
+    }
+    return null;
+}
+
+function saveRating(movieId, ratingValue) {
+    const currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) {
+        alert("You must be signed in to rate movies.");
+        return false;
+    }
+
+    const ratings = getRatings();
+    
+    if (!ratings[currentUser]) {
+        ratings[currentUser] = {};
+    }
+
+    ratings[currentUser][movieId] = ratingValue;
+    
+    localStorage.setItem("movieRatings", JSON.stringify(ratings));
+    console.log(`Saved rating: User=${currentUser}, Movie=${movieId}, Rating=${ratingValue}`);
+    return true;
+}
+
+function removeRating(movieId) {
+    const currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) return;
+
+    const ratings = getRatings();
+    
+    if (ratings[currentUser] && ratings[currentUser][movieId]) {
+        delete ratings[currentUser][movieId];
+        localStorage.setItem("movieRatings", JSON.stringify(ratings));
+        console.log(`Removed rating: ${movieId}`);
+    }
+}
