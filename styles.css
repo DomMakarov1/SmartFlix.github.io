@@ -137,7 +137,8 @@ body {
     color: #13070c;
 }
 
-#pickedforyoutext {
+/* Shared Header Style */
+#pickedforyoutext, #populartext {
     font-size: 1.3em;
     font-weight: bold;
     color: #eff9f0;
@@ -151,7 +152,8 @@ body {
   padding-bottom: 40px;
 }
 
-#aipicked {
+/* Shared Scrollable Container Style */
+#aipicked, #popularMovies {
   position: relative;
   display: flex;
   gap: 20px;
@@ -166,7 +168,7 @@ body {
   -ms-overflow-style: none;
 }
 
-#aipicked::-webkit-scrollbar {
+#aipicked::-webkit-scrollbar, #popularMovies::-webkit-scrollbar {
   height: 0;
 }
 
@@ -211,7 +213,8 @@ body {
     color: #ddc8c4;
 }
 
-#aipicked::after {
+/* Gradient fade effect for both lists */
+#aipicked::after, #popularMovies::after {
     content: "";
     position: absolute;
     right: 0;
@@ -386,6 +389,11 @@ body {
 
 /* Base style for the 3 option buttons */
 .rate-btn {
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 300px;
+    opacity: 1;
     padding: 10px;
     border: none;
     border-radius: 6px;
@@ -394,11 +402,6 @@ body {
     cursor: pointer;
     text-align: left;
     font-size: 0.9em;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    overflow: hidden;
-    white-space: nowrap;
-    max-width: 300px;
-    opacity: 1;
 }
 
 .rate-btn:hover {
@@ -448,6 +451,7 @@ body {
     padding: 8px 12px;
 }
 
+/* The 'X' reset button style */
 .reset-rating {
     pointer-events: auto;
     cursor: pointer;

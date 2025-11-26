@@ -8,7 +8,6 @@
 	</head>
 
 	<body>
-		<!-- Top Navigation Bar -->
 		<div id="topbar">
 			<img id="logo" height="51" width="125" src="logo.png" alt="Smartflix Logo">
 			<a href="index.html">Home</a>
@@ -19,12 +18,11 @@
 			<button id="login">Sign In</button>
 		</div>
 
-		<!-- Login / Signup Modal -->
 		<div id="overlay">
 			<div id="loginModal">
 				<span class="close-btn" onclick="closeModal()">&times;</span>
 
-				<div id="loginForm">
+				<div id="loginForm"	>
 					<h2>Sign In</h2>
 					<input type="text" id="loginUsername" placeholder="Username">
 					<input type="password" id="loginPassword" placeholder="Password">
@@ -43,11 +41,10 @@
 			</div>
 		</div>
 
-		<!-- Main Movie Content -->
 		<main id="mainContent">
 			<div id="moviepage">
 				<div id="posterblock">
-					<img id="moviepicture" height="300" width="300" src="Inception.jpg" alt="Movie Poster">
+					<img id="moviepicture" height="300" width="300" src="movies/inception/Inception.jpg" alt="Movie Poster">
 					<p id="because">Showed Because You Liked [Movie Title]</p>
 				</div>
 
@@ -76,48 +73,49 @@
 				</div>
 			</div>
 
-			<p id="pickedforyoutext">AI Picked For You</p>
+			<p id="populartext" class="section-title">Popular Movies</p>
 
-			<div id="aipicked" tabindex="0" aria-label="AI picked movies, scrollable horizontally">
+			<div id="popularMovies" class="movie-scroller" tabindex="0" aria-label="Popular movies, scrollable horizontally">
 				<div class="movie-container" data-movie="Inception">
-					<img class="moviepicture" src="Inception.jpg" height="150" width="150" alt="Inception">
+					<img class="moviepicture" src="movies/inception/Inception.jpg" height="150" width="150" alt="Inception">
 					<div class="movie-title">Inception</div>
 				</div>
 
 				<div class="movie-container" data-movie="HarryPotter1">
-					<img class="moviepicture" src="hp1.jpg" height="150" width="150" alt="Harry Potter 1">
+					<img class="moviepicture" src="movies/harrypotter/hp1.jpg" height="150" width="150" alt="Harry Potter 1">
 					<div class="movie-title">Harry Potter and the Philosopher's Stone</div>
 				</div>
 
 				<div class="movie-container" data-movie="HarryPotter2">
-					<img class="moviepicture" src="hp2.jpg" height="150" width="150" alt="Harry Potter 2">
+					<img class="moviepicture" src="movies/harrypotter/hp2.jpg" height="150" width="150" alt="Harry Potter 2">
 					<div class="movie-title">Harry Potter and the Chamber of Secrets</div>
 				</div>
 
 				<div class="movie-container" data-movie="HarryPotter3">
-					<img class="moviepicture" src="hp3.jpg" height="150" width="150" alt="Harry Potter 3">
+					<img class="moviepicture" src="movies/harrypotter/hp3.jpg" height="150" width="150" alt="Harry Potter 3">
 					<div class="movie-title">Harry Potter and the Prisoner of Azkaban</div>
 				</div>
 
 				<div class="movie-container" data-movie="HarryPotter4">
-					<img class="moviepicture" src="hp4.jpg" height="150" width="150" alt="Harry Potter 4">
+					<img class="moviepicture" src="movies/harrypotter/hp4.jpg" height="150" width="150" alt="Harry Potter 4">
 					<div class="movie-title">Harry Potter and the Goblet of Fire</div>
 				</div>
 
 				<div class="movie-container" data-movie="HarryPotter5">
-					<img class="moviepicture" src="hp5.jpg" height="150" width="150" alt="Harry Potter 5">
+					<img class="moviepicture" src="movies/harrypotter/hp5.jpg" height="150" width="150" alt="Harry Potter 5">
 					<div class="movie-title">Harry Potter and the Order of the Phoenix</div>
 				</div>
 
-				<div class="movie-container" data-movie="Inception">
-					<img class="moviepicture" src="Inception.jpg" height="150" width="150" alt="Inception">
-					<div class="movie-title">Inception</div>
-				</div>
-
-				<div class="movie-container" data-movie="TheMatrix">
-					<img class="moviepicture" src="The Matrix.jpg" height="150" width="150" alt="The Matrix">
+				<div class="movie-container" data-movie="TheMatrix1">
+					<img class="moviepicture" src="movies/matrix/The Matrix.jpg" height="150" width="150" alt="The Matrix">
 					<div class="movie-title">The Matrix</div>
 				</div>
+			</div>
+
+			<p id="pickedforyoutext" class="section-title">AI Picked For You</p>
+
+			<div id="aipicked" class="movie-scroller" tabindex="0" aria-label="AI picked movies, scrollable horizontally">
+				<p style="color: #ddc8c4; padding: 20px;">Sign in and rate movies to get recommendations!</p>
 			</div>
 
 			<div id="whatsnew"></div>
@@ -137,7 +135,7 @@
 				    <div id="ratingOptions" class="hidden">
 				        <button class="rate-btn love" data-rating="2">I loved it!</button>
 				        <button class="rate-btn like" data-rating="1">I liked it</button>
-				        <button class="rate-btn dislike" data-rating="-1">It wasn't for me</button>
+				        <button class="rate-btn dislike" data-rating="0">It wasn't for me</button>
 				    </div>
 				</div>
 
