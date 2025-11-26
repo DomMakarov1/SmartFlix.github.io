@@ -100,45 +100,25 @@ function showMovieDetails(movieId) {
     const savedRating = getUserRating(movieId);
 
     if (savedRating) {
-        // If saved, hide "Mark as Watched" and show the rating options
         markBtn.style.display = "none";
         markBtn.style.opacity = "0";
         
         optionsDiv.classList.remove("hidden");
         optionsDiv.style.display = "flex";
         optionsDiv.classList.add("active");
-        optionsDiv.classList.add("has-selection"); // Compress mode
+        optionsDiv.classList.add("has-selection");
 
-        // Find the correct button and select it
         const targetBtn = document.querySelector(`.rate-btn[data-rating="${savedRating}"]`);
         if (targetBtn) {
             targetBtn.classList.add("selected");
-            
-            // Re-create the X button visually
+
             const xBtn = document.createElement("span");
             xBtn.className = "reset-rating";
             xBtn.innerHTML = "&#10005;";
-            
-            // Re-attach the exact same listener logic 
-            // ( Ideally, extract the X listener to a named function to avoid code duplication, 
-            //   but for now, copy-pasting the X logic here works )
-            xBtn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                removeRating(movieId); // Delete from storage
 
-                // UI Reset
-                optionsDiv.classList.remove("has-selection");
-                targetBtn.classList.remove("selected");
-                xBtn.remove();
-                optionsDiv.classList.remove("active");
-                
-                setTimeout(() => {
-                    optionsDiv.classList.add("hidden"); 
-                    optionsDiv.style.display = "none";
-                    markBtn.style.display = "block";
-                    setTimeout(() => markBtn.style.opacity = "1", 10);
-                }, 300);
-            });
+            xBtn.addEventListener("click", (e) => 
+                resetRatingUI(e, movieId, optionsDiv, markBtn, targetBtn, xBtn)
+            );
             targetBtn.appendChild(xBtn);
         }
     }
@@ -203,20 +183,9 @@ document.querySelectorAll(".rate-btn").forEach(btn => {
             xBtn.className = "reset-rating";
             xBtn.innerHTML = "&#10005;";
             
-            xBtn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                
-                removeRating(movieId);
-
-                optionsDiv.classList.remove("has-selection");
-                this.classList.remove("selected");
-                xBtn.remove();
-
-                optionsDiv.classList.remove("active");
-                optionsDiv.style.display = "none";
-                markBtn.style.display = "block";
-                setTimeout(() => markBtn.style.opacity = "1", 10);
-            });
+            xBtn.addEventListener("click", (e) => 
+                resetRatingUI(e, movieId, optionsDiv, markBtn, this, xBtn)
+            );
 
             this.appendChild(xBtn);
         }
@@ -308,4 +277,19 @@ function removeRating(movieId) {
         localStorage.setItem("movieRatings", JSON.stringify(ratings));
         console.log(`Removed rating: ${movieId}`);
     }
+}
+
+function resetRatingUI(e, movieId, optionsDiv, markBtn, btnElement, xBtnElement) {
+    e.stopPropagation();
+    removeRating(movieId);
+
+    optionsDiv.classList.remove("has-selection");
+    btnElement.classList.remove("selected");
+    xBtnElement.remove();
+
+    optionsDiv.classList.remove("active");
+    optionsDiv.style.display = "none";
+    markBtn.style.display = "block";
+    
+    setTimeout(() => markBtn.style.opacity = "1", 10);
 }
