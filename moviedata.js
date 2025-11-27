@@ -12,7 +12,8 @@ const movieData = {
 		desc: "A skilled thief who steals secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
 		similar: ["TheMatrix", "Interstellar", "Tenet"],
 		sequels: [],
-        poster: "movies/inception/Inception.jpg" 
+        poster: "movies/inception/Inception.jpg",
+        link: "https://www.youtube.com/results?search_query=Inception+movie"
 	},
 	"TheMatrix": {
 		title: "The Matrix",
@@ -27,7 +28,8 @@ const movieData = {
 		desc: "A hacker discovers the shocking truth about reality and his role in the war against its controllers.",
 		similar: ["Inception", "Dark City", "Equilibrium"],
 		sequels: ["TheMatrix2", "TheMatrix3", "TheMatrix4"],
-        poster: "movies/matrix/The Matrix.jpg"
+        poster: "movies/matrix/The Matrix.jpg",
+        link: "https://www.youtube.com/results?search_query=The+Matrix+movie"
 	},
 	"TheMatrix2": {
 		title: "The Matrix Reloaded",
@@ -42,7 +44,8 @@ const movieData = {
 		desc: "A liberating hero races to uncover deeper layers of control, confronting new foes and revelations that challenge everything he believes about fate and freedom.",
 		similar: ["Inception", "Dark City", "Equilibrium"],
 		sequels: ["TheMatrix", "TheMatrix3", "TheMatrix4"],
-        poster: "movies/matrix/The Matrix2.jpg"
+        poster: "movies/matrix/The Matrix2.jpg",
+        link: "https://www.youtube.com/results?search_query=The+Matrix+Reloaded+movie"
 	},
 	"TheMatrix3": {
 		title: "The Matrix Revolutions",
@@ -57,7 +60,8 @@ const movieData = {
 		desc: "As the war reaches its breaking point, a chosen fighter battles on two fronts—both human and machine—to forge a final path toward peace.",
 		similar: ["Inception", "Dark City", "Equilibrium"],
 		sequels: ["TheMatrix", "TheMatrix2", "TheMatrix4"],
-        poster: "movies/matrix/The Matrix3.jpg"
+        poster: "movies/matrix/The Matrix3.jpg",
+        link: "https://www.youtube.com/results?search_query=The+Matrix+Revolutions+movie"
 	},
 	"TheMatrix4": {
 		title: "The Matrix Resurrections",
@@ -72,7 +76,8 @@ const movieData = {
 		desc: "Drawn back into a reality he once escaped, a weary legend confronts illusions, lost memories, and a renewed struggle for truth in a world more deceptive than ever.",
 		similar: ["Inception", "Dark City", "Equilibrium"],
 		sequels: ["TheMatrix", "TheMatrix2", "TheMatrix3"],
-        poster: "movies/matrix/The Matrix4.jpg"
+        poster: "movies/matrix/The Matrix4.jpg",
+        link: "https://www.youtube.com/results?search_query=The+Matrix+Resurrections+movie"
 	},
 	"HarryPotter1": {
 		title: "Harry Potter and the Philosopher's Stone",
@@ -87,7 +92,8 @@ const movieData = {
 		desc: "A young wizard discovers a hidden power within his school, drawing him into a perilous quest for an artifact of immortality.",
 		similar: [],
 		sequels: ["HarryPotter2", "HarryPotter3", "HarryPotter4", "HarryPotter5", "HarryPotter6","HarryPotter7","HarryPotter8"],
-        poster: "movies/harrypotter/hp1.jpg"
+        poster: "movies/harrypotter/hp1.jpg",
+        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Philosopher%27s+Stone+movie"
 	},
 	"HarryPotter2": {
 		title: "Harry Potter and the Chamber of Secrets",
@@ -102,7 +108,8 @@ const movieData = {
 		desc: "A young wizard confronts an ancient chamber within his school, unraveling a sinister mystery bound to a dark legacy.",
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter3", "HarryPotter4", "HarryPotter5", "HarryPotter6","HarryPotter7","HarryPotter8"],
-        poster: "movies/harrypotter/hp2.jpg"
+        poster: "movies/harrypotter/hp2.jpg",
+        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Chamber+of+Secrets+movie"
 	},
 	"HarryPotter3": {
 		title: "Harry Potter and the Prisoner of Azkaban",
@@ -117,7 +124,8 @@ const movieData = {
 		desc: "A young wizard faces ominous omens and a fugitive’s escape, uncovering secrets that will alter his understanding of the past.",
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter2", "HarryPotter4", "HarryPotter5", "HarryPotter6","HarryPotter7","HarryPotter8"],
-        poster: "movies/harrypotter/hp3.jpg"
+        poster: "movies/harrypotter/hp3.jpg",
+        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Prisoner+of+Azkaban+movie"
 	},
 	"HarryPotter4": {
 		title: "Harry Potter and the Goblet of Fire",
@@ -132,7 +140,8 @@ const movieData = {
 		desc: "Thrust into a perilous tournament, a young wizard confronts deadly challenges and a dark resurgence that signals the return of an ancient threat.",
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter2", "HarryPotter3", "HarryPotter5", "HarryPotter6","HarryPotter7","HarryPotter8"],
-        poster: "movies/harrypotter/hp4.jpg"
+        poster: "movies/harrypotter/hp4.jpg",
+        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Goblet+of+Fire+movie"
 	},
 	"HarryPotter5": {
 		title: "Harry Potter and the Order of the Phoenix",
@@ -147,7 +156,8 @@ const movieData = {
 		desc: "Haunted by visions and disbelief, a young wizard rallies allies against hidden tyranny as a shadowy power tightens its grip on the wizarding world.",
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter2", "HarryPotter3", "HarryPotter4","HarryPotter6","HarryPotter7","HarryPotter8"],
-        poster: "movies/harrypotter/hp5.jpg"
+        poster: "movies/harrypotter/hp5.jpg",
+        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Order+of+the+Phoenix+movie"
 	},
 	"HarryPotter6": {
 		title: "Harry Potter and the Half-Blood Prince",
@@ -162,7 +172,8 @@ const movieData = {
 		desc: "As darkness spreads beyond the shadows, a young wizard delves into a mysterious textbook and buried memories, uncovering a path that leads ever closer to a rising evil’s true power.",
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter2", "HarryPotter3", "HarryPotter4","HarryPotter5","HarryPotter7","HarryPotter8"],
-		poster: "movies/harrypotter/hp6.jpg"
+		poster: "movies/harrypotter/hp6.jpg",
+        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Half-Blood+Prince+movie"
 	},
 	"HarryPotter7": {
 		title: "Harry Potter and the Deathly Hallows: Part 1",
@@ -177,7 +188,8 @@ const movieData = {
 		desc: "On the run from a tightening regime, three young wizards hunt for elusive relics, confronting betrayal, sacrifice, and the looming dread of a world slipping into darkness.",
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter2", "HarryPotter3", "HarryPotter4","HarryPotter5","HarryPotter6","HarryPotter8"],
-		poster: "movies/harrypotter/hp7.jpg"
+		poster: "movies/harrypotter/hp7.jpg",
+        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Deathly+Hallows+Part+1+movie"
 	},
 	"HarryPotter8": {
 		title: "Harry Potter and the Deathly Hallows: Part 2",
@@ -192,7 +204,8 @@ const movieData = {
 		desc: "In a final clash between hope and tyranny, a young wizard returns to where it all began, facing destiny, loss, and the ultimate battle that will decide the fate of the wizarding world.",
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter2", "HarryPotter3", "HarryPotter4","HarryPotter5","HarryPotter6","HarryPotter7"],
-		poster: "movies/harrypotter/hp8.jpg"
+		poster: "movies/harrypotter/hp8.jpg",
+        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Deathly+Hallows+Part+2+movie"
 	},
 	"Interstellar": {
 		title: "Interstellar",
@@ -207,7 +220,8 @@ const movieData = {
 		desc: "When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.",
 		similar: ["Inception", "Tenet"],
 		sequels: [],
-        poster: "movies/interstellar/Interstellar.jpg" 
+        poster: "movies/interstellar/Interstellar.jpg",
+        link: "https://www.youtube.com/results?search_query=Interstellar+movie"
 	},
 	"Tenet": {
 		title: "Tenet",
@@ -222,7 +236,8 @@ const movieData = {
 		desc: "Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.",
 		similar: ["Inception", "Interstellar", "TheMatrix"],
 		sequels: [],
-        poster: "movies/tenet/Tenet.jpg" 
+        poster: "movies/tenet/Tenet.jpg",
+        link: "https://www.youtube.com/results?search_query=Tenet+movie"
 	},
 	"TheDarkKnight2": {
 		title: "The Dark Knight",
@@ -235,9 +250,10 @@ const movieData = {
 		keywords: ["Hero", "Chaos", "Villain"],
 		rating: "9.2/10",
 		desc: "When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.",
-		similar: ["Tenet", "The Batman", "BatmanSuperman", "SuicideSquad1"],
+		similar: ["Tenet", "TheBatman", "BatmanSuperman", "SuicideSquad1"],
 		sequels: ["TheDarkKnight1","TheDarkKnight3"],
-        poster: "movies/darkknight/darkknight2.jpg"
+        poster: "movies/darkknight/darkknight2.jpg",
+        link: "https://www.youtube.com/results?search_query=The+Dark+Knight+movie"
 	},
 	"TheDarkKnight1": {
 		title: "Batman Begins",
@@ -250,9 +266,10 @@ const movieData = {
 		keywords: ["Hero", "Chaos", "Villain"],
 		rating: "8.3/10",
 		desc: "After witnessing his parents' death, billionaire Bruce Wayne learns the art of fighting to confront injustice. When he returns to Gotham as Batman, he must stop a secret society that intends to destroy the city.",
-		similar: ["Tenet", "The Batman", "BatmanSuperman", "SuicideSquad1"],
+		similar: ["Tenet", "TheBatman", "BatmanSuperman", "SuicideSquad1"],
 		sequels: ["TheDarkKnight2","TheDarkKnight3"],
-        poster: "movies/darkknight/darkknight1.jpg"
+        poster: "movies/darkknight/darkknight1.jpg",
+        link: "https://www.youtube.com/results?search_query=Batman+Begins+movie"
 	},
 	"TheDarkKnight3": {
 		title: "The Dark Knight Rises",
@@ -267,7 +284,8 @@ const movieData = {
 		desc: "Bane, an imposing terrorist, attacks Gotham City and disrupts its eight-year-long period of peace. This forces Bruce Wayne to come out of hiding and don the cape and cowl of Batman again.",
 		similar: ["Tenet", "TheBatman", "BatmanSuperman", "SuicideSquad1"],
 		sequels: ["TheDarkKnight1","TheDarkKnight2"],
-        poster: "movies/darkknight/darkknight3.jpg"
+        poster: "movies/darkknight/darkknight3.jpg",
+        link: "https://www.youtube.com/results?search_query=The+Dark+Knight+Rises+movie"
 	},
 	"TheBatman": {
 		title: "The Batman",
@@ -282,7 +300,8 @@ const movieData = {
 		desc: "When a sadistic serial killer begins murdering key political figures in Gotham, the Batman is forced to investigate the city's hidden corruption and question his family's involvement.",
 		similar: ["TheDarkKnight1", "TheDarkKnight2", "TheDarkKnight3", "BatmanSuperman"],
 		sequels: [],
-        poster: "movies/thebatman/thebatman.jpg"
+        poster: "movies/thebatman/thebatman.jpg",
+        link: "https://www.youtube.com/results?search_query=The+Batman+movie"
 	},
 	"BatmanSuperman": {
 		title: "Batman v Superman: Dawn of Justice",
@@ -297,7 +316,8 @@ const movieData = {
 		desc: "Batman is manipulated by Lex Luthor to fear Superman. Superman´s existence is meanwhile dividing the world and he is framed for murder during an international crisis. The heroes clash and force the neutral Wonder Woman to reemerge.",
 		similar: ["TheBatman", "TheDarkKnight1", "TheDarkKnight2", "TheDarkKnight3", "SuicideSquad1"],
 		sequels: ["TheDarkKnight1","TheDarkKnight2"],
-        poster: "movies/darkknight/darkknight3.jpg"
+        poster: "movies/darkknight/darkknight3.jpg",
+        link: "https://www.youtube.com/results?search_query=Batman+v+Superman+movie"
 	},
 	"SuicideSquad1": {
 		title: "Suicide Squad",
@@ -312,7 +332,8 @@ const movieData = {
 		desc: "A secret government agency recruits some of the most dangerous incarcerated super-villains to form a defensive task force. Their first mission: save the world from the apocalypse.",
 		similar: ["TheDarkKnight1","TheDarkKnight2","TheDarkKnight3","BatmanSuperman"],
 		sequels: ["SuicideSquad2"],
-        poster: "movies/suicidesquad/suicidesquad1.jpg"
+        poster: "movies/suicidesquad/suicidesquad1.jpg",
+        link: "https://www.youtube.com/results?search_query=Suicide+Squad+2016+movie"
 	},
 	"SuicideSquad2": {
 		title: "The Suicide Squad",
@@ -327,7 +348,8 @@ const movieData = {
 		desc: "Supervillains Harley Quinn, Bloodsport, Peacemaker, and a collection of nutty cons at Belle Reve prison join the super-secret, super-shady Task Force X as they are dropped off at the remote, enemy-infused island of Corto Maltese.",
 		similar: ["TheDarkKnight1","TheDarkKnight2","TheDarkKnight3","BatmanSuperman"],
 		sequels: ["SuicideSquad2"],
-        poster: "movies/suicidesquad/suicidesquad2.jpg"
+        poster: "movies/suicidesquad/suicidesquad2.jpg",
+        link: "https://www.youtube.com/results?search_query=The+Suicide+Squad+2021+movie"
 	},
 	"ForrestGump": {
 		title: "Forrest Gump",
@@ -342,7 +364,8 @@ const movieData = {
 		desc: "The history of the United States from the 1950s to the '70s unfolds from the perspective of an Alabama man with an IQ of 75, who yearns to be reunited with his childhood sweetheart.",
 		similar: [],
 		sequels: [],
-        poster: "movies/forrestgump/forrestgump.jpg"
+        poster: "movies/forrestgump/forrestgump.jpg",
+        link: "https://www.youtube.com/results?search_query=Forrest+Gump+movie"
 	},
 	"Alien1": {
 		title: "Alien",
@@ -357,7 +380,8 @@ const movieData = {
 		desc: "After investigating a mysterious transmission of unknown origin, the crew of a commercial spacecraft encounters a deadly lifeform.",
 		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien2", "Alien3", "Alien4", "Alien5"],
-        poster: "movies/alien/alien.jpg"
+        poster: "movies/alien/alien.jpg",
+        link: "https://www.youtube.com/results?search_query=Alien+1979+movie"
 	},
 	"Alien2": {
 		title: "Aliens",
@@ -372,7 +396,8 @@ const movieData = {
 		desc: "Decades after surviving the Nostromo incident, Ellen Ripley is sent out to re-establish contact with a terraforming colony but finds herself battling the Alien Queen and her offspring.",
 		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien1", "Alien3", "Alien4", "Alien5"],
-        poster: "movies/alien/aliens.jpg"
+        poster: "movies/alien/aliens.jpg",
+        link: "https://www.youtube.com/results?search_query=Aliens+movie"
 	},
 	"Alien3": {
 		title: "Alien 3",
@@ -387,7 +412,8 @@ const movieData = {
 		desc: "Returning from LV-426, Ellen Ripley crash-lands on the maximum-security prison Fiorina 161, where she discovers that she has unwittingly brought along an unwelcome visitor.",
 		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien1", "Alien2", "Alien4", "Alien5"],
-        poster: "movies/alien/alien3.jpg"
+        poster: "movies/alien/alien3.jpg",
+        link: "https://www.youtube.com/results?search_query=Alien+3+movie"
 	},
 	"Alien4": {
 		title: "Alien Resurrection",
@@ -402,7 +428,8 @@ const movieData = {
 		desc: "Two centuries after her death, a powerful human/alien hybrid clone of Ellen Ripley aids a crew of space pirates in stopping the aliens from reaching Earth.",
 		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien1", "Alien2", "Alien3", "Alien5"],
-        poster: "movies/alien/alien4.jpg"
+        poster: "movies/alien/alien4.jpg",
+        link: "https://www.youtube.com/results?search_query=Alien+Resurrection+movie"
 	},
 	"Alien5": {
 		title: "AVP: Alien vs. Predator",
@@ -417,7 +444,8 @@ const movieData = {
 		desc: "During an archaeological expedition on Bouvetøya Island in Antarctica, a team of archaeologists and other scientists find themselves caught up in a battle between the two legends. Soon, the team realize that only one species can win.",
 		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien1", "Alien2", "Alien3", "Alien 4"],
-        poster: "movies/alien/alienvpred.jpg"
+        poster: "movies/alien/alienvpred.jpg",
+        link: "https://www.youtube.com/results?search_query=Alien+vs+Predator+movie"
 	},
 	"TheThing": {
 		title: "The Thing",
@@ -432,7 +460,8 @@ const movieData = {
 		desc: "A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.",
 		similar: ["Alien", "Aliens", "Oxygen"],
 		sequels: ["The Thing"],
-        poster: "movies/thething/thething.jpg"
+        poster: "movies/thething/thething.jpg",
+        link: "https://www.youtube.com/results?search_query=The+Thing+1982+movie"
 	},
 	"TheThing2": {
 		title: "The Thing",
@@ -447,6 +476,7 @@ const movieData = {
 		desc: "A group of scientists researching an alien spaceship found in the Antarctic come face to face with the ship's, not quite dead, occupant.",
 		similar: ["Oxygen"],
 		sequels: ["Alien", "Aliens", "The Thing"],
-        poster: "movies/thething/thething2.jpg"
+        poster: "movies/thething/thething2.jpg",
+        link: "https://www.youtube.com/results?search_query=The+Thing+2011+movie"
 	}
 };

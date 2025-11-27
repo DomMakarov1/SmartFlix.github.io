@@ -18,7 +18,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     padding-top: 80px;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Prevents horizontal scrollbar when sidebar is closed */
 }
 
 html {
@@ -97,6 +97,7 @@ html {
     transform: translateY(-1px);
 }
 
+/* --- Main Layout Transitions --- */
 #mainContent {
   margin-right: 0; 
   padding-bottom: 40px;
@@ -105,7 +106,8 @@ html {
 }
 
 #mainContent.shifted {
-    margin-right: 470px;
+    /* Sidebar is 400px, so we shift 420px to leave a 20px gap */
+    margin-right: 420px; 
 }
 
 #moviepage {
@@ -309,19 +311,103 @@ html {
     padding: 20px 0;
 }
 
+/* --- Sidebar (The Fix) --- */
 #movieSidebar {
     position: fixed;
     top: 70px;
-    right: 0;
+    
+    /* FIX: Start slightly visible (15px) so user can hover/click */
+    right: -385px; 
+    
     bottom: 0;
     width: 400px;
     
     background-color: #111115;
-    border-left: 1px solid var(--glass-border);
-    padding: 30px;
+    
+    /* Make the visible strip pop with the primary color */
+    border-left: 3px solid var(--primary-color);
+    
+    /* No padding here, padding moved to content so bg stays full width */
+    padding: 0;
     overflow-y: auto;
     box-shadow: -10px 0 30px rgba(0,0,0,0.3);
     z-index: 900;
+    
+    /* Animate right property */
+    transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    /* Indicate it's clickable when closed */
+    cursor: pointer;
+}
+
+/* FIX: This class brings it back on-screen */
+#movieSidebar.open {
+    right: 0;
+    cursor: default; /* Reset cursor when fully open */
+}
+
+/* PEEK ANIMATION: When hovering the closed sidebar, slide it out a bit */
+#movieSidebar:not(.open):hover {
+    right: -350px; /* Shows 50px of the sidebar */
+}
+
+/* --- Sidebar Background Image Styles --- */
+#sidebarBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%; /* Cover top portion */
+    z-index: 0; /* Behind content */
+    pointer-events: none;
+}
+
+#sidebarBgImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.25; /* Low opacity to blend */
+}
+
+/* Gradient overlay to fade into #111115 */
+.sidebar-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gradient from transparent (top) to sidebar color (bottom) */
+    background: linear-gradient(to bottom, rgba(17,17,21,0) 0%, #111115 100%);
+}
+
+#sidebarContent {
+    position: relative;
+    z-index: 1; /* Sit above the background image */
+    padding: 30px;
+}
+
+/* Watch Movie Button */
+#watchMovieBtn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 0;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 700;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    transition: background 0.2s, transform 0.2s;
+    border: none;
+    font-family: var(--font-main);
+    box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
+}
+
+#watchMovieBtn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
 }
 
 .sidebar-header {

@@ -8,6 +8,12 @@ function showMovieDetails(movieId) {
     document.getElementById("sidebarRating").textContent = `⭐ ${movie.rating}`;
     document.getElementById("sidebarDesc").textContent = movie.desc;
 
+    const sidebarBg = document.getElementById("sidebarBgImage");
+    if(sidebarBg) sidebarBg.src = movie.poster;
+
+    const watchBtn = document.getElementById("watchMovieBtn");
+    if(watchBtn) watchBtn.href = movie.link || "#";
+
     const markBtn = document.getElementById("markAsWatched");
     const optionsDiv = document.getElementById("ratingOptions");
     
@@ -156,6 +162,13 @@ document.addEventListener("click", (e) => {
     const sidebar = document.getElementById("movieSidebar");
     if (sidebar.classList.contains("open") && !sidebar.contains(e.target)) {
         closeSidebar();
+    }
+});
+
+document.getElementById("movieSidebar").addEventListener("click", function() {
+    if (!this.classList.contains("open")) {
+        this.classList.add("open");
+        document.getElementById("mainContent").classList.add("shifted");
     }
 });
 
