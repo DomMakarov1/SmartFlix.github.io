@@ -9,12 +9,12 @@ const movieData = {
 		franchise: null,
 		keywords: ["Dream", "Heist", "Mind-bending"],
 		rating: "8.8/10",
-		desc: "A skilled thief who steals secrets through dream-sharing technology...",
-		similar: ["TheMatrix1", "Interstellar", "Tenet"],
+		desc: "A skilled thief who steals secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+		similar: ["TheMatrix", "Interstellar", "Tenet"],
 		sequels: [],
         poster: "movies/inception/Inception.jpg" 
 	},
-	"TheMatrix1": {
+	"TheMatrix": {
 		title: "The Matrix",
 		year: 1999,
 		runtime: "2h 16m",
@@ -41,7 +41,7 @@ const movieData = {
 		rating: "8.6/10",
 		desc: "A liberating hero races to uncover deeper layers of control, confronting new foes and revelations that challenge everything he believes about fate and freedom.",
 		similar: ["Inception", "Dark City", "Equilibrium"],
-		sequels: ["TheMatrix1", "TheMatrix3", "TheMatrix4"],
+		sequels: ["TheMatrix", "TheMatrix3", "TheMatrix4"],
         poster: "movies/matrix/The Matrix2.jpg"
 	},
 	"TheMatrix3": {
@@ -56,7 +56,7 @@ const movieData = {
 		rating: "8.8/10",
 		desc: "As the war reaches its breaking point, a chosen fighter battles on two fronts—both human and machine—to forge a final path toward peace.",
 		similar: ["Inception", "Dark City", "Equilibrium"],
-		sequels: ["TheMatrix1", "TheMatrix2", "TheMatrix4"],
+		sequels: ["TheMatrix", "TheMatrix2", "TheMatrix4"],
         poster: "movies/matrix/The Matrix3.jpg"
 	},
 	"TheMatrix4": {
@@ -71,7 +71,7 @@ const movieData = {
 		rating: "5.9/10",
 		desc: "Drawn back into a reality he once escaped, a weary legend confronts illusions, lost memories, and a renewed struggle for truth in a world more deceptive than ever.",
 		similar: ["Inception", "Dark City", "Equilibrium"],
-		sequels: ["TheMatrix1", "TheMatrix2", "TheMatrix3"],
+		sequels: ["TheMatrix", "TheMatrix2", "TheMatrix3"],
         poster: "movies/matrix/The Matrix4.jpg"
 	},
 	"HarryPotter1": {
@@ -356,7 +356,7 @@ const movieData = {
 		rating: "8.7/10",
 		desc: "After investigating a mysterious transmission of unknown origin, the crew of a commercial spacecraft encounters a deadly lifeform.",
 		similar: ["TheThing", "TheThingRemake", "Oxygen"],
-		sequels: ["Alien2"],
+		sequels: ["Alien2", "Alien3", "Alien4", "Alien5"],
         poster: "movies/alien/alien.jpg"
 	},
 	"Alien2": {
@@ -371,7 +371,52 @@ const movieData = {
 		rating: "9/10",
 		desc: "Decades after surviving the Nostromo incident, Ellen Ripley is sent out to re-establish contact with a terraforming colony but finds herself battling the Alien Queen and her offspring.",
 		similar: ["TheThing", "TheThingRemake", "Oxygen"],
-		sequels: ["Alien1"],
+		sequels: ["Alien1", "Alien3", "Alien4", "Alien5"],
         poster: "movies/alien/aliens.jpg"
+	},
+	"Alien3": {
+		title: "Alien 3",
+		year: 1992,
+		runtime: "1h 54m",
+		genres: ["Horror", "Sci-Fi", "Action"],
+		director: "David Fincher",
+		cast: ["Sigourney Weaver", "Charles Dance", "David Giler", "Terry Rawlings", "Lance Henriksen", "Pete Postlethwaite", "Brian Glover", "Ralph Brown"],
+		franchise: "Alien",
+		keywords: ["Alien", "Space"],
+		rating: "8.3/10",
+		desc: "Returning from LV-426, Ellen Ripley crash-lands on the maximum-security prison Fiorina 161, where she discovers that she has unwittingly brought along an unwelcome visitor.",
+		similar: ["TheThing", "TheThingRemake", "Oxygen"],
+		sequels: ["Alien1", "Alien2", "Alien4", "Alien5"],
+        poster: "movies/alien/alien3.jpg"
+	},
+	"Alien4": {
+		title: "Alien Resurrection",
+		year: 1997,
+		runtime: "1h 49m",
+		genres: ["Horror", "Sci-Fi", "Action"],
+		director: "Jean-Pierre Jeunet",
+		cast: ["Sigourney Weaver", "Winona Ryder", "Ron Perlman", "Dominique Pinon", "Kim Flowers", "Brad Dourif", "Michael Wincott"],
+		franchise: "Alien",
+		keywords: ["Alien", "Space"],
+		rating: "8.3/10",
+		desc: "Two centuries after her death, a powerful human/alien hybrid clone of Ellen Ripley aids a crew of space pirates in stopping the aliens from reaching Earth.",
+		similar: ["TheThing", "TheThingRemake", "Oxygen"],
+		sequels: ["Alien1", "Alien2", "Alien3", "Alien5"],
+        poster: "movies/alien/alien4.jpg"
+	},
+	"Alien5": {
+		title: "AVP: Alien vs. Predator",
+		year: 2004,
+		runtime: "1h 41m",
+		genres: ["Horror", "Sci-Fi", "Action"],
+		director: "Paul W. S. Anderson",
+		cast: ["Ian Whyte", "Sanaa Lathan", "Tom Woodruff Jr.", "Lance Henriksen", "Alec Gillis", "Colin Salmon", "Ewen Bremner", "Raoul Bova"],
+		franchise: "Alien",
+		keywords: ["Alien", "Space"],
+		rating: "8.1/10",
+		desc: "During an archaeological expedition on Bouvetøya Island in Antarctica, a team of archaeologists and other scientists find themselves caught up in a battle between the two legends. Soon, the team realize that only one species can win.",
+		similar: ["TheThing", "TheThingRemake", "Oxygen"],
+		sequels: ["Alien1", "Alien2", "Alien3", "Alien 4"],
+        poster: "movies/alien/alienvpred.jpg"
 	}
 };

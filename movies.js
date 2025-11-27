@@ -1,21 +1,24 @@
 function showMovieDetails(movieId) {
-	const movie = movieData[movieId];
-	if (!movie) return;
+    const movie = movieData[movieId];
+    if (!movie) return;
 
-	document.getElementById("sidebarTitle").textContent = movie.title;
-	document.getElementById("sidebarYear").textContent = `${movie.year} • ${movie.runtime}`;
-	document.getElementById("sidebarGenres").textContent = movie.genres.join(" • ");
-	document.getElementById("sidebarRating").textContent = `⭐ ${movie.rating}`;
-	document.getElementById("sidebarDesc").textContent = movie.desc;
+    // Populate Sidebar
+    document.getElementById("sidebarTitle").textContent = movie.title;
+    document.getElementById("sidebarYear").textContent = `${movie.year} • ${movie.runtime}`;
+    document.getElementById("sidebarGenres").textContent = movie.genres.join(" • ");
+    document.getElementById("sidebarRating").textContent = `⭐ ${movie.rating}`;
+    document.getElementById("sidebarDesc").textContent = movie.desc;
 
-	const markBtn = document.getElementById("markAsWatched");
-	const optionsDiv = document.getElementById("ratingOptions");
-	
-	markBtn.style.display = "block";
+    // Reset Buttons
+    const markBtn = document.getElementById("markAsWatched");
+    const optionsDiv = document.getElementById("ratingOptions");
+    
+    markBtn.style.display = "block";
     markBtn.style.opacity = "1";
     optionsDiv.classList.remove("active", "hidden", "has-selection");
     optionsDiv.style.display = "none";
     
+    // Clear selection state
     document.querySelectorAll(".rate-btn").forEach(btn => {
         btn.classList.remove("selected");
         const xBtn = btn.querySelector(".reset-rating");
@@ -24,9 +27,11 @@ function showMovieDetails(movieId) {
 
     document.getElementById("sidebarWatched").dataset.currentMovie = movieId;
 
+    // Check if user has already rated this movie
     const savedRating = getUserRating(movieId);
 
     if (savedRating) {
+        // If rated, show the options immediately
         markBtn.style.display = "none";
         markBtn.style.opacity = "0";
         
@@ -41,7 +46,7 @@ function showMovieDetails(movieId) {
 
             const xBtn = document.createElement("span");
             xBtn.className = "reset-rating";
-            xBtn.innerHTML = "&#10005;";
+            xBtn.innerHTML = "&#10005;"; // 'X' symbol
 
             xBtn.addEventListener("click", (e) => 
                 resetRatingUI(e, movieId, optionsDiv, markBtn, targetBtn, xBtn)
@@ -50,47 +55,50 @@ function showMovieDetails(movieId) {
         }
     }
 
-	const similarList = document.getElementById("sidebarSimilar");
-	similarList.innerHTML = "";
-	movie.similar?.forEach(id => {
-		if (!movieData[id]) return;
-		const li = document.createElement("li");
-		li.textContent = movieData[id].title;
-		li.dataset.movie = id;
-		li.style.cursor = "pointer";
-		li.addEventListener("click", () => showMovieDetails(id));
-		similarList.appendChild(li);
-	});
+    // Populate Similar List
+    const similarList = document.getElementById("sidebarSimilar");
+    similarList.innerHTML = "";
+    movie.similar?.forEach(id => {
+        if (!movieData[id]) return;
+        const li = document.createElement("li");
+        li.textContent = movieData[id].title;
+        li.dataset.movie = id;
+        li.style.cursor = "pointer";
+        li.addEventListener("click", () => showMovieDetails(id));
+        similarList.appendChild(li);
+    });
 
-	const sequelsList = document.getElementById("sidebarSequels");
-	sequelsList.innerHTML = "";
-	movie.sequels?.forEach(id => {
-		if (!movieData[id]) return;
-		const li = document.createElement("li");
-		li.textContent = movieData[id].title;
-		li.dataset.movie = id;
-		li.style.cursor = "pointer";
-		li.addEventListener("click", () => showMovieDetails(id));
-		sequelsList.appendChild(li);
-	});
+    // Populate Sequels List
+    const sequelsList = document.getElementById("sidebarSequels");
+    sequelsList.innerHTML = "";
+    movie.sequels?.forEach(id => {
+        if (!movieData[id]) return;
+        const li = document.createElement("li");
+        li.textContent = movieData[id].title;
+        li.dataset.movie = id;
+        li.style.cursor = "pointer";
+        li.addEventListener("click", () => showMovieDetails(id));
+        sequelsList.appendChild(li);
+    });
 }
 
+// 2. Button Event Listeners
 document.getElementById("markAsWatched").addEventListener("click", function() {
-	const markBtn = this;
-	const optionsDiv = document.getElementById("ratingOptions");
+    const markBtn = this;
+    const optionsDiv = document.getElementById("ratingOptions");
 
-	markBtn.style.opacity = "0";
+    markBtn.style.opacity = "0";
 
-	setTimeout(() => {
-		markBtn.style.display = "none";
-		
-		optionsDiv.classList.remove("hidden");
-		optionsDiv.style.display = "flex";
+    setTimeout(() => {
+        markBtn.style.display = "none";
+        
+        optionsDiv.classList.remove("hidden");
+        optionsDiv.style.display = "flex";
 
-		setTimeout(() => {
-			optionsDiv.classList.add("active");
-		}, 10);
-	}, 300);
+        setTimeout(() => {
+            optionsDiv.classList.add("active");
+        }, 10);
+    }, 300);
 });
 
 document.querySelectorAll(".rate-btn").forEach(btn => {
@@ -102,6 +110,7 @@ document.querySelectorAll(".rate-btn").forEach(btn => {
         
         console.log(`User rated ${movieId} with score: ${ratingValue}`);
         
+        // UI Updates for Selection
         optionsDiv.classList.add("has-selection");
         this.classList.add("selected");
 
@@ -117,28 +126,34 @@ document.querySelectorAll(".rate-btn").forEach(btn => {
             this.appendChild(xBtn);
         }
 
+        // Save to LocalStorage
         const saved = saveRating(movieId, ratingValue);
         
         if (!saved) {
+            // Revert if save failed (e.g. not logged in)
             optionsDiv.classList.remove("has-selection");
             this.classList.remove("selected");
             const xBtn = this.querySelector(".reset-rating");
             if(xBtn) xBtn.remove();
         } else {
             updateRecommendations();
+            // Optional: Update Hero immediately if you want instant gratification
+            // updateHeroSection(); 
         }
     });
 });
 
+// 3. Global Click Listeners for Movie Cards
 document.querySelectorAll(".movie-container").forEach(container => {
-	container.addEventListener("click", () => {
-		const movieId = container.dataset.movie;
-		showMovieDetails(movieId);
-	});
+    container.addEventListener("click", () => {
+        const movieId = container.dataset.movie;
+        showMovieDetails(movieId);
+    });
 });
 
+// 4. Horizontal Scroller Logic
 (function () {
-	const scrollers = document.querySelectorAll(".movie-scroller");
+    const scrollers = document.querySelectorAll(".movie-scroller");
 
     scrollers.forEach(scroller => {
         scroller.addEventListener("wheel", (e) => {
@@ -156,6 +171,8 @@ document.querySelectorAll(".movie-container").forEach(container => {
         });
     });
 })();
+
+// --- Helper Functions (Storage & Ratings) ---
 
 function getRatings() {
     return JSON.parse(localStorage.getItem("movieRatings") || "{}");
@@ -222,6 +239,8 @@ function resetRatingUI(e, movieId, optionsDiv, markBtn, btnElement, xBtnElement)
     updateRecommendations();
 }
 
+// --- RECOMMENDATION ALGORITHM ---
+
 function calculateSimilarity(targetMovieId, ratedMovieId) {
     const target = movieData[targetMovieId];
     const rated = movieData[ratedMovieId];
@@ -230,20 +249,24 @@ function calculateSimilarity(targetMovieId, ratedMovieId) {
 
     let score = 0;
 
+    // Franchise Boost
     if (target.franchise && rated.franchise && target.franchise === rated.franchise) {
         score += 7;
     }
 
+    // Genre Matching
     target.genres.forEach(g => {
         if (rated.genres.includes(g)) {
             score += 5;
         }
     });
 
+    // Director Matching
     if (target.director && rated.director && target.director === rated.director) {
         score += 3;
     }
 
+    // Cast Matching
     if (target.cast && rated.cast) {
         target.cast.forEach(actor => {
             if (rated.cast.includes(actor)) {
@@ -252,6 +275,7 @@ function calculateSimilarity(targetMovieId, ratedMovieId) {
         });
     }
     
+    // Keyword Matching
     if (target.keywords && rated.keywords) {
         target.keywords.forEach(k => {
             if (rated.keywords.includes(k)) {
@@ -260,9 +284,44 @@ function calculateSimilarity(targetMovieId, ratedMovieId) {
         });
     }
 
+    // Manual 'Similar' List overlap
     if (rated.similar && rated.similar.includes(targetMovieId)) score += 2;
 
     return score;
+}
+
+// Core helper to get a sorted list of recommendations
+function getRecommendationList() {
+    const currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) return [];
+
+    const ratings = getRatings()[currentUser];
+    if (!ratings || Object.keys(ratings).length === 0) return [];
+
+    const watchedMovies = Object.keys(ratings);
+    const movieScores = {};
+
+    Object.keys(movieData).forEach(candidateId => {
+        if (watchedMovies.includes(candidateId)) return; // Skip watched
+
+        let totalScore = 0;
+
+        watchedMovies.forEach(ratedId => {
+            const userRating = parseInt(ratings[ratedId]);
+            // Only consider positive ratings for recommendations
+            if (userRating > 0) {
+                const similarity = calculateSimilarity(candidateId, ratedId);
+                totalScore += similarity * userRating;
+            }
+        });
+
+        if (totalScore > 0) {
+            movieScores[candidateId] = totalScore + (Math.random() * 5); // Small randomness tie-breaker
+        }
+    });
+
+    // Sort by score descending
+    return Object.keys(movieScores).sort((a, b) => movieScores[b] - movieScores[a]);
 }
 
 function updateRecommendations() {
@@ -274,38 +333,15 @@ function updateRecommendations() {
         return;
     }
 
-    const ratings = getRatings()[currentUser];
-    
-    if (!ratings || Object.keys(ratings).length === 0) {
-        container.innerHTML = `<p style="color: #ddc8c4; padding: 20px;">Welcome, <strong>${currentUser}</strong>! Start rating movies to get personalized picks.</p>`;
-        return;
-    }
-
-    const watchedMovies = Object.keys(ratings);
-    const movieScores = {};
-
-    Object.keys(movieData).forEach(candidateId => {
-        if (watchedMovies.includes(candidateId)) return;
-
-        let totalScore = 0;
-
-        watchedMovies.forEach(ratedId => {
-            const userRating = parseInt(ratings[ratedId]);
-            if (userRating > 0) {
-                const similarity = calculateSimilarity(candidateId, ratedId);
-                totalScore += similarity * userRating;
-            }
-        });
-
-        if (totalScore > 0) {
-            movieScores[candidateId] = totalScore + (Math.random() * 30); //adds a randomness to the similarity score
-        }
-    });
-
-    const sortedMovies = Object.keys(movieScores).sort((a, b) => movieScores[b] - movieScores[a]);
+    const sortedMovies = getRecommendationList();
 
     if (sortedMovies.length === 0) {
-        container.innerHTML = `<p style="color: #ddc8c4; padding: 20px;">No recommendations found yet. Try rating different genres!</p>`;
+        const ratings = getRatings()[currentUser];
+        if (!ratings || Object.keys(ratings).length === 0) {
+             container.innerHTML = `<p style="color: #ddc8c4; padding: 20px;">Welcome, <strong>${currentUser}</strong>! Start rating movies to get personalized picks.</p>`;
+        } else {
+             container.innerHTML = `<p style="color: #ddc8c4; padding: 20px;">No recommendations found yet. Try rating different genres!</p>`;
+        }
         return;
     }
 
@@ -332,6 +368,53 @@ function updateRecommendations() {
     });
 }
 
+function updateHeroSection() {
+    const currentUser = localStorage.getItem("currentUser");
+    
+    let heroId = "Inception";//default
+    let reasonText = "";
+
+    if (currentUser) {
+        const recommended = getRecommendationList();
+        
+        if (recommended.length > 0) {
+            const topPicks = recommended.slice(0, 5);
+            const randomPick = topPicks[Math.floor(Math.random() * topPicks.length)];
+            heroId = randomPick;
+            reasonText = `Because you liked similar movies`;
+        }
+    }
+
+    const movie = movieData[heroId];
+    if (!movie) return;
+
+    document.getElementById("movietitle").textContent = movie.title;
+    document.getElementById("tagline").textContent = movie.desc;
+    document.getElementById("rating").textContent = `⭐ ${movie.rating.split('/')[0]}`;
+    document.getElementById("year").textContent = movie.year;
+    document.getElementById("runtime").textContent = movie.runtime;
+    document.getElementById("moviedesc").textContent = movie.desc;
+    document.getElementById("moviepicture").src = movie.poster;
+
+    const genreContainer = document.getElementById("genres");
+    genreContainer.innerHTML = "";
+    movie.genres.forEach(g => {
+        const span = document.createElement("span");
+        span.className = "tag";
+        span.textContent = g;
+        genreContainer.appendChild(span);
+    });
+
+    const reasonSpan = document.getElementById("because");
+    if (reasonText) {
+        reasonSpan.innerHTML = reasonText;
+        reasonSpan.style.display = "block";
+    } else {
+        reasonSpan.style.display = "none";
+    }
+}
+
+updateHeroSection();
 updateRecommendations();
 
 let lastUser = localStorage.getItem("currentUser");
@@ -339,6 +422,7 @@ setInterval(() => {
     const currentUser = localStorage.getItem("currentUser");
     if (currentUser !== lastUser) {
         lastUser = currentUser;
+        updateHeroSection();
         updateRecommendations();
     }
 }, 1000);
