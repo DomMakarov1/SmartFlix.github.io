@@ -355,7 +355,7 @@ const movieData = {
 		keywords: ["Alien", "Space"],
 		rating: "8.7/10",
 		desc: "After investigating a mysterious transmission of unknown origin, the crew of a commercial spacecraft encounters a deadly lifeform.",
-		similar: ["TheThing", "TheThingRemake", "Oxygen"],
+		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien2", "Alien3", "Alien4", "Alien5"],
         poster: "movies/alien/alien.jpg"
 	},
@@ -370,7 +370,7 @@ const movieData = {
 		keywords: ["Alien", "Space"],
 		rating: "9/10",
 		desc: "Decades after surviving the Nostromo incident, Ellen Ripley is sent out to re-establish contact with a terraforming colony but finds herself battling the Alien Queen and her offspring.",
-		similar: ["TheThing", "TheThingRemake", "Oxygen"],
+		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien1", "Alien3", "Alien4", "Alien5"],
         poster: "movies/alien/aliens.jpg"
 	},
@@ -385,7 +385,7 @@ const movieData = {
 		keywords: ["Alien", "Space"],
 		rating: "8.3/10",
 		desc: "Returning from LV-426, Ellen Ripley crash-lands on the maximum-security prison Fiorina 161, where she discovers that she has unwittingly brought along an unwelcome visitor.",
-		similar: ["TheThing", "TheThingRemake", "Oxygen"],
+		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien1", "Alien2", "Alien4", "Alien5"],
         poster: "movies/alien/alien3.jpg"
 	},
@@ -400,7 +400,7 @@ const movieData = {
 		keywords: ["Alien", "Space"],
 		rating: "8.3/10",
 		desc: "Two centuries after her death, a powerful human/alien hybrid clone of Ellen Ripley aids a crew of space pirates in stopping the aliens from reaching Earth.",
-		similar: ["TheThing", "TheThingRemake", "Oxygen"],
+		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien1", "Alien2", "Alien3", "Alien5"],
         poster: "movies/alien/alien4.jpg"
 	},
@@ -415,8 +415,38 @@ const movieData = {
 		keywords: ["Alien", "Space"],
 		rating: "8.1/10",
 		desc: "During an archaeological expedition on Bouvetøya Island in Antarctica, a team of archaeologists and other scientists find themselves caught up in a battle between the two legends. Soon, the team realize that only one species can win.",
-		similar: ["TheThing", "TheThingRemake", "Oxygen"],
+		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien1", "Alien2", "Alien3", "Alien 4"],
         poster: "movies/alien/alienvpred.jpg"
+	},
+	"TheThing": {
+		title: "The Thing",
+		year: 1982,
+		runtime: "1h 49m",
+		genres: ["Horror", "Sci-Fi", "Suspense", "Mystery"],
+		director: "John Carpenter",
+		cast: ["Kurt Russell", "Keith David", "Wilford Brimley", "Richard Masur", "T. K. Carter", "David Clennon", "Donald Moffat"],
+		franchise: "TheThing",
+		keywords: ["Alien", "Imposter"],
+		rating: "8.7/10",
+		desc: "A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.",
+		similar: ["Alien", "Aliens", "Oxygen"],
+		sequels: ["The Thing"],
+        poster: "movies/thething/thething.jpg"
+	},
+	"TheThing2": {
+		title: "The Thing",
+		year: 2011,
+		runtime: "1h 43m",
+		genres: ["Horror", "Sci-Fi", "Suspense", "Mystery"],
+		director: "Matthijs van Heijningen Jr.",
+		cast: ["Mary Elizabeth Winstead", "Joel Edgerton", "Ulrich Thomsen", "Adewale Akinnuoye", "Kim Bubbs", "Kristofer Hivju", "Eric Christian Olsen", "Trond Espen Seim"],
+		franchise: "TheThing",
+		keywords: ["Alien", "Imposter"],
+		rating: "8/10",
+		desc: "A group of scientists researching an alien spaceship found in the Antarctic come face to face with the ship's, not quite dead, occupant.",
+		similar: ["Oxygen"],
+		sequels: ["Alien", "Aliens", "The Thing"],
+        poster: "movies/thething/thething2.jpg"
 	}
 };

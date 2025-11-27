@@ -1,8 +1,7 @@
-/* ---------------- CSS Variables ---------------- */
 :root {
-    --bg-color: #0b0b0f;          /* Deep Void Black */
-    --surface-color: #16161a;     /* Slightly lighter for cards/modals */
-    --primary-color: #e50914;     /* Vibrant Red (Netflix Style) or use #9e2a4b for your Purple */
+    --bg-color: #0b0b0f;
+    --surface-color: #16161a;
+    --primary-color: #e50914;
     --primary-hover: #b2070f;
     --text-primary: #ffffff;
     --text-secondary: #a3a3a3;
@@ -13,22 +12,19 @@
     --radius-lg: 12px;
 }
 
-/* ---------------- Global Reset ---------------- */
 body {
     margin: 0;
     font-family: var(--font-main);
     background-color: var(--bg-color);
     color: var(--text-primary);
-    padding-top: 80px; /* Space for fixed navbar */
+    padding-top: 80px;
     overflow-x: hidden;
 }
 
-/* Smooth Scrolling for the whole page */
 html {
     scroll-behavior: smooth;
 }
 
-/* ---------------- Navigation Bar (Glassmorphism) ---------------- */
 #topbar {
     display: flex;
     justify-content: space-between;
@@ -44,12 +40,12 @@ html {
     z-index: 1000;
 
     background-color: var(--glass-bg);
-    backdrop-filter: blur(12px); /* Blur effect */
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--glass-border);
 }
 
 #logo {
-    height: 35px; /* Sleeker logo size */
+    height: 35px;
     width: auto;
     cursor: pointer;
 }
@@ -101,14 +97,17 @@ html {
     transform: translateY(-1px);
 }
 
-/* ---------------- Main Content Layout ---------------- */
 #mainContent {
-    margin-right: 400px; /* Space for sidebar */
-    padding-bottom: 60px;
-    transition: margin-right 0.3s ease; /* Smooth transition if we hide sidebar later */
+  margin-right: 0; 
+  padding-bottom: 40px;
+  box-sizing: border-box;
+  transition: margin-right 0.3s ease;
 }
 
-/* ---------------- Hero Section (Movie Details) ---------------- */
+#mainContent.shifted {
+    margin-right: 470px;
+}
+
 #moviepage {
     display: flex;
     gap: 40px;
@@ -123,7 +122,7 @@ html {
 }
 
 #posterblock img {
-    width: 250px; /* Fixed styling for poster */
+    width: 250px;
     height: auto;
     border-radius: var(--radius-lg);
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -178,7 +177,7 @@ html {
 
 .badge {
     background: rgba(255,255,255,0.1);
-    color: #ffd700; /* Gold star color */
+    color: #ffd700;
     padding: 4px 8px;
     border-radius: 4px;
     font-weight: bold;
@@ -248,7 +247,6 @@ html {
     background-color: rgba(255,255,255,0.3);
 }
 
-/* ---------------- Movie Scrollers (Lists) ---------------- */
 .section-title {
     font-size: 1.3em;
     font-weight: 600;
@@ -262,24 +260,22 @@ html {
     overflow-x: auto;
     padding: 10px 50px;
     scroll-padding-left: 50px;
-    /* Hide scrollbar but allow functionality */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .movie-scroller::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+    display: none;
 }
 
 .movie-container {
     flex: 0 0 auto;
-    width: 200px; /* Slightly wider cards */
+    width: 200px;
     cursor: pointer;
     transition: transform 0.3s ease;
     position: relative;
 }
 
-/* Card Hover Effect */
 .movie-container:hover {
     transform: scale(1.05);
     z-index: 10;
@@ -313,10 +309,9 @@ html {
     padding: 20px 0;
 }
 
-/* ---------------- Sidebar (Glass Right Panel) ---------------- */
 #movieSidebar {
     position: fixed;
-    top: 70px; /* Below topbar */
+    top: 70px;
     right: 0;
     bottom: 0;
     width: 400px;
@@ -398,7 +393,6 @@ html {
     background: rgba(255,255,255,0.15);
 }
 
-/* ---------------- Sidebar Rating Interaction ---------------- */
 #sidebarWatched {
     margin-top: 25px;
     position: relative;
@@ -455,11 +449,10 @@ html {
 }
 
 .rate-btn:hover { transform: scale(1.02); }
-.rate-btn.love { background-color: #eab308; } /* Gold */
-.rate-btn.like { background-color: #22c55e; } /* Green */
-.rate-btn.dislike { background-color: #ef4444; } /* Red */
+.rate-btn.love { background-color: #eab308; }
+.rate-btn.like { background-color: #22c55e; }
+.rate-btn.dislike { background-color: #ef4444; }
 
-/* Has Selection State (Compact) */
 #ratingOptions.has-selection {
     flex-direction: row; 
     align-items: center;
@@ -489,7 +482,6 @@ html {
 
 .reset-rating:hover { background: rgba(0,0,0,0.4); }
 
-/* ---------------- Overlay & Modal ---------------- */
 #overlay {
     position: fixed;
     top: 0; left: 0;
