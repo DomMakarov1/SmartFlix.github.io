@@ -3,20 +3,137 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Smartflix</title>
+		<title>Smartflix - Explore</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="styles.css">
 	</head>
 	<body>
 		<div id="topbar">
-			<img id="logo" height="51" width="125" src="logo.png" alt="Smartflix Logo">
-			<a href="index.html">Home</a>
-			<a href="explore.html">Explore</a>
-			<a href="lists.html">My Lists</a>
-			<a href="preferences.html">Preferences</a>
-			<p id="username"></p>
-			<button id="login">Sign In</button>
+			<img id="logo" height="40" src="logo.png" alt="Smartflix Logo">
+			<nav class="nav-links">
+				<a href="index.html">Home</a>
+				<a href="explore.html" class="active">Explore</a>
+				<a href="lists.html">My Lists</a>
+				<a href="preferences.html">Preferences</a>
+			</nav>
+			
+			<div class="nav-right">
+				<p id="username"></p>
+				<button id="login">Sign In</button>
+			</div>
 		</div>
 
+		<div id="overlay">
+			<div id="loginModal">
+				<span class="close-btn" onclick="closeModal()">&times;</span>
+				<div id="loginForm">
+					<h2>Welcome Back</h2>
+					<input type="text" id="loginUsername" placeholder="Username">
+					<input type="password" id="loginPassword" placeholder="Password">
+					<button>Sign In</button>
+					<span class="toggle-link" onclick="showSignup()">New to Smartflix? <b>Sign up now.</b></span>
+				</div>
+				<div id="signupForm" style="display: none;">
+					<h2>Create Account</h2>
+					<input type="text" id="signupUsername" placeholder="Username">
+					<input type="email" id="signupEmail" placeholder="Email">
+					<input type="password" id="signupPassword" placeholder="Password">
+					<button>Register</button>
+					<span class="toggle-link" onclick="showLogin()">Already have an account? <b>Sign in.</b></span>
+				</div>
+			</div>
+		</div>
+
+		<main id="mainContent">
+            <div id="exploreHero">
+                <h1>Find your next favorite story.</h1>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search for movies, genres, actors...">
+                    <button id="searchBtn">🔍</button>
+                </div>
+            </div>
+
+            <section class="category-section">
+                <p class="section-title">Browse by Genre</p>
+                <div id="genreGrid">
+                    <button class="genre-pill" data-genre="Action">Action</button>
+                    <button class="genre-pill" data-genre="Sci-Fi">Sci-Fi</button>
+                    <button class="genre-pill" data-genre="Adventure">Adventure</button>
+                    <button class="genre-pill" data-genre="Thriller">Thriller</button>
+                    <button class="genre-pill" data-genre="Fantasy">Fantasy</button>
+                    <button class="genre-pill" data-genre="Drama">Drama</button>
+                    <button class="genre-pill" data-genre="Horror">Horror</button>
+                    <button class="genre-pill" data-genre="Mystery">Mystery</button>
+                    <button class="genre-pill" data-genre="Comedy">Comedy</button>
+                    <button class="genre-pill" data-genre="Crime">Crime</button>
+                    <button class="genre-pill" data-genre="Superhero">Superhero</button>
+                </div>
+            </section>
+
+            <section id="genreResultsContainer" class="category-section" style="display: none;">
+                <p class="section-title" id="genreResultsTitle">Filtered Results</p>
+                <div id="genreResults" class="movie-flex-grid">
+                </div>
+            </section>
+
+            <div id="defaultExploreSections">
+                <section class="category-section">
+                    <p class="section-title">Trending Now</p>
+                    <div id="exploreTrending" class="movie-scroller" tabindex="0"></div>
+                </section>
+
+                <section class="category-section">
+                    <p class="section-title">Upcoming & New Releases</p>
+                    <div id="exploreNew" class="movie-scroller" tabindex="0"></div>
+                </section>
+
+                <section class="category-section">
+                    <p class="section-title">Seasonal Picks</p>
+                    <div id="exploreSeasonal" class="movie-scroller" tabindex="0"></div>
+                </section>
+            </div>
+		</main>
+
+		<aside id="movieSidebar">
+            <div id="sidebarBg">
+                <img id="sidebarBgImage" src="" alt="">
+                <div class="sidebar-gradient"></div>
+            </div>
+
+			<div id="sidebarContent">
+				<div class="sidebar-header">
+					<h2 id="sidebarTitle">Movie Title</h2>
+					<div id="sidebarRating" class="sidebar-score">⭐ 8.5</div>
+				</div>
+				
+				<p id="sidebarYear" class="meta-line">2024 • 2h 20m</p>
+				<div id="sidebarGenres" class="meta-line">Action • Sci-Fi</div>
+
+                <a id="watchMovieBtn" href="#" target="_blank">Watch Movie</a>
+				
+				<p id="sidebarDesc">This is where the movie description will appear.</p>
+
+				<div id="sidebarWatched">
+				    <button type="button" id="markAsWatched">Mark As Watched</button>
+				    <div id="ratingOptions" class="hidden">
+				        <button class="rate-btn love" data-rating="2">I loved it!</button>
+				        <button class="rate-btn like" data-rating="1">I liked it</button>
+				        <button class="rate-btn dislike" data-rating="-1">Not for me</button>
+				    </div>
+				</div>
+
+				<h3 class="sidebar-section-title">Similar Movies</h3>
+				<ul id="sidebarSimilar" class="sidebar-list"></ul>
+
+				<h3 class="sidebar-section-title">Sequels & Prequels</h3>
+				<ul id="sidebarSequels" class="sidebar-list"></ul>
+			</div>
+		</aside>
+
 		<script src="login.js"></script>
+		<script src="moviedata.js"></script>
+		<script src="movies.js"></script>
 	</body>
 </html>

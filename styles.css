@@ -18,7 +18,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     padding-top: 80px;
-    overflow-x: hidden; /* Prevents horizontal scrollbar when sidebar is closed */
+    overflow-x: hidden;
 }
 
 html {
@@ -30,7 +30,6 @@ html {
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
-    
     position: fixed;
     top: 0;
     left: 0;
@@ -38,612 +37,151 @@ html {
     height: 70px;
     box-sizing: border-box;
     z-index: 1000;
-
     background-color: var(--glass-bg);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--glass-border);
 }
 
-#logo {
-    height: 35px;
-    width: auto;
-    cursor: pointer;
-}
+/* Tidying up my css finally */
 
-.nav-links {
-    display: flex;
-    gap: 30px;
-}
+#logo { height: 35px; width: auto; cursor: pointer; }
 
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-secondary);
-    font-weight: 500;
-    font-size: 0.95em;
-    transition: color 0.3s ease;
-}
+.nav-links { display: flex; gap: 30px; }
+.nav-links a { text-decoration: none; color: var(--text-secondary); font-weight: 500; font-size: 0.95em; transition: color 0.3s ease; }
+.nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
 
-.nav-links a:hover, .nav-links a.active {
+.nav-right { display: flex; align-items: center; gap: 20px; }
+#username { font-weight: 600; font-size: 0.95em; color: var(--text-primary); margin: 0; }
+
+#login { padding: 8px 20px; background-color: var(--primary-color); color: white; border: none; border-radius: 4px; font-weight: 600; font-size: 0.9em; cursor: pointer; transition: background 0.3s ease, transform 0.2s; }
+#login:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
+
+#mainContent { margin-right: 0; padding-bottom: 40px; box-sizing: border-box; transition: margin-right 0.3s ease; }
+#mainContent.shifted { margin-right: 420px; }
+
+#exploreHero { padding: 60px 50px; text-align: center; max-width: 800px; margin: 0 auto; }
+#exploreHero h1 { font-size: 2.5em; margin-bottom: 30px; background: linear-gradient(to right, #fff, #a3a3a3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+.search-container { position: relative; display: flex; align-items: center; background-color: var(--surface-color); border: 1px solid var(--glass-border); border-radius: 50px; padding: 5px 10px; transition: border-color 0.3s; }
+.search-container:focus-within { border-color: var(--primary-color); }
+#searchInput { flex: 1; background: transparent; border: none; padding: 15px 20px; font-size: 1.1em; color: white; outline: none; }
+#searchBtn { background: none; border: none; font-size: 1.2em; cursor: pointer; padding: 10px 20px; }
+
+#genreGrid { display: flex; flex-wrap: wrap; gap: 12px; margin-left: 50px; margin-right: 50px; }
+
+.genre-pill {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid transparent;
     color: var(--text-primary);
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-#username {
-    font-weight: 600;
-    font-size: 0.95em;
-    color: var(--text-primary);
-    margin: 0;
-}
-
-#login {
-    padding: 8px 20px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: 600;
-    font-size: 0.9em;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s;
-}
-
-#login:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-1px);
-}
-
-/* --- Main Layout Transitions --- */
-#mainContent {
-  margin-right: 0; 
-  padding-bottom: 40px;
-  box-sizing: border-box;
-  transition: margin-right 0.3s ease;
-}
-
-#mainContent.shifted {
-    /* Sidebar is 400px, so we shift 420px to leave a 20px gap */
-    margin-right: 420px; 
-}
-
-#moviepage {
-    display: flex;
-    gap: 40px;
-    padding: 40px 50px;
-    align-items: flex-start;
-    background: radial-gradient(circle at 20% 20%, rgba(229, 9, 20, 0.15), transparent 40%);
-}
-
-#posterblock {
-    position: relative;
-    flex-shrink: 0;
-}
-
-#posterblock img {
-    width: 250px;
-    height: auto;
-    border-radius: var(--radius-lg);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease;
-}
-
-#posterblock img:hover {
-    transform: scale(1.02);
-}
-
-#moviedetails {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 10px;
-}
-
-#because {
-    color: var(--primary-color);
-    font-size: 0.85em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    display: block;
-}
-
-#movietitle {
-    font-size: 3.5em;
-    font-weight: 800;
-    margin: 0 0 10px 0;
-    line-height: 1.1;
-    letter-spacing: -1px;
-}
-
-#tagline {
-    font-size: 1.1em;
-    color: var(--text-secondary);
-    font-style: italic;
-    margin: 0 0 20px 0;
-}
-
-#info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    font-size: 0.95em;
-    color: var(--text-secondary);
-}
-
-.badge {
-    background: rgba(255,255,255,0.1);
-    color: #ffd700;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: bold;
-}
-
-.dot {
-    color: var(--text-secondary);
-}
-
-#genres {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-}
-
-.tag {
-    font-size: 0.8em;
-    padding: 5px 12px;
-    border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px 20px;
     border-radius: 20px;
-    color: var(--text-primary);
-    transition: all 0.2s;
-}
-
-.tag:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: var(--text-primary);
-}
-
-#moviedesc {
-    line-height: 1.6;
-    max-width: 600px;
-    color: #cccccc;
-    margin-bottom: 30px;
-}
-
-#movieactions {
-    display: flex;
-    gap: 15px;
-}
-
-.primary-btn, .secondary-btn {
-    padding: 12px 28px;
-    border-radius: 4px;
-    font-weight: 600;
-    font-size: 1em;
     cursor: pointer;
+    font-size: 0.95em;
     transition: all 0.2s ease;
-    border: none;
 }
 
-.primary-btn {
-    background-color: var(--text-primary);
-    color: black;
-}
+.genre-pill:hover { background-color: rgba(229, 9, 20, 0.5); transform: translateY(-2px); }
 
-.primary-btn:hover {
-    background-color: #dadada;
-}
-
-.secondary-btn {
-    background-color: rgba(255,255,255,0.2);
-    color: white;
-}
-
-.secondary-btn:hover {
-    background-color: rgba(255,255,255,0.3);
-}
-
-.section-title {
-    font-size: 1.3em;
-    font-weight: 600;
-    margin: 40px 0 15px 50px;
-    color: var(--text-primary);
-}
-
-.movie-scroller {
-    display: flex;
-    gap: 16px;
-    overflow-x: auto;
-    padding: 10px 50px;
-    scroll-padding-left: 50px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.movie-scroller::-webkit-scrollbar {
-    display: none;
-}
-
-.movie-container {
-    flex: 0 0 auto;
-    width: 200px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    position: relative;
-}
-
-.movie-container:hover {
-    transform: scale(1.05);
-    z-index: 10;
-}
-
-.moviepicture {
-    width: 100%;
-    aspect-ratio: 2/3;
-    object-fit: cover;
-    border-radius: var(--radius-md);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.movie-title {
-    margin-top: 10px;
-    font-size: 0.9em;
-    color: var(--text-secondary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
-}
-
-.movie-container:hover .movie-title {
-    color: var(--text-primary);
-}
-
-.empty-state {
-    color: var(--text-secondary);
-    font-style: italic;
-    padding: 20px 0;
-}
-
-/* --- Sidebar (The Fix) --- */
-#movieSidebar {
-    position: fixed;
-    top: 70px;
-    
-    /* FIX: Start slightly visible (15px) so user can hover/click */
-    right: -385px; 
-    
-    bottom: 0;
-    width: 400px;
-    
-    background-color: #111115;
-    
-    /* Make the visible strip pop with the primary color */
-    border-left: 3px solid var(--primary-color);
-    
-    /* No padding here, padding moved to content so bg stays full width */
-    padding: 0;
-    overflow-y: auto;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.3);
-    z-index: 900;
-    
-    /* Animate right property */
-    transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    
-    /* Indicate it's clickable when closed */
-    cursor: pointer;
-}
-
-/* FIX: This class brings it back on-screen */
-#movieSidebar.open {
-    right: 0;
-    cursor: default; /* Reset cursor when fully open */
-}
-
-/* PEEK ANIMATION: When hovering the closed sidebar, slide it out a bit */
-#movieSidebar:not(.open):hover {
-    right: -350px; /* Shows 50px of the sidebar */
-}
-
-/* --- Sidebar Background Image Styles --- */
-#sidebarBg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60%; /* Cover top portion */
-    z-index: 0; /* Behind content */
-    pointer-events: none;
-}
-
-#sidebarBgImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.25; /* Low opacity to blend */
-}
-
-/* Gradient overlay to fade into #111115 */
-.sidebar-gradient {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Gradient from transparent (top) to sidebar color (bottom) */
-    background: linear-gradient(to bottom, rgba(17,17,21,0) 0%, #111115 100%);
-}
-
-#sidebarContent {
-    position: relative;
-    z-index: 1; /* Sit above the background image */
-    padding: 30px;
-}
-
-/* Watch Movie Button */
-#watchMovieBtn {
-    display: block;
-    width: 100%;
-    text-align: center;
+.genre-pill.selected {
     background-color: var(--primary-color);
-    color: white;
-    padding: 12px 0;
-    border-radius: var(--radius-md);
-    text-decoration: none;
-    font-weight: 700;
-    margin-top: 15px;
-    margin-bottom: 25px;
-    transition: background 0.2s, transform 0.2s;
-    border: none;
-    font-family: var(--font-main);
-    box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
-}
-
-#watchMovieBtn:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-2px);
-}
-
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 5px;
-}
-
-#sidebarTitle {
-    margin: 0;
-    font-size: 1.5em;
-    line-height: 1.2;
-    flex: 1;
-}
-
-.sidebar-score {
-    background: rgba(255,255,255,0.1);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: bold;
-    color: #ffd700;
-    font-size: 0.9em;
-    margin-left: 10px;
-}
-
-.meta-line {
-    color: var(--text-secondary);
-    font-size: 0.9em;
-    margin: 5px 0;
-}
-
-#sidebarDesc {
-    margin-top: 20px;
-    font-size: 0.95em;
-    line-height: 1.6;
-    color: #d1d1d1;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 20px;
-}
-
-.sidebar-section-title {
-    font-size: 1em;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 30px;
-    margin-bottom: 15px;
-}
-
-.sidebar-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.sidebar-list li {
-    padding: 10px 15px;
-    margin-bottom: 8px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.95em;
-    transition: background 0.2s;
-    color: var(--text-primary);
-}
-
-.sidebar-list li:hover {
-    background: rgba(255,255,255,0.15);
-}
-
-#sidebarWatched {
-    margin-top: 25px;
-    position: relative;
-}
-
-#markAsWatched {
-    width: 100%;
-    padding: 14px;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: var(--text-primary);
-    border-radius: var(--radius-md);
-    cursor: pointer;
+    border-color: var(--primary-hover);
     font-weight: 600;
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(229, 9, 20, 0.4);
 }
 
-#markAsWatched:hover {
-    border-color: var(--text-primary);
-    background: rgba(255,255,255,0.05);
-}
-
-#ratingOptions {
+.movie-flex-grid {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    pointer-events: none;
-    position: absolute;
-    top: 0; left: 0; width: 100%;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 50px;
+    justify-content: flex-start;
 }
 
+#moviepage { display: flex; gap: 40px; padding: 40px 50px; align-items: flex-start; background: radial-gradient(circle at 20% 20%, rgba(229, 9, 20, 0.15), transparent 40%); }
+#posterblock { position: relative; flex-shrink: 0; }
+#posterblock img { width: 250px; height: auto; border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: transform 0.3s ease; }
+#posterblock img:hover { transform: scale(1.02); }
+
+#moviedetails { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-top: 10px; }
+#because { color: var(--primary-color); font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 10px; display: block; }
+#movietitle { font-size: 3.5em; font-weight: 800; margin: 0 0 10px 0; line-height: 1.1; letter-spacing: -1px; }
+#tagline { font-size: 1.1em; color: var(--text-secondary); font-style: italic; margin: 0 0 20px 0; }
+#info { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; font-size: 0.95em; color: var(--text-secondary); }
+.badge { background: rgba(255,255,255,0.1); color: #ffd700; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+.dot { color: var(--text-secondary); }
+#genres { display: flex; gap: 10px; margin-bottom: 25px; }
+.tag { font-size: 0.8em; padding: 5px 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; color: var(--text-primary); transition: all 0.2s; }
+.tag:hover { background: rgba(255,255,255,0.1); border-color: var(--text-primary); }
+#moviedesc { line-height: 1.6; max-width: 600px; color: #cccccc; margin-bottom: 30px; }
+#movieactions { display: flex; gap: 15px; }
+
+.primary-btn { padding: 12px 28px; border-radius: 4px; font-weight: 600; font-size: 1em; cursor: pointer; transition: all 0.2s ease; border: none; background-color: var(--text-primary); color: black; }
+.primary-btn:hover { background-color: #dadada; }
+.secondary-btn { padding: 12px 28px; border-radius: 4px; font-weight: 600; font-size: 1em; cursor: pointer; transition: all 0.2s ease; border: none; background-color: rgba(255,255,255,0.2); color: white; }
+.secondary-btn:hover { background-color: rgba(255,255,255,0.3); }
+
+.section-title { font-size: 1.3em; font-weight: 600; margin: 40px 0 15px 50px; color: var(--text-primary); }
+.movie-scroller { display: flex; gap: 16px; overflow-x: auto; padding: 10px 50px; scroll-padding-left: 50px; scrollbar-width: none; -ms-overflow-style: none; }
+.movie-scroller::-webkit-scrollbar { display: none; }
+
+.movie-container { flex: 0 0 auto; width: 200px; cursor: pointer; transition: transform 0.3s ease; position: relative; }
+.movie-container:hover { transform: scale(1.05); z-index: 10; }
+.moviepicture { width: 100%; aspect-ratio: 2/3; object-fit: cover; border-radius: var(--radius-md); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+.movie-title { margin-top: 10px; font-size: 0.9em; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; }
+.movie-container:hover .movie-title { color: var(--text-primary); }
+.empty-state { color: var(--text-secondary); font-style: italic; padding: 20px 0; }
+
+#movieSidebar { position: fixed; top: 70px; right: -385px; bottom: 0; width: 400px; background-color: #111115; border-left: 3px solid var(--primary-color); padding: 0; overflow-y: auto; box-shadow: -10px 0 30px rgba(0,0,0,0.3); z-index: 900; transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; }
+#movieSidebar.open { right: 0; cursor: default; }
+#movieSidebar:not(.open):hover { right: -350px; }
+
+#sidebarBg { position: absolute; top: 0; left: 0; width: 100%; height: 60%; z-index: 0; pointer-events: none; }
+#sidebarBgImage { width: 100%; height: 100%; object-fit: cover; opacity: 0.25; }
+.sidebar-gradient { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(17,17,21,0) 0%, #111115 100%); }
+#sidebarContent { position: relative; z-index: 1; padding: 30px; }
+
+#watchMovieBtn { display: block; width: 100%; text-align: center; background-color: var(--primary-color); color: white; padding: 12px 0; border-radius: var(--radius-md); text-decoration: none; font-weight: 700; margin-top: 15px; margin-bottom: 25px; transition: background 0.2s, transform 0.2s; border: none; font-family: var(--font-main); box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3); }
+#watchMovieBtn:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
+
+.sidebar-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
+#sidebarTitle { margin: 0; font-size: 1.5em; line-height: 1.2; flex: 1; }
+.sidebar-score { background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 4px; font-weight: bold; color: #ffd700; font-size: 0.9em; margin-left: 10px; }
+.meta-line { color: var(--text-secondary); font-size: 0.9em; margin: 5px 0; }
+#sidebarDesc { margin-top: 20px; font-size: 0.95em; line-height: 1.6; color: #d1d1d1; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+.sidebar-section-title { font-size: 1em; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-top: 30px; margin-bottom: 15px; }
+.sidebar-list { list-style: none; padding: 0; margin: 0; }
+.sidebar-list li { padding: 10px 15px; margin-bottom: 8px; background: rgba(255,255,255,0.05); border-radius: 6px; cursor: pointer; font-size: 0.95em; transition: background 0.2s; color: var(--text-primary); }
+.sidebar-list li:hover { background: rgba(255,255,255,0.15); }
+
+#sidebarWatched { margin-top: 25px; position: relative; }
+#markAsWatched { width: 100%; padding: 14px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: var(--text-primary); border-radius: var(--radius-md); cursor: pointer; font-weight: 600; transition: all 0.3s ease; }
+#markAsWatched:hover { border-color: var(--text-primary); background: rgba(255,255,255,0.05); }
+
+#ratingOptions { display: flex; flex-direction: column; gap: 8px; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; position: absolute; top: 0; left: 0; width: 100%; }
 .hidden { display: none !important; }
+#ratingOptions.active { opacity: 1; transform: translateY(0); pointer-events: auto; position: relative; }
 
-#ratingOptions.active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    position: relative;
-}
-
-.rate-btn {
-    padding: 12px;
-    border: none;
-    border-radius: var(--radius-md);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: left;
-    font-size: 0.95em;
-    transition: transform 0.2s;
-}
-
+.rate-btn { padding: 12px; border: none; border-radius: var(--radius-md); color: white; font-weight: 600; cursor: pointer; text-align: left; font-size: 0.95em; transition: transform 0.2s; }
 .rate-btn:hover { transform: scale(1.02); }
 .rate-btn.love { background-color: #eab308; }
 .rate-btn.like { background-color: #22c55e; }
 .rate-btn.dislike { background-color: #ef4444; }
 
-#ratingOptions.has-selection {
-    flex-direction: row; 
-    align-items: center;
-}
+#ratingOptions.has-selection { flex-direction: row; align-items: center; }
+#ratingOptions.has-selection .rate-btn:not(.selected) { display: none; }
+#ratingOptions.has-selection .rate-btn.selected { width: auto; cursor: default; transform: none; display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; }
 
-#ratingOptions.has-selection .rate-btn:not(.selected) {
-    display: none;
-}
-
-#ratingOptions.has-selection .rate-btn.selected {
-    width: auto;
-    cursor: default;
-    transform: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 16px;
-}
-
-.reset-rating {
-    background: rgba(0,0,0,0.2);
-    border-radius: 50%;
-    width: 20px; height: 20px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; cursor: pointer;
-}
-
+.reset-rating { background: rgba(0,0,0,0.2); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; }
 .reset-rating:hover { background: rgba(0,0,0,0.4); }
 
-#overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(5px);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-}
-
-#loginModal {
-    background: var(--surface-color);
-    padding: 40px;
-    border-radius: var(--radius-lg);
-    width: 350px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    text-align: center;
-    border: 1px solid var(--glass-border);
-    position: relative;
-}
-
-#loginModal h2 {
-    margin-top: 0;
-    margin-bottom: 25px;
-    font-weight: 700;
-}
-
-#loginModal input {
-    width: 100%;
-    padding: 12px 15px;
-    margin: 8px 0;
-    border-radius: 4px;
-    border: 1px solid #333;
-    background-color: #222;
-    color: white;
-    box-sizing: border-box;
-    font-size: 1em;
-}
-
-#loginModal input:focus {
-    outline: none;
-    border-color: var(--primary-color);
-}
-
-#loginModal button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 20px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 1em;
-    cursor: pointer;
-}
-
+#overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 2000; }
+#loginModal { background: var(--surface-color); padding: 40px; border-radius: var(--radius-lg); width: 350px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: center; border: 1px solid var(--glass-border); position: relative; }
+#loginModal h2 { margin-top: 0; margin-bottom: 25px; font-weight: 700; }
+#loginModal input { width: 100%; padding: 12px 15px; margin: 8px 0; border-radius: 4px; border: 1px solid #333; background-color: #222; color: white; box-sizing: border-box; font-size: 1em; }
+#loginModal input:focus { outline: none; border-color: var(--primary-color); }
+#loginModal button { width: 100%; padding: 12px; margin-top: 20px; background-color: var(--primary-color); color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 1em; cursor: pointer; }
 #loginModal button:hover { background-color: var(--primary-hover); }
-
-.toggle-link {
-    display: block;
-    margin-top: 20px;
-    font-size: 0.9em;
-    color: var(--text-secondary);
-    cursor: pointer;
-}
-
+.toggle-link { display: block; margin-top: 20px; font-size: 0.9em; color: var(--text-secondary); cursor: pointer; }
 .toggle-link b { color: white; }
-
-.close-btn {
-    position: absolute;
-    top: 15px; right: 20px;
-    font-size: 1.5em;
-    color: var(--text-secondary);
-    cursor: pointer;
-}
+.close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5em; color: var(--text-secondary); cursor: pointer; }
 .close-btn:hover { color: white; }

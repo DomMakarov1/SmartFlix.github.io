@@ -480,3 +480,18 @@ const movieData = {
         link: "https://www.youtube.com/results?search_query=The+Thing+2011+movie"
 	}
 };
+
+const exploreLists = {
+    trending: [
+        "Inception", "TheMatrix", "HarryPotter1", "TheDarkKnight2", "SuicideSquad2", 
+        "Tenet", "Alien1", "ForrestGump", "TheBatman"
+    ],
+    upcoming: [
+        "TheBatman", "SuicideSquad2", "TheMatrix4", "TheThing2", "Tenet", 
+        "Alien5", "HarryPotter8"
+    ],
+    seasonal: [
+        "HarryPotter1", "HarryPotter2", "HarryPotter3", "HarryPotter4", "HarryPotter5", 
+        "ForrestGump", "TheThing"
+    ]
+};

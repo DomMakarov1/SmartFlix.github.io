@@ -1,3 +1,22 @@
+//moved up here for simplicity sake
+document.addEventListener("click", (e) => {
+    const sidebar = document.getElementById("movieSidebar");
+    if (sidebar && sidebar.classList.contains("open") && !sidebar.contains(e.target)) {
+        closeSidebar();
+    }
+});
+
+const sidebarEl = document.getElementById("movieSidebar");
+if (sidebarEl) {
+    sidebarEl.addEventListener("click", function() {
+        if (!this.classList.contains("open")) {
+            this.classList.add("open");
+            const mainContent = document.getElementById("mainContent");
+            if(mainContent) mainContent.classList.add("shifted");
+        }
+    });
+}
+
 function showMovieDetails(movieId) {
     const movie = movieData[movieId];
     if (!movie) return;
@@ -64,7 +83,10 @@ function showMovieDetails(movieId) {
         li.textContent = movieData[id].title;
         li.dataset.movie = id;
         li.style.cursor = "pointer";
-        li.addEventListener("click", () => showMovieDetails(id));
+        li.addEventListener("click", (e) => {
+            e.stopPropagation(); 
+            showMovieDetails(id);
+        });
         similarList.appendChild(li);
     });
 
@@ -76,7 +98,10 @@ function showMovieDetails(movieId) {
         li.textContent = movieData[id].title;
         li.dataset.movie = id;
         li.style.cursor = "pointer";
-        li.addEventListener("click", () => showMovieDetails(id));
+        li.addEventListener("click", (e) => {
+            e.stopPropagation();
+            showMovieDetails(id);
+        });
         sequelsList.appendChild(li);
     });
 
@@ -84,7 +109,7 @@ function showMovieDetails(movieId) {
     const mainContent = document.getElementById("mainContent");
     
     sidebar.classList.add("open");
-    mainContent.classList.add("shifted");
+    if(mainContent) mainContent.classList.add("shifted");
 }
 
 function closeSidebar() {
@@ -92,29 +117,35 @@ function closeSidebar() {
     const mainContent = document.getElementById("mainContent");
     
     sidebar.classList.remove("open");
-    mainContent.classList.remove("shifted");
+    if(mainContent) mainContent.classList.remove("shifted");
 }
 
-document.getElementById("markAsWatched").addEventListener("click", function() {
-    const markBtn = this;
-    const optionsDiv = document.getElementById("ratingOptions");
+const markAsWatchedBtn = document.getElementById("markAsWatched");
+if(markAsWatchedBtn) {
+    markAsWatchedBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        const markBtn = this;
+        const optionsDiv = document.getElementById("ratingOptions");
 
-    markBtn.style.opacity = "0";
-
-    setTimeout(() => {
-        markBtn.style.display = "none";
-        
-        optionsDiv.classList.remove("hidden");
-        optionsDiv.style.display = "flex";
+        markBtn.style.opacity = "0";
 
         setTimeout(() => {
-            optionsDiv.classList.add("active");
-        }, 10);
-    }, 300);
-});
+            markBtn.style.display = "none";
+            
+            optionsDiv.classList.remove("hidden");
+            optionsDiv.style.display = "flex";
+
+            setTimeout(() => {
+                optionsDiv.classList.add("active");
+            }, 10);
+        }, 300);
+    });
+}
 
 document.querySelectorAll(".rate-btn").forEach(btn => {
-    btn.addEventListener("click", function() {
+    btn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        
         const movieId = document.getElementById("sidebarWatched").dataset.currentMovie;
         const ratingValue = this.dataset.rating;
         const optionsDiv = document.getElementById("ratingOptions");
@@ -156,20 +187,6 @@ document.querySelectorAll(".movie-container").forEach(container => {
         const movieId = container.dataset.movie;
         showMovieDetails(movieId);
     });
-});
-
-document.addEventListener("click", (e) => {
-    const sidebar = document.getElementById("movieSidebar");
-    if (sidebar.classList.contains("open") && !sidebar.contains(e.target)) {
-        closeSidebar();
-    }
-});
-
-document.getElementById("movieSidebar").addEventListener("click", function() {
-    if (!this.classList.contains("open")) {
-        this.classList.add("open");
-        document.getElementById("mainContent").classList.add("shifted");
-    }
 });
 
 (function () {
@@ -265,19 +282,19 @@ function calculateSimilarity(targetMovieId, ratedMovieId) {
 
     let score = 0;
 
-    //franchises
+    //franchise
     if (target.franchise && rated.franchise && target.franchise === rated.franchise) {
         score += 7;
     }
 
-    //genres
+    //genre
     target.genres.forEach(g => {
         if (rated.genres.includes(g)) {
             score += 5;
         }
     });
 
-    //directors
+    //director
     if (target.director && rated.director && target.director === rated.director) {
         score += 3;
     }
@@ -300,10 +317,36 @@ function calculateSimilarity(targetMovieId, ratedMovieId) {
         });
     }
 
-    //similar movies
+    //similar
     if (rated.similar && rated.similar.includes(targetMovieId)) score += 2;
 
     return score;
+}
+
+function sortMoviesByUserTaste(movieIds) {
+    const currentUser = localStorage.getItem("currentUser");
+    const ratings = currentUser ? getRatings()[currentUser] : null;
+
+    if (!ratings || Object.keys(ratings).length === 0) {
+        return movieIds.sort(() => 0.5 - Math.random());
+    }
+
+    const watchedMovies = Object.keys(ratings);
+    const scores = {};
+
+    movieIds.forEach(id => {
+        let totalScore = 0;
+        watchedMovies.forEach(ratedId => {
+            const userRating = parseInt(ratings[ratedId]);
+            if (userRating > 0) {
+                const sim = calculateSimilarity(id, ratedId);
+                totalScore += sim * userRating;
+            }
+        });
+        scores[id] = totalScore + (Math.random() * 5);
+    });
+
+    return movieIds.sort((a, b) => scores[b] - scores[a]);
 }
 
 function getRecommendationList() {
@@ -314,31 +357,16 @@ function getRecommendationList() {
     if (!ratings || Object.keys(ratings).length === 0) return [];
 
     const watchedMovies = Object.keys(ratings);
-    const movieScores = {};
-
-    Object.keys(movieData).forEach(candidateId => {
-        if (watchedMovies.includes(candidateId)) return;
-        let totalScore = 0;
-
-        watchedMovies.forEach(ratedId => {
-            const userRating = parseInt(ratings[ratedId]);
-            if (userRating > 0) {
-                const similarity = calculateSimilarity(candidateId, ratedId);
-                totalScore += similarity * userRating;
-            }
-        });
-
-        if (totalScore > 0) {
-            movieScores[candidateId] = totalScore + (Math.random() * 5);
-        }
-    });
-
-    return Object.keys(movieScores).sort((a, b) => movieScores[b] - movieScores[a]);
+    const candidates = Object.keys(movieData).filter(id => !watchedMovies.includes(id));
+    
+    return sortMoviesByUserTaste(candidates);
 }
 
 function updateRecommendations() {
-    const currentUser = localStorage.getItem("currentUser");
     const container = document.getElementById("aipicked");
+    if (!container) return;
+
+    const currentUser = localStorage.getItem("currentUser");
 
     if (!currentUser) {
         container.innerHTML = `<p style="color: #ddc8c4; padding: 20px;">Please sign in to view recommendations.</p>`;
@@ -372,7 +400,8 @@ function updateRecommendations() {
             <div class="movie-title">${movie.title}</div>
         `;
 
-        movieDiv.addEventListener("click", () => {
+        movieDiv.addEventListener("click", (e) => {
+            e.stopPropagation();
             showMovieDetails(id);
         });
 
@@ -381,9 +410,12 @@ function updateRecommendations() {
 }
 
 function updateHeroSection() {
+    const movieTitleEl = document.getElementById("movietitle");
+    if (!movieTitleEl) return; 
+
     const currentUser = localStorage.getItem("currentUser");
     
-    let heroId = "Inception";//default
+    let heroId = "Inception";
     let reasonText = "";
 
     if (currentUser) {
@@ -400,7 +432,7 @@ function updateHeroSection() {
     const movie = movieData[heroId];
     if (!movie) return;
 
-    document.getElementById("movietitle").textContent = movie.title;
+    movieTitleEl.textContent = movie.title;
     document.getElementById("tagline").textContent = movie.desc;
     document.getElementById("rating").textContent = `⭐ ${movie.rating.split('/')[0]}`;
     document.getElementById("year").textContent = movie.year;
@@ -426,8 +458,114 @@ function updateHeroSection() {
     }
 }
 
+const selectedGenres = new Set();
+
+function initGenreButtons() {
+    const pills = document.querySelectorAll(".genre-pill");
+    pills.forEach(pill => {
+        pill.addEventListener("click", () => {
+            const genre = pill.dataset.genre;
+            
+            if (selectedGenres.has(genre)) {
+                selectedGenres.delete(genre);
+                pill.classList.remove("selected");
+            } else {
+                selectedGenres.add(genre);
+                pill.classList.add("selected");
+            }
+            
+            renderGenreResults();
+        });
+    });
+}
+
+function renderGenreResults() {
+    const defaultSections = document.getElementById("defaultExploreSections");
+    const resultsContainer = document.getElementById("genreResultsContainer");
+    const resultsGrid = document.getElementById("genreResults");
+    
+    if (!defaultSections || !resultsContainer) return;
+
+    if (selectedGenres.size === 0) {
+        defaultSections.style.display = "block";
+        resultsContainer.style.display = "none";
+        return;
+    }
+
+    defaultSections.style.display = "none";
+    resultsContainer.style.display = "block";
+    
+    const matchingIds = Object.keys(movieData).filter(id => {
+        const movie = movieData[id];
+        return Array.from(selectedGenres).every(gen => movie.genres.includes(gen));
+    });
+
+    const sortedMatches = sortMoviesByUserTaste(matchingIds);
+
+    resultsGrid.innerHTML = "";
+    if (sortedMatches.length === 0) {
+        resultsGrid.innerHTML = `<p class="empty-state" style="grid-column: 1/-1; text-align: center;">No movies found matching all selected genres.</p>`;
+        return;
+    }
+
+    sortedMatches.forEach(id => {
+        const movie = movieData[id];
+        const div = document.createElement("div");
+        div.className = "movie-container";
+        div.dataset.movie = id;
+        div.innerHTML = `
+            <img class="moviepicture" src="${movie.poster}" alt="${movie.title}">
+            <div class="movie-title">${movie.title}</div>
+        `;
+        div.addEventListener("click", (e) => {
+            e.stopPropagation();
+            showMovieDetails(id);
+        });
+        resultsGrid.appendChild(div);
+    });
+}
+
+function populateExplorePage() {
+    const trendingContainer = document.getElementById("exploreTrending");
+    const newContainer = document.getElementById("exploreNew");
+    const seasonalContainer = document.getElementById("exploreSeasonal");
+
+    if (!trendingContainer) return;
+
+    const trendingSorted = sortMoviesByUserTaste([...exploreLists.trending]);
+    const newSorted = sortMoviesByUserTaste([...exploreLists.upcoming]);
+    const seasonalSorted = sortMoviesByUserTaste([...exploreLists.seasonal]);
+
+    const fillContainer = (container, movieIds) => {
+        container.innerHTML = "";
+        movieIds.forEach(id => {
+            if (!movieData[id]) return;
+            const movie = movieData[id];
+            const div = document.createElement("div");
+            div.className = "movie-container";
+            div.dataset.movie = id;
+            div.innerHTML = `
+                <img class="moviepicture" src="${movie.poster}" height="150" width="150" alt="${movie.title}">
+                <div class="movie-title">${movie.title}</div>
+            `;
+            div.addEventListener("click", (e) => {
+                e.stopPropagation();
+                showMovieDetails(id);
+            });
+            container.appendChild(div);
+        });
+    };
+
+    fillContainer(trendingContainer, trendingSorted);
+    fillContainer(newContainer, newSorted);
+    fillContainer(seasonalContainer, seasonalSorted);
+    
+    initGenreButtons();
+}
+
 updateHeroSection();
 updateRecommendations();
+populateExplorePage();
 
 let lastUser = localStorage.getItem("currentUser");
 setInterval(() => {
@@ -436,5 +574,7 @@ setInterval(() => {
         lastUser = currentUser;
         updateHeroSection();
         updateRecommendations();
+
+        populateExplorePage();
     }
 }, 1000);
