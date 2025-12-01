@@ -1,4 +1,5 @@
-//moved up here for simplicity sake
+let randomnessFactor = 15;
+
 document.addEventListener("click", (e) => {
     const sidebar = document.getElementById("movieSidebar");
     if (sidebar && sidebar.classList.contains("open") && !sidebar.contains(e.target)) {
@@ -317,6 +318,11 @@ function calculateSimilarity(targetMovieId, ratedMovieId) {
         });
     }
 
+    //age rating
+    if (target.ageRating && rated.ageRating && target.ageRating === rated.ageRating) {
+        score += 2;
+    }
+
     //similar
     if (rated.similar && rated.similar.includes(targetMovieId)) score += 2;
 
@@ -343,7 +349,7 @@ function sortMoviesByUserTaste(movieIds) {
                 totalScore += sim * userRating;
             }
         });
-        scores[id] = totalScore + (Math.random() * 5);
+        scores[id] = totalScore + (Math.random() * randomnessFactor);
     });
 
     return movieIds.sort((a, b) => scores[b] - scores[a]);
@@ -409,6 +415,52 @@ function updateRecommendations() {
     });
 }
 
+/* ==========================================
+   ALGORITHM: Average Color Extraction
+   ========================================== */
+function calculateAverageColor(imgElement) {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    
+    // Default to Smartflix Red if something fails
+    const defaultColor = { r: 229, g: 9, b: 20 };
+
+    const height = canvas.height = imgElement.naturalHeight || 100;
+    const width = canvas.width = imgElement.naturalWidth || 100;
+
+    context.drawImage(imgElement, 0, 0, width, height);
+
+    let data;
+    try {
+        // This is the line that fails if you aren't using a server
+        data = context.getImageData(0, 0, width, height).data;
+    } catch (e) {
+        console.warn("Security Error: Cannot read image pixels. Are you running from file://? Try using a Local Server.");
+        return defaultColor;
+    }
+
+    let r = 0, g = 0, b = 0;
+    let count = 0;
+    const stride = 10; // Check every 10th pixel
+
+    for (let i = 0; i < data.length; i += 4 * stride) {
+        r += data[i];
+        g += data[i + 1];
+        b += data[i + 2];
+        count++;
+    }
+
+    r = Math.floor(r / count);
+    g = Math.floor(g / count);
+    b = Math.floor(b / count);
+
+    console.log(`Extracted Color: rgb(${r}, ${g}, ${b})`); // Check your console for this!
+    return { r, g, b };
+}
+
+/* ==========================================
+   UPDATED FUNCTION: updateHeroSection
+   ========================================== */
 function updateHeroSection() {
     const movieTitleEl = document.getElementById("movietitle");
     if (!movieTitleEl) return; 
@@ -420,11 +472,9 @@ function updateHeroSection() {
 
     if (currentUser) {
         const recommended = getRecommendationList();
-        
         if (recommended.length > 0) {
             const topPicks = recommended.slice(0, 5);
-            const randomPick = topPicks[Math.floor(Math.random() * topPicks.length)];
-            heroId = randomPick;
+            heroId = topPicks[Math.floor(Math.random() * topPicks.length)];
             reasonText = `Because you liked similar movies`;
         }
     }
@@ -432,14 +482,15 @@ function updateHeroSection() {
     const movie = movieData[heroId];
     if (!movie) return;
 
+    // Update Text Info
     movieTitleEl.textContent = movie.title;
     document.getElementById("tagline").textContent = movie.desc;
     document.getElementById("rating").textContent = `⭐ ${movie.rating.split('/')[0]}`;
     document.getElementById("year").textContent = movie.year;
     document.getElementById("runtime").textContent = movie.runtime;
     document.getElementById("moviedesc").textContent = movie.desc;
-    document.getElementById("moviepicture").src = movie.poster;
-
+    
+    // Update Genres
     const genreContainer = document.getElementById("genres");
     genreContainer.innerHTML = "";
     movie.genres.forEach(g => {
@@ -449,12 +500,37 @@ function updateHeroSection() {
         genreContainer.appendChild(span);
     });
 
+    // Update "Because you liked..." text
     const reasonSpan = document.getElementById("because");
     if (reasonText) {
         reasonSpan.innerHTML = reasonText;
         reasonSpan.style.display = "block";
     } else {
         reasonSpan.style.display = "none";
+    }
+
+    // --- COLOR EXTRACTION LOGIC ---
+    const movieImgElement = document.getElementById("moviepicture");
+    const moviePage = document.getElementById("moviepage");
+
+    // We define what happens when the image loads
+    movieImgElement.onload = function() {
+        const rgb = calculateAverageColor(this);
+        
+        // Apply the new gradient
+        const newGradient = `radial-gradient(circle at 20% 20%, rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4), transparent 40%)`;
+        moviePage.style.background = newGradient;
+        
+        // Log to console to verify it worked
+        console.log(`Applied background: ${newGradient}`);
+    };
+
+    // Setting the src triggers the onload above
+    movieImgElement.src = movie.poster;
+    
+    // Failsafe: If image is cached, onload might not fire, so check immediately
+    if (movieImgElement.complete) {
+        movieImgElement.onload();
     }
 }
 
