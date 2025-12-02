@@ -415,9 +415,6 @@ function updateRecommendations() {
     });
 }
 
-/* ==========================================
-   ALGORITHM: Average Color Extraction
-   ========================================== */
 function calculateAverageColor(imgElement) {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
