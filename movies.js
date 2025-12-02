@@ -508,7 +508,7 @@ function updateHeroSection() {
     movieImgElement.onload = function() {
         const rgb = calculateAverageColor(this);
         
-        const newGradient = `radial-gradient(circle at 20% 20%, rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.25), transparent 40%)`;
+        const newGradient = `radial-gradient(circle at 18% 25%, rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.25), transparent 50%)`;
         
         if(bgElement) bgElement.style.background = newGradient;
         
