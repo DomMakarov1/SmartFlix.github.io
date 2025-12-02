@@ -454,13 +454,9 @@ function calculateAverageColor(imgElement) {
     g = Math.floor(g / count);
     b = Math.floor(b / count);
 
-    console.log(`Extracted Color: rgb(${r}, ${g}, ${b})`); // Check your console for this!
     return { r, g, b };
 }
 
-/* ==========================================
-   UPDATED FUNCTION: updateHeroSection
-   ========================================== */
 function updateHeroSection() {
     const movieTitleEl = document.getElementById("movietitle");
     if (!movieTitleEl) return; 
@@ -500,7 +496,6 @@ function updateHeroSection() {
         genreContainer.appendChild(span);
     });
 
-    // Update "Because you liked..." text
     const reasonSpan = document.getElementById("because");
     if (reasonText) {
         reasonSpan.innerHTML = reasonText;
@@ -509,26 +504,22 @@ function updateHeroSection() {
         reasonSpan.style.display = "none";
     }
 
-    // --- COLOR EXTRACTION LOGIC ---
     const movieImgElement = document.getElementById("moviepicture");
-    const moviePage = document.getElementById("moviepage");
+    
+    const bgElement = document.getElementById("hero-background"); 
 
-    // We define what happens when the image loads
     movieImgElement.onload = function() {
         const rgb = calculateAverageColor(this);
         
-        // Apply the new gradient
-        const newGradient = `radial-gradient(circle at 20% 20%, rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4), transparent 40%)`;
-        moviePage.style.background = newGradient;
+        const newGradient = `radial-gradient(circle at 20% 20%, rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.25), transparent 40%)`;
         
-        // Log to console to verify it worked
+        if(bgElement) bgElement.style.background = newGradient;
+        
         console.log(`Applied background: ${newGradient}`);
     };
 
-    // Setting the src triggers the onload above
     movieImgElement.src = movie.poster;
     
-    // Failsafe: If image is cached, onload might not fire, so check immediately
     if (movieImgElement.complete) {
         movieImgElement.onload();
     }
