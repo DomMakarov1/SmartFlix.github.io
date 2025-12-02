@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Smartflix - My Lists</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+        <div id="hero-background" style="height: 100vh; position: fixed; background: radial-gradient(circle at 50% 0%, #1a1a20, #0b0b0f);"></div>
+
+		<div id="topbar">
+			<img id="logo" height="40" src="logo.png" alt="Smartflix Logo">
+			<nav class="nav-links">
+				<a href="index.html">Home</a>
+				<a href="explore.html">Explore</a>
+				<a href="lists.html" class="active">My Lists</a>
+				<a href="preferences.html">Preferences</a>
+			</nav>
+			
+			<div class="nav-right">
+				<p id="username"></p>
+				<button id="login">Sign In</button>
+			</div>
+		</div>
+
+		<div id="overlay">
+			<div id="loginModal">
+				<span class="close-btn" onclick="closeModal()">&times;</span>
+				<div id="loginForm">
+					<h2>Welcome Back</h2>
+					<input type="text" id="loginUsername" placeholder="Username">
+					<input type="password" id="loginPassword" placeholder="Password">
+					<button>Sign In</button>
+					<span class="toggle-link" onclick="showSignup()">New to Smartflix? <b>Sign up now.</b></span>
+				</div>
+				<div id="signupForm" style="display: none;">
+					<h2>Create Account</h2>
+					<input type="text" id="signupUsername" placeholder="Username">
+					<input type="email" id="signupEmail" placeholder="Email">
+					<input type="password" id="signupPassword" placeholder="Password">
+					<button>Register</button>
+					<span class="toggle-link" onclick="showLogin()">Already have an account? <b>Sign in.</b></span>
+				</div>
+			</div>
+		</div>
+
+		<main id="mainContent">
+            <div id="listsPageContainer">
+                
+                <aside class="lists-sidebar">
+                    <div class="lists-header">
+					    <h2>Your Collections</h2>
+					    
+					    <div class="action-wrapper">
+					        <button id="addNewListBtn" class="icon-btn" title="Create New List">+</button>
+					        
+					        <div id="createListDropdown" class="action-menu" style="width: 200px; right: -5px;">
+					            <input type="text" id="newListNameInput" placeholder="List Name...">
+					            <button id="confirmCreateListBtn" class="primary-btn small-btn">Create</button>
+					        </div>
+					    </div>
+					</div>
+                    <ul id="userListsList">
+                        </ul>
+                </aside>
+
+                <section class="current-list-view">
+                    <div id="notSignedInMessage" style="display: none; text-align: center; margin-top: 100px;">
+                        <h2>Please sign in to view your lists.</h2>
+                    </div>
+
+                    <div id="listContentArea">
+                        <div class="list-title-bar">
+                            <h1 id="activeListTitle">Loading...</h1>
+                            <div class="list-controls">
+							    <div class="action-wrapper">
+							        <button id="renameToggleBtn" class="secondary-btn">Rename</button>
+							        <div id="renameDropdown" class="action-menu">
+							            <input type="text" id="renameInput" placeholder="New Name...">
+							            <button id="confirmRenameBtn" class="primary-btn small-btn">Save</button>
+							        </div>
+							    </div>
+
+							    <div class="action-wrapper">
+							        <button id="deleteToggleBtn" class="secondary-btn delete-style">Delete List</button>
+							        <div id="deleteDropdown" class="action-menu">
+							            <p>Are you sure?</p>
+							            <button id="confirmDeleteBtn" class="primary-btn small-btn danger-btn">Confirm Delete</button>
+							        </div>
+							    </div>
+							</div>
+                        </div>
+
+                        <div id="activeListGrid" class="movie-flex-grid">
+                            </div>
+                    </div>
+                </section>
+            </div>
+		</main>
+
+		<aside id="movieSidebar">
+            <div id="sidebarBg">
+                <img id="sidebarBgImage" src="" alt="">
+                <div class="sidebar-gradient"></div>
+            </div>
+
+			<div id="sidebarContent">
+				<div class="sidebar-header">
+					<h2 id="sidebarTitle">Movie Title</h2>
+					<div id="sidebarRating" class="sidebar-score">⭐ 8.5</div>
+				</div>
+				<p id="sidebarYear" class="meta-line">2024 • 2h 20m</p>
+				<div id="sidebarGenres" class="meta-line">Action • Sci-Fi</div>
+                <a id="watchMovieBtn" href="#" target="_blank">Watch Movie</a>
+				<p id="sidebarDesc">Description...</p>
+				<div id="sidebarWatched">
+				    <button type="button" id="markAsWatched">Mark As Watched</button>
+				    <div id="ratingOptions" class="hidden">
+				        <button class="rate-btn love" data-rating="2">I loved it!</button>
+				        <button class="rate-btn like" data-rating="1">I liked it</button>
+				        <button class="rate-btn dislike" data-rating="-1">Not for me</button>
+				    </div>
+				</div>
+				<h3 class="sidebar-section-title">Similar Movies</h3>
+				<ul id="sidebarSimilar" class="sidebar-list"></ul>
+				<h3 class="sidebar-section-title">Sequels & Prequels</h3>
+				<ul id="sidebarSequels" class="sidebar-list"></ul>
+			</div>
+		</aside>
+
+		<script src="login.js"></script>
+		<script src="moviedata.js"></script>
+		<script src="movies.js"></script>
+        <script src="lists.js"></script>
+	</body>
+</html>

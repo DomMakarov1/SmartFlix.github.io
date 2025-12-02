@@ -81,7 +81,16 @@
 
 					<div id="movieactions">
 						<button type="button" id="watchtrailer" class="primary-btn">Watch Trailer</button>
-						<button type="button" id="addtowatchlist" class="secondary-btn">+ Watch List</button>
+						<div class="watchlist-wrapper">
+					        <button type="button" id="watchlistBtn" class="secondary-btn">+ Add to List</button>
+					        <div id="watchlistDropdown" class="watchlist-menu">
+					        	<div id="userListsContainer"></div>
+					            <div class="new-list-creator">
+					                <input type="text" id="newListName" placeholder="New List Name...">
+					                <button id="createNewListBtn">+</button>
+					            </div>
+					        </div>
+					    </div>
 					</div>
 				</div>
 			</div>

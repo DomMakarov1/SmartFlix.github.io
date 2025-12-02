@@ -642,3 +642,177 @@ setInterval(() => {
         populateExplorePage();
     }
 }, 1000);
+
+function initSearch() {
+    const searchInput = document.getElementById("searchInput");
+    const resultsContainer = document.getElementById("genreResultsContainer"); 
+    const resultsGrid = document.getElementById("genreResults");
+    const defaultSections = document.getElementById("defaultExploreSections");
+    const resultsTitle = document.getElementById("genreResultsTitle");
+
+    if (!searchInput || !resultsContainer || !resultsGrid) return;
+
+    searchInput.addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase().trim();
+
+        if (query.length === 0) {
+            defaultSections.style.display = "block";
+            resultsContainer.style.display = "none";
+            return;
+        }
+
+        const matches = Object.keys(movieData).filter(id => {
+            const movie = movieData[id];
+            
+            if (movie.title.toLowerCase().includes(query)) return true;
+            if (movie.cast.some(actor => actor.toLowerCase().includes(query))) return true;
+            if (movie.director && typeof movie.director === 'string' && movie.director.toLowerCase().includes(query)) return true;
+            if (movie.genres.some(g => g.toLowerCase().includes(query))) return true;
+
+            return false;
+        });
+
+        defaultSections.style.display = "none";
+        resultsContainer.style.display = "block";
+        resultsTitle.textContent = `Results for "${e.target.value}"`;
+        resultsGrid.innerHTML = "";
+
+        if (matches.length === 0) {
+            resultsGrid.innerHTML = `<p class="empty-state" style="grid-column: 1/-1; text-align: center;">No movies found matching "${e.target.value}"</p>`;
+            return;
+        }
+
+        matches.forEach(id => {
+            const movie = movieData[id];
+            const div = document.createElement("div");
+            div.className = "movie-container";
+            div.dataset.movie = id;
+            div.innerHTML = `
+                <img class="moviepicture" src="${movie.poster}" height="150" width="150" alt="${movie.title}">
+                <div class="movie-title">${movie.title}</div>
+            `;
+            
+            div.addEventListener("click", (evt) => {
+                evt.stopPropagation(); 
+                showMovieDetails(id);
+            });
+            
+            resultsGrid.appendChild(div);
+        });
+    });
+}
+
+initSearch();
+
+function getUserListsData() {
+    const currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) return null;
+
+    const allData = JSON.parse(localStorage.getItem("smartflix_user_lists") || "{}");
+    
+    if (!allData[currentUser]) {
+        allData[currentUser] = { "Watchlist": [] };
+        localStorage.setItem("smartflix_user_lists", JSON.stringify(allData));
+    }
+
+    return allData[currentUser];
+}
+
+function saveUserListsData(userLists) {
+    const currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) return;
+
+    const allData = JSON.parse(localStorage.getItem("smartflix_user_lists") || "{}");
+    allData[currentUser] = userLists;
+    localStorage.setItem("smartflix_user_lists", JSON.stringify(allData));
+}
+
+function initWatchlistDropdown() {
+    const btn = document.getElementById("watchlistBtn");
+    const dropdown = document.getElementById("watchlistDropdown");
+    const container = document.getElementById("userListsContainer");
+    const createBtn = document.getElementById("createNewListBtn");
+    const newNameInput = document.getElementById("newListName");
+
+    if (!btn || !dropdown) return;
+
+    btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const currentUser = localStorage.getItem("currentUser");
+        if (!currentUser) {
+            alert("Please sign in to create and manage lists.");
+            return;
+        }
+        
+        renderDropdownItems();
+        dropdown.classList.toggle("active");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target) && e.target !== btn) {
+            dropdown.classList.remove("active");
+        }
+    });
+
+    createBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const name = newNameInput.value.trim();
+        if (!name) return;
+
+        const lists = getUserListsData();
+        if (lists[name]) {
+            alert("A list with this name already exists!");
+            return;
+        }
+
+        lists[name] = [];
+        saveUserListsData(lists);
+        
+        newNameInput.value = "";
+        renderDropdownItems();
+    });
+}
+
+function renderDropdownItems() {
+    const container = document.getElementById("userListsContainer");
+    const lists = getUserListsData();
+
+    const currentTitle = document.getElementById("movietitle").textContent;
+    const currentMovieId = Object.keys(movieData).find(key => movieData[key].title === currentTitle);
+
+    container.innerHTML = "";
+
+    if (!currentMovieId) return;
+
+    Object.keys(lists).forEach(listName => {
+        const movieIds = lists[listName];
+        const isPresent = movieIds.includes(currentMovieId);
+
+        const div = document.createElement("div");
+        div.className = `watchlist-item ${isPresent ? 'has-movie' : ''}`;
+        div.textContent = listName;
+
+        div.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMovieInList(listName, currentMovieId);
+            renderDropdownItems();
+        });
+
+        container.appendChild(div);
+    });
+}
+
+function toggleMovieInList(listName, movieId) {
+    const lists = getUserListsData();
+    const targetList = lists[listName];
+
+    if (targetList.includes(movieId)) {
+        lists[listName] = targetList.filter(id => id !== movieId);
+    } else {
+        targetList.push(movieId);
+    }
+    
+    saveUserListsData(lists);
+}
+
+initWatchlistDropdown();
