@@ -106,44 +106,82 @@ function renderListContent(listName) {
 
         const div = document.createElement("div");
         div.className = "movie-container list-movie-card";
+        
         div.innerHTML = `
-            <button class="remove-movie-btn" title="Remove from list" onclick="removeMovieFromList('${id}', event)">×</button>
+            <div class="action-wrapper remove-wrapper">
+                <button class="remove-movie-btn" title="Remove from list">×</button>
+                <div class="action-menu">
+                    <p style="color:white; margin-bottom:5px;">Remove?</p>
+                    <button class="primary-btn small-btn danger-btn confirm-remove">Yes</button>
+                </div>
+            </div>
             <img class="moviepicture" src="${movie.poster}" alt="${movie.title}">
             <div class="movie-title">${movie.title}</div>
         `;
         
-        // Open details on click (using movies.js function)
-        div.addEventListener("click", () => showMovieDetails(id));
+        const removeBtn = div.querySelector(".remove-movie-btn");
+        const confirmMenu = div.querySelector(".action-menu");
+        const confirmBtn = div.querySelector(".confirm-remove");
+
+        removeBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            document.querySelectorAll(".list-movie-card .action-menu.active").forEach(m => m.classList.remove("active"));
+            confirmMenu.classList.toggle("active");
+        });
+
+        confirmBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            removeMovieFromList(id);
+        });
+
+        div.addEventListener("mouseleave", () => {
+             confirmMenu.classList.remove("active");
+        });
+        
+        div.addEventListener("click", (e) => openExpandedView(id, e.currentTarget));
         grid.appendChild(div);
     });
 }
 
+function performRemoval(movieId) {
+    const currentUser = localStorage.getItem("currentUser");
+    const allData = JSON.parse(localStorage.getItem("smartflix_user_lists") || "{}");
+    const list = allData[currentUser][currentSelectedList];
 
+    allData[currentUser][currentSelectedList] = list.filter(id => id !== movieId);
+    
+    localStorage.setItem("smartflix_user_lists", JSON.stringify(allData));
+    
+    renderListsSidebar();
+}
+
+
+/* ==========================================
+   ACTIONS: ADD / REMOVE / RENAME
+   ========================================== */
+
+// --- 1. CREATE NEW LIST (This was missing!) ---
 const createListBtn = document.getElementById("addNewListBtn");
 const createListDropdown = document.getElementById("createListDropdown");
 const createListInput = document.getElementById("newListNameInput");
 const confirmCreateBtn = document.getElementById("confirmCreateListBtn");
 
 if (createListBtn) {
-    // Toggle Dropdown
     createListBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        closeAllDropdowns(); // Close other open menus
+        closeAllDropdowns();
         createListDropdown.classList.toggle("active");
         
-        // Focus input when opened
         if (createListDropdown.classList.contains("active")) {
-            createListInput.value = ""; // Clear previous text
+            createListInput.value = "";
             createListInput.focus();
         }
     });
 
-    // Handle Create Click
     confirmCreateBtn.addEventListener("click", (e) => {
         const currentUser = localStorage.getItem("currentUser");
-        if (!currentUser) return;
-
         const newName = createListInput.value.trim();
+        
         if (!newName) return;
 
         const allData = JSON.parse(localStorage.getItem("smartflix_user_lists") || "{}");
@@ -153,11 +191,9 @@ if (createListBtn) {
             return;
         }
 
-        // Create the list
         allData[currentUser][newName] = [];
         localStorage.setItem("smartflix_user_lists", JSON.stringify(allData));
         
-        // Update UI
         currentSelectedList = newName;
         renderListsSidebar();
         createListDropdown.classList.remove("active");
@@ -265,17 +301,200 @@ function closeAllDropdowns() {
     if (deleteDropdown) deleteDropdown.classList.remove("active");
 }
 
-function removeMovieFromList(movieId, event) {
-    event.stopPropagation();
+function removeMovieFromList(movieId) {
     const currentUser = localStorage.getItem("currentUser");
-
-    if (!confirm("Remove this movie from the list?")) return;
-
     const allData = JSON.parse(localStorage.getItem("smartflix_user_lists") || "{}");
     const list = allData[currentUser][currentSelectedList];
 
     allData[currentUser][currentSelectedList] = list.filter(id => id !== movieId);
+    
     localStorage.setItem("smartflix_user_lists", JSON.stringify(allData));
     
+    renderListContent(currentSelectedList);
     renderListsSidebar();
+}
+
+let activeTriggerElement = null;
+
+function openExpandedView(movieId, triggerElement) {
+    const movie = movieData[movieId];
+    if (!movie) return;
+
+    activeTriggerElement = triggerElement; 
+    const modal = document.getElementById("movie-expand-modal");
+    const card = document.querySelector(".expand-card");
+    const slider = document.getElementById("expand-slider");
+    
+    // RESET STATE
+    card.classList.remove("trailer-mode"); 
+    document.getElementById("trailer-container").innerHTML = "";
+
+    // 1. Populate Text Data
+    document.getElementById("expand-img").src = movie.poster;
+    const bgBlur = document.getElementById("expand-bg-blur");
+    if (bgBlur) bgBlur.style.backgroundImage = `url('${movie.poster}')`;
+
+    document.getElementById("expand-title").textContent = movie.title;
+    document.getElementById("expand-year").textContent = movie.year;
+    document.getElementById("expand-rating").textContent = `⭐ ${movie.rating}`;
+    document.getElementById("expand-runtime").textContent = movie.runtime;
+    document.getElementById("expand-genres").textContent = movie.genres.join(" • ");
+    document.getElementById("expand-desc").textContent = movie.desc;
+    document.getElementById("expand-link").href = movie.link || "#";
+    
+    // Setup Trailer Button
+    const trailerBtn = document.getElementById("watch-trailer-btn");
+    trailerBtn.onclick = () => enterTrailerMode(movie);
+
+    // 2. Animation Start Position
+    const startRect = triggerElement.getBoundingClientRect();
+    
+    card.classList.add("poster-only");     
+    card.classList.add("animating-start"); 
+    
+    card.style.top = `${startRect.top}px`;
+    card.style.left = `${startRect.left}px`;
+    card.style.width = `${startRect.width}px`;
+    card.style.height = `${startRect.height}px`;
+    card.style.borderRadius = "8px";
+
+    modal.classList.add("active");
+    void card.offsetWidth;
+
+    // 3. PHASE 1: Fly to Center
+    // Must match the CSS height of .expand-card (600px)
+    const midHeight = 555; 
+    const midWidth = 333;  
+    const midTop = (window.innerHeight - midHeight) / 2;
+    const midLeft = (window.innerWidth - midWidth) / 2; 
+
+    card.classList.remove("animating-start"); 
+    card.style.top = `${midTop}px`;
+    card.style.left = `${midLeft}px`;
+    card.style.width = `${midWidth}px`;
+    
+    // EXPLICITLY set the full height here so it animates to it
+    card.style.height = `${midHeight}px`; 
+    card.style.borderRadius = "12px";
+
+    // 4. PHASE 2: Expand Width
+    setTimeout(() => {
+        const finalWidth = 900; 
+        const finalLeft = (window.innerWidth - finalWidth) / 2;
+
+        card.classList.remove("poster-only"); 
+        card.style.width = `${finalWidth}px`;
+        card.style.left = `${finalLeft}px`;
+        // Height stays at 600px from Phase 1
+    }, 300); 
+}
+
+function enterTrailerMode(movie) {
+    const card = document.querySelector(".expand-card");
+    const container = document.getElementById("trailer-container");
+    
+    // Trigger CSS Animations
+    card.classList.add("trailer-mode");
+
+    // Load Video Logic
+    let videoId = "dQw4w9WgXcQ"; // Default fallback
+    
+    if (movie.trailer) {
+        videoId = movie.trailer;
+    } else if (movie.link && movie.link.includes("youtube.com/watch?v=")) {
+        videoId = movie.link.split("v=")[1].split("&")[0];
+    } else {
+        videoId = "zSWdZVtXT7E"; 
+    }
+
+    // Calculate Origin
+    const origin = window.location.origin === "file://" ? "*" : window.location.origin;
+
+    // Inject Iframe using youtube-nocookie.com
+    container.innerHTML = `
+        <iframe 
+            src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&rel=0&origin=${origin}" 
+            title="YouTube video player"
+            frameborder="0"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+        </iframe>
+    `;
+}
+
+// Return to Details Logic
+const backToDetailsBtn = document.getElementById("back-to-details-btn");
+if(backToDetailsBtn) {
+    backToDetailsBtn.addEventListener("click", () => {
+        const card = document.querySelector(".expand-card");
+        
+        // Remove class to reverse animations
+        card.classList.remove("trailer-mode");
+        
+        // Clear video after slide animation (0.5s)
+        setTimeout(() => {
+            document.getElementById("trailer-container").innerHTML = "";
+        }, 500);
+    });
+}
+
+function closeExpandedView() {
+    const modal = document.getElementById("movie-expand-modal");
+    const card = document.querySelector(".expand-card");
+
+    if (!activeTriggerElement) {
+        modal.classList.remove("active");
+        return;
+    }
+
+    card.classList.remove("trailer-mode");
+    document.getElementById("trailer-container").innerHTML = "";
+
+    // 1. PHASE 1: Collapse Width
+    card.classList.add("poster-only");
+    
+    const midHeight = 550;
+    const midWidth = 333;
+    const midLeft = (window.innerWidth - midWidth) / 2;
+    const midTop = (window.innerHeight - midHeight) / 2;
+    
+    card.style.width = `${midWidth}px`;
+    card.style.height = `${midHeight}px`; // Ensure height stays full during width collapse
+    card.style.left = `${midLeft}px`;
+    card.style.top = `${midTop}px`;
+
+    // 2. PHASE 2: Return to Thumbnail
+    setTimeout(() => {
+        const targetRect = activeTriggerElement.getBoundingClientRect();
+
+        card.classList.add("animating-start"); 
+        
+        card.style.top = `${targetRect.top}px`;
+        card.style.left = `${targetRect.left}px`;
+        card.style.width = `${targetRect.width}px`;
+        
+        // NOW we allow the height to shrink back to the small card size
+        card.style.height = `${targetRect.height}px`; 
+        
+        card.style.borderRadius = "8px";
+        
+        modal.classList.remove("active"); 
+    }, 300); 
+}
+
+// Event Listeners
+const closeExpandBtn = document.getElementById("close-expand-btn");
+const expandModal = document.getElementById("movie-expand-modal");
+
+if(closeExpandBtn) {
+    closeExpandBtn.addEventListener("click", closeExpandedView);
+}
+
+if(expandModal) {
+    expandModal.addEventListener("click", (e) => {
+        if (e.target === expandModal) {
+            closeExpandedView();
+        }
+    });
 }

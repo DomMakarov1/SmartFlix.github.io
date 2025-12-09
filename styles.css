@@ -152,6 +152,11 @@ html {
 #sidebarBgImage { width: 100%; height: 100%; object-fit: cover; opacity: 0.25; }
 .sidebar-gradient { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(17,17,21,0) 0%, #111115 100%); }
 #sidebarContent { position: relative; z-index: 1; padding: 30px; }
+#sidebarContent .watchlist-wrapper { width: 100%; margin-bottom: 20px; }
+#sidebarWatchlistBtn { transition: all 0.2s ease; width: 100%; text-align: center; }
+#sidebarWatchlistBtn:hover { transform: translateY(-2px); background-color: rgba(255, 255, 255, 0.3); color: white; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+.list-movie-card .action-menu {top: 30px; right: -10px; width: 120px; padding: 10px; text-align: center; z-index: 100; }
+.list-movie-card .action-menu button { width: 100%; margin-top: 5px; }
 
 #watchMovieBtn { display: block; width: 100%; text-align: center; background-color: var(--primary-color); color: white; padding: 12px 0; border-radius: var(--radius-md); text-decoration: none; font-weight: 700; margin-top: 15px; margin-bottom: 25px; transition: background 0.2s, transform 0.2s; border: none; font-family: var(--font-main); box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3); }
 #watchMovieBtn:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
@@ -479,3 +484,233 @@ html {
 .delete-style:hover {
     background-color: rgba(220, 38, 38, 0.3);
 }
+
+/* =========================================
+   EXPANDED MOVIE CARD (Shared Element Animation)
+   ========================================= */
+
+.expand-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0); 
+    z-index: 2000; visibility: hidden;
+    display: flex; justify-content: center; align-items: center;
+    pointer-events: none;
+    transition: background 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.expand-overlay.active {
+    pointer-events: auto; background: rgba(0, 0, 0, 0.8);
+    visibility: visible;
+    transition: background 0.3s ease, visibility 0s;
+}
+
+.expand-card {
+    position: fixed; background: #16161a;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    overflow: hidden;
+    height: 550px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 2001;
+    display: flex; 
+    
+    transition: 
+        top 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+        left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+        width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+        height 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-radius 0.2s ease;
+}
+
+/* Layering */
+.expand-content {
+    display: flex; height: 100%; width: 100%;
+    position: relative; z-index: 1;
+}
+
+/* --- POSTER (Collapsible) --- */
+.expand-poster-container {
+    height: 100%;
+    width: 333px; 
+    flex-shrink: 0; 
+    position: relative; z-index: 2;
+    transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+    overflow: hidden;
+}
+
+.expand-card.trailer-mode .expand-poster-container {
+    width: 0; opacity: 0;
+}
+.expand-card.animating-start .expand-poster-container { width: 100%; }
+
+#expand-img { width: 100%; height: 100%; object-fit: cover; }
+
+.expand-bg-blur {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover; background-position: center;
+    filter: blur(60px) brightness(0.8);
+    z-index: 0; opacity: 0.7; pointer-events: none;
+}
+
+/* --- RIGHT SIDE --- */
+.expand-right-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column; 
+    overflow: hidden; 
+    position: relative;
+    min-width: 400px;
+}
+
+/* HEADER (Static) */
+.expand-header-static {
+    padding: 30px 30px 10px 30px; 
+    flex-shrink: 0;
+    z-index: 5;
+    transition: all 0.3s ease;
+}
+
+/* HEADER CHANGES IN TRAILER MODE */
+.expand-card.trailer-mode #expand-rating { display: none; } /* Hide Rating */
+
+.expand-card.trailer-mode .badge {
+    background: transparent;
+    padding: 0;
+    color: #cccccc; /* Plain text color */
+    font-weight: normal;
+}
+
+/* SLIDER */
+.expand-slider {
+    display: flex;
+    width: 200%; 
+    flex: 1; 
+    height: 100%; /* Fill remaining height */
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.expand-card.trailer-mode .expand-slider {
+    transform: translateX(-50%); 
+}
+
+/* View 1: Details Body */
+.details-slide {
+    width: 50%;
+    padding: 0 40px 40px 40px; 
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    opacity: 1;
+    transition: opacity 0.3s ease 0.2s;
+}
+
+.expand-card.trailer-mode .details-slide {
+    opacity: 0; 
+    transition-delay: 0s;
+}
+
+/* View 2: Trailer Body */
+.trailer-slide {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0 40px 40px 40px; /* Padding for the video box */
+    box-sizing: border-box;
+}
+
+.trailer-frame-container {
+    width: 100%;
+    height: 100%; /* Fill the slide */
+    background: black;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.trailer-frame-container iframe { width: 100%; height: 100%; border: none; }
+
+/* --- CONTROLS & BUTTONS --- */
+/* Main Close Button */
+#close-expand-btn {
+    position: absolute; top: 15px; right: 20px;
+    background: transparent; border: none; color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    font-size: 2em; cursor: pointer; z-index: 20;
+    line-height: 1; opacity: 0; transition: opacity 0.2s;
+}
+.expand-overlay.active #close-expand-btn { opacity: 1; transition-delay: 0.3s; }
+
+/* Back Button (Hidden by default) */
+#back-to-details-btn {
+    position: absolute;
+    top: 22px; /* Aligned with close button */
+    right: 65px; /* To the left of close button */
+    
+    background-color: rgba(255,255,255,0.15); 
+    color: white; 
+    backdrop-filter: blur(5px); 
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9em;
+    z-index: 20;
+    
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+#back-to-details-btn:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Show Back Button ONLY in Trailer Mode */
+.expand-card.trailer-mode #back-to-details-btn {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition-delay: 0.4s; /* Wait for slide to finish */
+}
+
+
+#expand-title { 
+    margin: 0 0 8px 0; 
+    line-height: 1.1; 
+    font-size: 2.2em;
+    white-space: normal; 
+    overflow-wrap: break-word; 
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.expand-meta-row { 
+    display: flex; 
+    gap: 12px; 
+    align-items: center; 
+    color: #f0f0f0; 
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5); 
+    font-size: 0.9em;
+}
+
+.expand-genres { color: #cccccc; font-style: italic; margin-bottom: 20px; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+#expand-desc { line-height: 1.6; color: #e0e0e0; margin-bottom: 30px; max-height: 150px; overflow-y: auto; padding-right: 10px; text-shadow: 0 2px 5px rgba(0,0,0,0.5); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.3) transparent; }
+
+.expand-actions { margin-top: auto; display: flex; gap: 15px; }
+
+.action-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    text-decoration: none; text-align: center;
+    padding: 12px 28px; border-radius: 8px; font-weight: bold; white-space: nowrap;
+    border: none; cursor: pointer; font-size: 1em; font-family: var(--font-main);
+    transition: all 0.2s;
+}
+
+#expand-link { background-color: var(--primary-color); color: white; box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4); }
+#expand-link:hover { transform: translateY(-2px); background-color: var(--primary-hover); }
+
+#watch-trailer-btn { background-color: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); }
+#watch-trailer-btn:hover { background-color: white; color: black; transform: translateY(-2px); }

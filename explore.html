@@ -48,7 +48,7 @@
 
 		<main id="mainContent">
             <div id="exploreHero">
-                <h1>Find your next favorite story.</h1>
+                <h1>Find your next favourite story.</h1>
                 <div class="search-container">
                     <input type="text" id="searchInput" placeholder="Search for movies, genres, actors...">
                     <button id="searchBtn">🔍</button>
@@ -106,32 +106,44 @@
             </div>
 
 			<div id="sidebarContent">
-				<div class="sidebar-header">
-					<h2 id="sidebarTitle">Movie Title</h2>
-					<div id="sidebarRating" class="sidebar-score">⭐ 8.5</div>
-				</div>
-				
-				<p id="sidebarYear" class="meta-line">2024 • 2h 20m</p>
-				<div id="sidebarGenres" class="meta-line">Action • Sci-Fi</div>
+			    <div class="sidebar-header">
+			        <h2 id="sidebarTitle">Movie Title</h2>
+			        <div id="sidebarRating" class="sidebar-score">⭐ 8.5</div>
+			    </div>
+			    
+			    <p id="sidebarYear" class="meta-line">2024 • 2h 20m</p>
+			    <div id="sidebarGenres" class="meta-line">Action • Sci-Fi</div>
 
-                <a id="watchMovieBtn" href="#" target="_blank">Watch Movie</a>
-				
-				<p id="sidebarDesc">This is where the movie description will appear.</p>
+			    <a id="watchMovieBtn" href="#" target="_blank">Watch Movie</a>
+			    
+			    <div class="watchlist-wrapper">
+			        <button type="button" id="sidebarWatchlistBtn" class="secondary-btn">+ Add to List</button>
+			        <div id="sidebarWatchlistDropdown" class="watchlist-menu">
+			            <div id="sidebarUserListsContainer">
+			                </div>
+			            <div class="new-list-creator">
+			                <input type="text" id="sidebarNewListName" placeholder="New List Name...">
+			                <button id="sidebarCreateNewListBtn">+</button>
+			            </div>
+			        </div>
+			    </div>
 
-				<div id="sidebarWatched">
-				    <button type="button" id="markAsWatched">Mark As Watched</button>
-				    <div id="ratingOptions" class="hidden">
-				        <button class="rate-btn love" data-rating="2">I loved it!</button>
-				        <button class="rate-btn like" data-rating="1">I liked it</button>
-				        <button class="rate-btn dislike" data-rating="-1">Not for me</button>
-				    </div>
-				</div>
+			    <p id="sidebarDesc">Description...</p>
 
-				<h3 class="sidebar-section-title">Similar Movies</h3>
-				<ul id="sidebarSimilar" class="sidebar-list"></ul>
+			    <div id="sidebarWatched">
+			        <button type="button" id="markAsWatched">Mark As Watched</button>
+			        <div id="ratingOptions" class="hidden">
+			            <button class="rate-btn love" data-rating="2">I loved it!</button>
+			            <button class="rate-btn like" data-rating="1">I liked it</button>
+			            <button class="rate-btn dislike" data-rating="-1">Not for me</button>
+			        </div>
+			    </div>
 
-				<h3 class="sidebar-section-title">Sequels & Prequels</h3>
-				<ul id="sidebarSequels" class="sidebar-list"></ul>
+			    <h3 class="sidebar-section-title">Similar Movies</h3>
+			    <ul id="sidebarSimilar" class="sidebar-list"></ul>
+
+			    <h3 class="sidebar-section-title">Sequels & Prequels</h3>
+			    <ul id="sidebarSequels" class="sidebar-list"></ul>
 			</div>
 		</aside>
 

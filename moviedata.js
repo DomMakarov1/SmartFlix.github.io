@@ -14,7 +14,8 @@ const movieData = {
 		similar: ["TheMatrix", "Interstellar", "Tenet"],
 		sequels: [],
         poster: "movies/inception/Inception.jpg",
-        link: "https://www.youtube.com/results?search_query=Inception+movie"
+        link: "https://www.warnerbros.com/movies/inception",
+        trailer: "YoHD9XEInc0" // Inception Trailer
 	},
 	"TheMatrix": {
 		title: "The Matrix",
@@ -31,7 +32,8 @@ const movieData = {
 		similar: ["Inception", "Dark City", "Equilibrium"],
 		sequels: ["TheMatrix2", "TheMatrix3", "TheMatrix4"],
         poster: "movies/matrix/The Matrix.jpg",
-        link: "https://www.youtube.com/results?search_query=The+Matrix+movie"
+        link: "https://www.warnerbros.com/movies/matrix",
+        trailer: "vKQi3bBA1y8" // Matrix Trailer
 	},
 	"TheMatrix2": {
 		title: "The Matrix Reloaded",
@@ -48,7 +50,8 @@ const movieData = {
 		similar: ["Inception", "Dark City", "Equilibrium"],
 		sequels: ["TheMatrix", "TheMatrix3", "TheMatrix4"],
         poster: "movies/matrix/The Matrix2.jpg",
-        link: "https://www.youtube.com/results?search_query=The+Matrix+Reloaded+movie"
+        link: "https://www.warnerbros.com/movies/matrix-reloaded",
+        trailer: "kYzz0FSgpSU"
 	},
 	"TheMatrix3": {
 		title: "The Matrix Revolutions",
@@ -65,7 +68,8 @@ const movieData = {
 		similar: ["Inception", "Dark City", "Equilibrium"],
 		sequels: ["TheMatrix", "TheMatrix2", "TheMatrix4"],
         poster: "movies/matrix/The Matrix3.jpg",
-        link: "https://www.youtube.com/results?search_query=The+Matrix+Revolutions+movie"
+        link: "https://www.warnerbros.com/movies/matrix-revolutions",
+        trailer: "hMbexEPAOQI"
 	},
 	"TheMatrix4": {
 		title: "The Matrix Resurrections",
@@ -82,7 +86,8 @@ const movieData = {
 		similar: ["Inception", "Dark City", "Equilibrium"],
 		sequels: ["TheMatrix", "TheMatrix2", "TheMatrix3"],
         poster: "movies/matrix/The Matrix4.jpg",
-        link: "https://www.youtube.com/results?search_query=The+Matrix+Resurrections+movie"
+        link: "https://www.warnerbros.com/movies/matrix-resurrections",
+        trailer: "9ix7TUGnRIo"
 	},
 	"HarryPotter1": {
 		title: "Harry Potter and the Philosopher's Stone",
@@ -99,7 +104,8 @@ const movieData = {
 		similar: [],
 		sequels: ["HarryPotter2", "HarryPotter3", "HarryPotter4", "HarryPotter5", "HarryPotter6","HarryPotter7","HarryPotter8"],
         poster: "movies/harrypotter/hp1.jpg",
-        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Philosopher%27s+Stone+movie"
+        link: "https://www.wizardingworld.com",
+        trailer: "VyHV0BR_toI"
 	},
 	"HarryPotter2": {
 		title: "Harry Potter and the Chamber of Secrets",
@@ -116,7 +122,8 @@ const movieData = {
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter3", "HarryPotter4", "HarryPotter5", "HarryPotter6","HarryPotter7","HarryPotter8"],
         poster: "movies/harrypotter/hp2.jpg",
-        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Chamber+of+Secrets+movie"
+        link: "https://www.wizardingworld.com",
+        trailer: "1bq0qff4iF8"
 	},
 	"HarryPotter3": {
 		title: "Harry Potter and the Prisoner of Azkaban",
@@ -133,7 +140,8 @@ const movieData = {
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter2", "HarryPotter4", "HarryPotter5", "HarryPotter6","HarryPotter7","HarryPotter8"],
         poster: "movies/harrypotter/hp3.jpg",
-        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Prisoner+of+Azkaban+movie"
+        link: "https://www.wizardingworld.com",
+        trailer: "lAxgztbYDbs"
 	},
 	"HarryPotter4": {
 		title: "Harry Potter and the Goblet of Fire",
@@ -150,7 +158,8 @@ const movieData = {
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter2", "HarryPotter3", "HarryPotter5", "HarryPotter6","HarryPotter7","HarryPotter8"],
         poster: "movies/harrypotter/hp4.jpg",
-        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Goblet+of+Fire+movie"
+        link: "https://www.wizardingworld.com",
+        trailer: "3EGojp4Hh6I"
 	},
 	"HarryPotter5": {
 		title: "Harry Potter and the Order of the Phoenix",
@@ -167,7 +176,8 @@ const movieData = {
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter2", "HarryPotter3", "HarryPotter4","HarryPotter6","HarryPotter7","HarryPotter8"],
         poster: "movies/harrypotter/hp5.jpg",
-        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Order+of+the+Phoenix+movie"
+        link: "https://www.wizardingworld.com",
+        trailer: "y6ZW7KXaXYk"
 	},
 	"HarryPotter6": {
 		title: "Harry Potter and the Half-Blood Prince",
@@ -184,7 +194,8 @@ const movieData = {
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter2", "HarryPotter3", "HarryPotter4","HarryPotter5","HarryPotter7","HarryPotter8"],
 		poster: "movies/harrypotter/hp6.jpg",
-        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Half-Blood+Prince+movie"
+        link: "https://www.wizardingworld.com",
+        trailer: "JYLdTuL9Wjw"
 	},
 	"HarryPotter7": {
 		title: "Harry Potter and the Deathly Hallows: Part 1",
@@ -201,7 +212,8 @@ const movieData = {
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter2", "HarryPotter3", "HarryPotter4","HarryPotter5","HarryPotter6","HarryPotter8"],
 		poster: "movies/harrypotter/hp7.jpg",
-        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Deathly+Hallows+Part+1+movie"
+        link: "https://www.wizardingworld.com",
+        trailer: "MxqsmsA8y5k"
 	},
 	"HarryPotter8": {
 		title: "Harry Potter and the Deathly Hallows: Part 2",
@@ -218,7 +230,8 @@ const movieData = {
 		similar: [],
 		sequels: ["HarryPotter1", "HarryPotter2", "HarryPotter3", "HarryPotter4","HarryPotter5","HarryPotter6","HarryPotter7"],
 		poster: "movies/harrypotter/hp8.jpg",
-        link: "https://www.youtube.com/results?search_query=Harry+Potter+and+the+Deathly+Hallows+Part+2+movie"
+        link: "https://www.wizardingworld.com",
+        trailer: "mObK5XD8udk"
 	},
 	"Interstellar": {
 		title: "Interstellar",
@@ -235,7 +248,8 @@ const movieData = {
 		similar: ["Inception", "Tenet"],
 		sequels: [],
         poster: "movies/interstellar/Interstellar.jpg",
-        link: "https://www.youtube.com/results?search_query=Interstellar+movie"
+        link: "https://www.paramountmovies.com/movies/interstellar",
+        trailer: "zSWdZVtXT7E"
 	},
 	"Tenet": {
 		title: "Tenet",
@@ -252,7 +266,8 @@ const movieData = {
 		similar: ["Inception", "Interstellar", "TheMatrix"],
 		sequels: [],
         poster: "movies/tenet/Tenet.jpg",
-        link: "https://www.youtube.com/results?search_query=Tenet+movie"
+        link: "https://www.warnerbros.com/movies/tenet",
+        trailer: "LdOM0x0XDMo"
 	},
 	"TheDarkKnight2": {
 		title: "The Dark Knight",
@@ -269,7 +284,8 @@ const movieData = {
 		similar: ["Tenet", "TheBatman", "BatmanSuperman", "SuicideSquad1"],
 		sequels: ["TheDarkKnight1","TheDarkKnight3"],
         poster: "movies/darkknight/darkknight2.jpg",
-        link: "https://www.youtube.com/results?search_query=The+Dark+Knight+movie"
+        link: "https://www.warnerbros.com/movies/dark-knight",
+        trailer: "EXeTwQWrcwY"
 	},
 	"TheDarkKnight1": {
 		title: "Batman Begins",
@@ -286,7 +302,8 @@ const movieData = {
 		similar: ["Tenet", "TheBatman", "BatmanSuperman", "SuicideSquad1"],
 		sequels: ["TheDarkKnight2","TheDarkKnight3"],
         poster: "movies/darkknight/darkknight1.jpg",
-        link: "https://www.youtube.com/results?search_query=Batman+Begins+movie"
+        link: "https://www.warnerbros.com/movies/batman-begins",
+        trailer: "neY2xVmOfUM"
 	},
 	"TheDarkKnight3": {
 		title: "The Dark Knight Rises",
@@ -303,7 +320,8 @@ const movieData = {
 		similar: ["Tenet", "TheBatman", "BatmanSuperman", "SuicideSquad1"],
 		sequels: ["TheDarkKnight1","TheDarkKnight2"],
         poster: "movies/darkknight/darkknight3.jpg",
-        link: "https://www.youtube.com/results?search_query=The+Dark+Knight+Rises+movie"
+        link: "https://www.warnerbros.com/movies/dark-knight-rises",
+        trailer: "g8evyE9TuYk"
 	},
 	"TheBatman": {
 		title: "The Batman",
@@ -320,7 +338,8 @@ const movieData = {
 		similar: ["TheDarkKnight1", "TheDarkKnight2", "TheDarkKnight3", "BatmanSuperman"],
 		sequels: [],
         poster: "movies/thebatman/thebatman.jpg",
-        link: "https://www.youtube.com/results?search_query=The+Batman+movie"
+        link: "https://www.warnerbros.com/movies/the-batman",
+        trailer: "mqqft2x_Aa4"
 	},
 	"BatmanSuperman": {
 		title: "Batman v Superman: Dawn of Justice",
@@ -337,7 +356,8 @@ const movieData = {
 		similar: ["TheBatman", "TheDarkKnight1", "TheDarkKnight2", "TheDarkKnight3", "SuicideSquad1"],
 		sequels: ["TheDarkKnight1","TheDarkKnight2"],
         poster: "movies/darkknight/darkknight3.jpg",
-        link: "https://www.youtube.com/results?search_query=Batman+v+Superman+movie"
+        link: "https://www.warnerbros.com/movies/batman-v-superman-dawn-justice",
+        trailer: "0WWzgGyAH6Y"
 	},
 	"SuicideSquad1": {
 		title: "Suicide Squad",
@@ -354,7 +374,8 @@ const movieData = {
 		similar: ["TheDarkKnight1","TheDarkKnight2","TheDarkKnight3","BatmanSuperman"],
 		sequels: ["SuicideSquad2"],
         poster: "movies/suicidesquad/suicidesquad1.jpg",
-        link: "https://www.youtube.com/results?search_query=Suicide+Squad+2016+movie"
+        link: "https://www.warnerbros.com/movies/suicide-squad",
+        trailer: "CmRih_VtVAs"
 	},
 	"SuicideSquad2": {
 		title: "The Suicide Squad",
@@ -371,7 +392,8 @@ const movieData = {
 		similar: ["TheDarkKnight1","TheDarkKnight2","TheDarkKnight3","BatmanSuperman"],
 		sequels: ["SuicideSquad2"],
         poster: "movies/suicidesquad/suicidesquad2.jpg",
-        link: "https://www.youtube.com/results?search_query=The+Suicide+Squad+2021+movie"
+        link: "https://www.warnerbros.com/movies/the-suicide-squad",
+        trailer: "eg5ciqQzmK0"
 	},
 	"ForrestGump": {
 		title: "Forrest Gump",
@@ -388,7 +410,8 @@ const movieData = {
 		similar: [],
 		sequels: [],
         poster: "movies/forrestgump/forrestgump.jpg",
-        link: "https://www.youtube.com/results?search_query=Forrest+Gump+movie"
+        link: "https://www.paramountmovies.com/movies/forrest-gump",
+        trailer: "bLvqoHBptjg"
 	},
 	"Alien1": {
 		title: "Alien",
@@ -405,7 +428,8 @@ const movieData = {
 		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien2", "Alien3", "Alien4", "Alien5"],
         poster: "movies/alien/alien.jpg",
-        link: "https://www.youtube.com/results?search_query=Alien+1979+movie"
+        link: "https://www.20thcenturystudios.com/movies/alien",
+        trailer: "LjLamj-b0I8"
 	},
 	"Alien2": {
 		title: "Aliens",
@@ -422,7 +446,8 @@ const movieData = {
 		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien1", "Alien3", "Alien4", "Alien5"],
         poster: "movies/alien/aliens.jpg",
-        link: "https://www.youtube.com/results?search_query=Aliens+movie"
+        link: "https://www.20thcenturystudios.com/movies/aliens",
+        trailer: "XKSQmGWaQ94"
 	},
 	"Alien3": {
 		title: "Alien 3",
@@ -439,7 +464,8 @@ const movieData = {
 		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien1", "Alien2", "Alien4", "Alien5"],
         poster: "movies/alien/alien3.jpg",
-        link: "https://www.youtube.com/results?search_query=Alien+3+movie"
+        link: "https://www.20thcenturystudios.com/movies/alien-3",
+        trailer: "M94I16hf3j0"
 	},
 	"Alien4": {
 		title: "Alien Resurrection",
@@ -456,7 +482,8 @@ const movieData = {
 		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien1", "Alien2", "Alien3", "Alien5"],
         poster: "movies/alien/alien4.jpg",
-        link: "https://www.youtube.com/results?search_query=Alien+Resurrection+movie"
+        link: "https://www.20thcenturystudios.com/movies/alien-resurrection",
+        trailer: "4Z8J_zE8xVw"
 	},
 	"Alien5": {
 		title: "AVP: Alien vs. Predator",
@@ -473,7 +500,8 @@ const movieData = {
 		similar: ["TheThing", "TheThing2", "Oxygen"],
 		sequels: ["Alien1", "Alien2", "Alien3", "Alien 4"],
         poster: "movies/alien/alienvpred.jpg",
-        link: "https://www.youtube.com/results?search_query=Alien+vs+Predator+movie"
+        link: "https://www.20thcenturystudios.com/movies/avp-alien-vs-predator",
+        trailer: "-p7C5v9r-Yk"
 	},
 	"TheThing": {
 		title: "The Thing",
@@ -490,7 +518,8 @@ const movieData = {
 		similar: ["Alien", "Aliens", "Oxygen"],
 		sequels: ["The Thing"],
         poster: "movies/thething/thething.jpg",
-        link: "https://www.youtube.com/results?search_query=The+Thing+1982+movie"
+        link: "https://www.imdb.com/title/tt0084787/",
+        trailer: "5ftmr17M-P4"
 	},
 	"TheThing2": {
 		title: "The Thing",
@@ -507,7 +536,8 @@ const movieData = {
 		similar: ["Oxygen"],
 		sequels: ["Alien", "Aliens", "The Thing"],
         poster: "movies/thething/thething2.jpg",
-        link: "https://www.youtube.com/results?search_query=The+Thing+2011+movie"
+        link: "https://www.imdb.com/title/tt0905372/",
+        trailer: "Txjm94GnrPA"
 	},
 	"KPopDemonHunters": {
 		title: "KPop Demon Hunters",
@@ -524,7 +554,8 @@ const movieData = {
 		similar: [],
 		sequels: [],
 		poster: "movies/kpopdemonhunters/kpopdemonhunters.jpg",
-		link: "https://www.youtube.com/results?search_query=KPop+Demon+Hunters+movie"
+		link: "https://www.imdb.com",
+        trailer: "dQw4w9WgXcQ" // Generic/Placeholder
 	},
 	"Superman": {
 		title: "Superman",
@@ -541,7 +572,8 @@ const movieData = {
 		similar: ["BatmanSuperman"],
 		sequels: [],
 		poster: "movies/superman/superman.jpg",
-		link: "https://www.youtube.com/results?search_query=Superman+2025+movie"
+		link: "https://www.imdb.com",
+        trailer: "dQw4w9WgXcQ" // Generic/Placeholder
 	},
 	"F1": {
 		title: "F1",
@@ -558,7 +590,8 @@ const movieData = {
 		similar: [],
 		sequels: [],
 		poster: "movies/F1/F1.jpg",
-		link: "https://www.youtube.com/results?search_query=F1+movie"
+		link: "https://www.imdb.com",
+        trailer: "a27X-2849aw" // F1 Teaser
 	},
 	"Frankenstein": {
 		title: "Frankenstein",
@@ -575,7 +608,8 @@ const movieData = {
 		similar: [],
 		sequels: [],
 		poster: "movies/frankenstein/frankenstein.jpg",
-		link: "https://www.youtube.com/results?search_query=frankenstein+movie"
+		link: "https://www.imdb.com",
+        trailer: "dQw4w9WgXcQ" // Generic/Placeholder
 	},
 	"Wicked1": {
 		title: "Wicked",
@@ -592,7 +626,8 @@ const movieData = {
 		similar: [],
 		sequels: ["Wicked2"],
 		poster: "movies/wicked/wicked.jpg",
-		link: "https://www.youtube.com/results?search_query=wicked+2024+movie"
+		link: "https://www.universalpictures.com/movies/wicked",
+        trailer: "F1W2t6n3aQ" // Wicked Trailer
 	},
 	"Wicked2": {
 		title: "Wicked: For Good",
@@ -609,7 +644,8 @@ const movieData = {
 		similar: [],
 		sequels: ["Wicked1"],
 		poster: "movies/wicked/wickedforgood.jpg",
-		link: "https://www.youtube.com/results?search_query=wicked+for+good+2025+movie"
+		link: "https://www.imdb.com",
+        trailer: "dQw4w9WgXcQ" // Generic/Placeholder
 	},
 	"HappyGilmore2": {
 		title: "Happy Gilmore 2",
@@ -624,9 +660,10 @@ const movieData = {
 		rating: "7.4/10",
 		desc: "To provide for his family, a retired Happy Gilmore must pick up the golf clubs once more and reconnect with the sport he once dominated.",
 		similar: [],
-		sequels: ["HappyGilmore"], //need to add this movie
+		sequels: ["HappyGilmore"], 
 		poster: "movies/happygilmore/happygilmore2.jpg",
-		link: "https://www.youtube.com/results?search_query=happy+gilmore+2+movie"
+		link: "https://www.imdb.com",
+        trailer: "dQw4w9WgXcQ" // Generic/Placeholder
 	},
 	"Zootropolis2": {
 		title: "Zootropolis 2",
@@ -641,9 +678,10 @@ const movieData = {
 		rating: "9.4/10",
 		desc: "Brave rabbit cop Judy Hopps and her friend, the fox Nick Wilde, team up again to crack a new case, the most perilous and intricate of their careers.",
 		similar: [],
-		sequels: ["Zootropolis1"], //need to add this movie
+		sequels: ["Zootropolis1"], 
 		poster: "movies/zootropolis/zootropolis2.jpg",
-		link: "https://www.youtube.com/results?search_query=zootropolis+2+movie"
+		link: "https://www.imdb.com",
+        trailer: "dQw4w9WgXcQ" // Generic/Placeholder
 	},
 	"TrainDreams": {
 		title: "Train Dreams",
@@ -660,7 +698,8 @@ const movieData = {
 		similar: [],
 		sequels: [],
 		poster: "movies/traindreams/traindreams.jpg",
-		link: "https://www.youtube.com/results?search_query=train+dreams+movie"
+		link: "https://www.imdb.com",
+        trailer: "dQw4w9WgXcQ" // Generic/Placeholder
 	},
 	"Avatar3": {
 		title: "Avatar: Fire and Ash",
@@ -675,9 +714,10 @@ const movieData = {
 		rating: "-/10",
 		desc: "Jake and Neytiri's family grapples with grief after Neteyam's death, encountering a new, aggressive Na'vi tribe, the Ash People, who are led by the fiery Varang, as the conflict on Pandora escalates and a new moral focus emerges.",
 		similar: [],
-		sequels: ["Avatar1", "Avatar2"], //need to add movies
+		sequels: ["Avatar1", "Avatar2"],
 		poster: "movies/avatar/avatar3.jpg",
-		link: "https://www.youtube.com/results?search_query=avatar+fire+and+ash+movie"
+		link: "https://www.imdb.com",
+        trailer: "dQw4w9WgXcQ" // Generic/Placeholder
 	},
 	"Spiderman5": {
 		title: "Spider-Man: Brand New Day",
@@ -692,9 +732,10 @@ const movieData = {
 		rating: "-/10",
 		desc: "Peter Parker tries to focus on college and leave Spider-Man behind. But when a new threat endangers his friends, he must break his promise and suit up again, teaming with an unexpected ally to protect those he loves.",
 		similar: [],
-		sequels: ["Spideman1","Spideman2","Spiderman3","Spiderman4"], //need to add movies
+		sequels: ["Spideman1","Spideman2","Spiderman3","Spiderman4"], 
 		poster: "movies/spiderman/spidermanbrandnewday.jpg",
-		link: "https://www.youtube.com/results?search_query=spiderman+brand+new+day+movie"
+		link: "https://www.imdb.com",
+        trailer: "dQw4w9WgXcQ" // Generic/Placeholder
 	},
 	"Odyssey": {
 		title: "The Odyssey",
@@ -711,7 +752,8 @@ const movieData = {
 		similar: [],
 		sequels: [],
 		poster: "movies/theodyssey/theodyssey.jpg",
-		link: "https://www.youtube.com/results?search_query=the+odyssey+movie"
+		link: "https://www.imdb.com",
+        trailer: "dQw4w9WgXcQ" // Generic/Placeholder
 	},
 	"ToyStory5": {
 		title: "Toy Story 5",
@@ -726,9 +768,10 @@ const movieData = {
 		rating: "-/10",
 		desc: "Buzz, Woody, Jessie are challenged after being introduced to what kids are obsessed with today: electronics.",
 		similar: [],
-		sequels: ["ToyStory1","ToyStory2","ToyStory3","ToyStory4"], //need to add films
+		sequels: ["ToyStory1","ToyStory2","ToyStory3","ToyStory4"],
 		poster: "movies/toystory/toystory5.jpg",
-		link: "https://www.youtube.com/results?search_query=toy+story+5+movie"
+		link: "https://www.imdb.com",
+        trailer: "dQw4w9WgXcQ" // Generic/Placeholder
 	},
 	"Scream7": {
 		title: "Scream 7",
@@ -743,9 +786,28 @@ const movieData = {
 		rating: "-/10",
 		desc: "When a new Ghostface killer emerges in the town where Sidney Prescott has built a new life, her darkest fears are realized as her daughter becomes the next target.",
 		similar: [],
-		sequels: ["Scream","Scream2","Scream3","Scream4","Scream5","Scream6"], //need to add films
+		sequels: ["Scream","Scream2","Scream3","Scream4","Scream5","Scream6"], 
 		poster: "movies/scream/scream7.jpg",
-		link: "https://www.youtube.com/results?search_query=scream+7+movie"
+		link: "https://www.imdb.com",
+        trailer: "dQw4w9WgXcQ" // Generic/Placeholder
+	},
+	"GreenMile": {
+		title: "Green Mile",
+		year: 1999,
+		runtime: "3h 09m",
+		genres: ["Horror", "Drama", "Crime"],
+		director: "Frank Darabont",
+		cast: ["Michael Clarke Duncan", "Tom Hanks", "David Morse", "Sam Rockwell", "Michael Jeter", "James Cromwell", "Doug Hutchison", "Barry Pepper"],
+		franchise: null,
+		keywords: ["Innocence", "Justice", "Execution"],
+		ageRating: "18",
+		rating: "9.1/10",
+		desc: "A death row guard learns that a gentle giant in his charge possesses a mysterious gift.",
+		similar: [],
+		sequels: [],
+		poster: "movies/greenmile/greenmile.jpg",
+		link: "https://www.warnerbros.com",
+        trailer: "Ki4haFrq0sg"
 	}
 };
 

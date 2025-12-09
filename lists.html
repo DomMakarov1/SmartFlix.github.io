@@ -102,35 +102,50 @@
             </div>
 		</main>
 
-		<aside id="movieSidebar">
-            <div id="sidebarBg">
-                <img id="sidebarBgImage" src="" alt="">
-                <div class="sidebar-gradient"></div>
-            </div>
+		<div id="movie-expand-modal" class="expand-overlay">
+		    <div class="expand-card">
+		        <div id="expand-bg-blur" class="expand-bg-blur"></div>
+		        
+		        <button id="close-expand-btn">&times;</button>
+		        <button id="back-to-details-btn">Back</button>
 
-			<div id="sidebarContent">
-				<div class="sidebar-header">
-					<h2 id="sidebarTitle">Movie Title</h2>
-					<div id="sidebarRating" class="sidebar-score">⭐ 8.5</div>
-				</div>
-				<p id="sidebarYear" class="meta-line">2024 • 2h 20m</p>
-				<div id="sidebarGenres" class="meta-line">Action • Sci-Fi</div>
-                <a id="watchMovieBtn" href="#" target="_blank">Watch Movie</a>
-				<p id="sidebarDesc">Description...</p>
-				<div id="sidebarWatched">
-				    <button type="button" id="markAsWatched">Mark As Watched</button>
-				    <div id="ratingOptions" class="hidden">
-				        <button class="rate-btn love" data-rating="2">I loved it!</button>
-				        <button class="rate-btn like" data-rating="1">I liked it</button>
-				        <button class="rate-btn dislike" data-rating="-1">Not for me</button>
-				    </div>
-				</div>
-				<h3 class="sidebar-section-title">Similar Movies</h3>
-				<ul id="sidebarSimilar" class="sidebar-list"></ul>
-				<h3 class="sidebar-section-title">Sequels & Prequels</h3>
-				<ul id="sidebarSequels" class="sidebar-list"></ul>
-			</div>
-		</aside>
+		        <div class="expand-content">
+		            <div class="expand-poster-container">
+		                <img id="expand-img" src="" alt="">
+		            </div>
+		            
+		            <div class="expand-right-side">
+		                
+		                <div class="expand-header-static">
+		                    <h1 id="expand-title">Movie Title</h1>
+		                    <div class="expand-meta-row">
+		                        <span id="expand-year" class="badge">2024</span>
+		                        <span id="expand-rating" class="badge">⭐ 8.5</span>
+		                        <span id="expand-runtime">2h 15m</span>
+		                    </div>
+		                </div>
+
+		                <div id="expand-slider" class="expand-slider">
+		                    
+		                    <div class="details-slide">
+		                        <div id="expand-genres" class="expand-genres">Action • Sci-Fi</div>
+		                        <p id="expand-desc">Movie description goes here...</p>
+		                        
+		                        <div class="expand-actions">
+		                            <a id="expand-link" href="#" target="_blank" class="action-btn">Visit Website</a>
+		                            <button id="watch-trailer-btn" class="action-btn">▶ Watch Trailer</button>
+		                        </div>
+		                    </div>
+
+		                    <div class="trailer-slide">
+		                        <div id="trailer-container" class="trailer-frame-container"></div>
+		                    </div>
+
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
 
 		<script src="login.js"></script>
 		<script src="moviedata.js"></script>
