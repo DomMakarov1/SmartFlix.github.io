@@ -568,7 +568,7 @@ const movieData = {
 		keywords: ["DC"],
 		ageRating: "12A",
 		rating: "8.5/10",
-		desc: "A world-renowned K-Pop girl group balance their lives in the spotlight with their secret identities as demon hunters.",
+		desc: "Superman must reconcile his alien Kryptonian heritage with his human upbringing as reporter Clark Kent. As the embodiment of truth, justice and the human way he soon finds himself in a world that views these as old-fashioned.",
 		similar: ["BatmanSuperman"],
 		sequels: [],
 		poster: "movies/superman/superman.jpg",

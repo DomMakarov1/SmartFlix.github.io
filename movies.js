@@ -1,5 +1,16 @@
 let randomnessFactor = 15;
 
+document.addEventListener("DOMContentLoaded", () => {
+    initGlobalInteractions();
+    initSidebarWatchlist();
+    initWatchlistDropdown();
+    initExplorePageInteractions();
+    
+    updateHeroSection();
+    updateRecommendations();
+    populateExplorePage();
+});
+
 document.addEventListener("click", (e) => {
     const sidebar = document.getElementById("movieSidebar");
     if (sidebar && sidebar.classList.contains("open") && !sidebar.contains(e.target)) {
@@ -765,28 +776,27 @@ function initWatchlistDropdown() {
 function renderDropdownItems() {
     const container = document.getElementById("userListsContainer");
     const lists = getUserListsData();
-
-    const currentTitle = document.getElementById("movietitle").textContent;
+    const titleEl = document.getElementById("movietitle");
+    
+    if (!titleEl) return; 
+    
+    const currentTitle = titleEl.textContent;
     const currentMovieId = Object.keys(movieData).find(key => movieData[key].title === currentTitle);
 
     container.innerHTML = "";
-
     if (!currentMovieId) return;
 
     Object.keys(lists).forEach(listName => {
         const movieIds = lists[listName];
         const isPresent = movieIds.includes(currentMovieId);
-
         const div = document.createElement("div");
         div.className = `watchlist-item ${isPresent ? 'has-movie' : ''}`;
         div.textContent = listName;
-
         div.addEventListener("click", (e) => {
             e.stopPropagation();
             toggleMovieInList(listName, currentMovieId);
             renderDropdownItems();
         });
-
         container.appendChild(div);
     });
 }
