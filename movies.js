@@ -125,53 +125,75 @@ function closeSidebar() {
 function initSidebarWatchlist() {
     const btn = document.getElementById("sidebarWatchlistBtn");
     const dropdown = document.getElementById("sidebarWatchlistDropdown");
-    const container = document.getElementById("sidebarUserListsContainer");
     const createBtn = document.getElementById("sidebarCreateNewListBtn");
     const newNameInput = document.getElementById("sidebarNewListName");
 
-    if (!btn) return;
+    if (!btn || !dropdown) return;
 
-    btn.addEventListener("click", (e) => {
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    
+    newBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         const currentUser = localStorage.getItem("currentUser");
+        
         if (!currentUser) {
             alert("Please sign in to use lists.");
             return;
         }
         
-        const movieId = btn.dataset.movieId; 
-        renderSidebarDropdownItems(movieId);
-        dropdown.classList.toggle("active");
+        const sidebar = document.getElementById("sidebarWatched");
+        const movieId = newBtn.dataset.movieId || (sidebar ? sidebar.dataset.currentMovie : null);
+        
+        if (movieId) {
+            renderSidebarDropdownItems(movieId);
+            dropdown.classList.toggle("active");
+        } else {
+            console.warn("No movie selected in sidebar.");
+        }
     });
 
     document.addEventListener("click", (e) => {
-        if (dropdown && !dropdown.contains(e.target) && e.target !== btn) {
+        if (dropdown && dropdown.classList.contains("active") && !dropdown.contains(e.target) && e.target !== newBtn) {
             dropdown.classList.remove("active");
         }
     });
 
-    createBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const name = newNameInput.value.trim();
-        if (!name) return;
+    if (createBtn) {
+        const newCreateBtn = createBtn.cloneNode(true);
+        createBtn.parentNode.replaceChild(newCreateBtn, createBtn);
 
-        const lists = getUserListsData();
-        if (lists[name]) {
-            alert("List already exists!");
-            return;
-        }
+        const input = document.getElementById("sidebarNewListName");
 
-        lists[name] = [];
-        saveUserListsData(lists);
-        
-        newNameInput.value = "";
-        renderSidebarDropdownItems(btn.dataset.movieId);
-    });
+        newCreateBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const name = input.value.trim();
+            if (!name) return;
+
+            const lists = getUserListsData();
+            if (lists && lists[name]) {
+                alert("List already exists!");
+                return;
+            }
+
+            if (lists) {
+                lists[name] = [];
+                saveUserListsData(lists);
+                input.value = "";
+                
+                const currentMovieId = newBtn.dataset.movieId;
+                if(currentMovieId) renderSidebarDropdownItems(currentMovieId);
+            }
+        });
+    }
 }
 
 function renderSidebarDropdownItems(movieId) {
     const container = document.getElementById("sidebarUserListsContainer");
     const lists = getUserListsData();
+    
+    if (!container || !lists) return;
+    
     container.innerHTML = "";
 
     Object.keys(lists).forEach(listName => {
@@ -185,8 +207,9 @@ function renderSidebarDropdownItems(movieId) {
         div.addEventListener("click", (e) => {
             e.stopPropagation();
             toggleMovieInList(listName, movieId);
-            renderSidebarDropdownItems(movieId);
-            updateSidebarWatchlistButtonState(movieId);
+            
+            renderSidebarDropdownItems(movieId); 
+            updateSidebarWatchlistButtonState(movieId); 
         });
         container.appendChild(div);
     });
@@ -196,6 +219,8 @@ function updateSidebarWatchlistButtonState(movieId) {
     const btn = document.getElementById("sidebarWatchlistBtn");
     const currentUser = localStorage.getItem("currentUser");
     
+    if (!btn) return;
+
     if (!currentUser) {
         btn.textContent = "+ Add to List";
         btn.style.backgroundColor = "rgba(255,255,255,0.2)";
@@ -204,7 +229,7 @@ function updateSidebarWatchlistButtonState(movieId) {
     }
 
     const lists = getUserListsData();
-    const isInWatchlist = lists["Watchlist"] && lists["Watchlist"].includes(movieId);
+    const isInWatchlist = lists && lists["Watchlist"] && lists["Watchlist"].includes(movieId);
 
     if (isInWatchlist) {
         btn.textContent = "✓ In Watchlist";
@@ -547,7 +572,6 @@ function calculateAverageColor(imgElement) {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     
-    // Default to Smartflix Red if something fails
     const defaultColor = { r: 229, g: 9, b: 20 };
 
     const height = canvas.height = imgElement.naturalHeight || 100;
@@ -557,7 +581,6 @@ function calculateAverageColor(imgElement) {
 
     let data;
     try {
-        // This is the line that fails if you aren't using a server
         data = context.getImageData(0, 0, width, height).data;
     } catch (e) {
         console.warn("Security Error: Cannot read image pixels. Are you running from file://? Try using a Local Server.");
@@ -566,7 +589,7 @@ function calculateAverageColor(imgElement) {
 
     let r = 0, g = 0, b = 0;
     let count = 0;
-    const stride = 10; // Check every 10th pixel
+    const stride = 10;
 
     for (let i = 0; i < data.length; i += 4 * stride) {
         r += data[i];
@@ -593,6 +616,7 @@ function updateHeroSection() {
 
     if (currentUser) {
         const recommended = getRecommendationList();
+        
         if (recommended.length > 0) {
             const topPicks = recommended.slice(0, 5);
             heroId = topPicks[Math.floor(Math.random() * topPicks.length)];
@@ -603,15 +627,13 @@ function updateHeroSection() {
     const movie = movieData[heroId];
     if (!movie) return;
 
-    // Update Text Info
     movieTitleEl.textContent = movie.title;
     document.getElementById("tagline").textContent = movie.desc;
     document.getElementById("rating").textContent = `⭐ ${movie.rating.split('/')[0]}`;
     document.getElementById("year").textContent = movie.year;
     document.getElementById("runtime").textContent = movie.runtime;
     document.getElementById("moviedesc").textContent = movie.desc;
-    
-    // Update Genres
+
     const genreContainer = document.getElementById("genres");
     genreContainer.innerHTML = "";
     movie.genres.forEach(g => {
@@ -629,18 +651,27 @@ function updateHeroSection() {
         reasonSpan.style.display = "none";
     }
 
+    const watchlistBtn = document.getElementById("watchlistBtn");
+    if (watchlistBtn && currentUser) {
+        const lists = getUserListsData();
+        if (lists["Watchlist"] && lists["Watchlist"].includes(heroId)) {
+            watchlistBtn.textContent = "✓ In Watchlist";
+            watchlistBtn.style.backgroundColor = "white";
+            watchlistBtn.style.color = "black";
+        } else {
+            watchlistBtn.textContent = "+ Add to List";
+            watchlistBtn.style.backgroundColor = "rgba(255,255,255,0.2)";
+            watchlistBtn.style.color = "white";
+        }
+    }
+
     const movieImgElement = document.getElementById("moviepicture");
-    
     const bgElement = document.getElementById("hero-background"); 
 
     movieImgElement.onload = function() {
         const rgb = calculateAverageColor(this);
-        
         const newGradient = `radial-gradient(circle at 18% 25%, rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.25), transparent 50%)`;
-        
         if(bgElement) bgElement.style.background = newGradient;
-        
-        console.log(`Applied background: ${newGradient}`);
     };
 
     movieImgElement.src = movie.poster;
