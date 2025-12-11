@@ -1,7 +1,6 @@
 let randomnessFactor = 15;
 
 document.addEventListener("DOMContentLoaded", () => {
-    initGlobalInteractions();
     initSidebarWatchlist();
     initWatchlistDropdown();
     initExplorePageInteractions();
