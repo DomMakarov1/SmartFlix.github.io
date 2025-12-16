@@ -515,7 +515,7 @@ const movieData = {
 		ageRating: "18",
 		rating: "8.7/10",
 		desc: "A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.",
-		similar: ["Alien", "Aliens", "Oxygen"],
+		similar: ["Alien", "Aliens", "Oxygen", "Krampus"],
 		sequels: ["The Thing"],
         poster: "movies/thething/thething.jpg",
         link: "https://www.imdb.com/title/tt0084787/",
@@ -808,6 +808,60 @@ const movieData = {
 		poster: "movies/greenmile/greenmile.jpg",
 		link: "https://www.warnerbros.com",
         trailer: "Ki4haFrq0sg"
+	},
+	"ChristmasWithTheKranks": {
+		title: "Christmas With The Kranks",
+		year: 2004,
+		runtime: "1h 38m",
+		genres: ["Family", "Comedy", "Drama", "Christmas"],
+		director: "Joe Roth",
+		cast: ["Tim Allen", "Jamie Lee Curtis", "Dan Aykroyd", "Julie Gonzalo", "Erik Per Sullivan", "Jake Busey", "M. Emmet Walsh", "Cheech Marin"],
+		franchise: null,
+		keywords: ["Snowman", "Cruise", "Holiday"],
+		ageRating: "PG",
+		rating: "7.3/10",
+		desc: "With their daughter Blair away in Peru, Luther and Nora Krank decide to skip Christmas altogether until she decides to come home, causing an uproar when they must celebrate it at the last minute.",
+		similar: ["HomeAlone"],
+		sequels: [],
+		poster: "movies/christmaswiththekranks/cwtk.jpg",
+		link: "https://www.netflix.com/gb/title/70011207",
+        trailer: "KTzyGuB9V6c"
+	},
+	"HomeAlone": {
+		title: "Home Alone",
+		year: 1990,
+		runtime: "1h 43m",
+		genres: ["Comedy", "Family", "Christmas"],
+		director: "Chris Columbus",
+		cast: ["Macaulay Culkin", "Joe Pesci", "Daniel Stern", "John Heard", "Catherine O'Hara"],
+		franchise: "HomeAlone",
+		keywords: ["Burglar", "Trap", "Holiday"],
+		ageRating: "PG",
+		rating: "8.9/10",
+		desc: "An eight-year-old troublemaker, mistakenly left home alone, must defend his home against a pair of burglars on Christmas Eve.",
+		similar: ["ChristmasWithTheKranks"],
+		sequels: [], 
+		poster: "movies/homealone/homealone.jpg", 
+		link: "https://www.disneyplus.com/movies/home-alone",
+		trailer: "jEDaVHmw7r4"
+	},
+	"Krampus": {
+		title: "Krampus",
+		year: 2015,
+		runtime: "1h 38m",
+		genres: ["Horror", "Comedy", "Fantasy", "Christmas"],
+		director: "Michael Dougherty",
+		cast: ["Adam Scott", "Toni Collette", "David Koechner", "Allison Tolman", "Conchata Ferrell"],
+		franchise: null,
+		keywords: ["Monster", "Snow", "Family"],
+		ageRating: "12A",
+		rating: "6.6/10",
+		desc: "A boy who has a bad Christmas accidentally summons a festive demon to his family home.",
+		similar: ["TheThing", "HomeAlone"],
+		sequels: [], 
+		poster: "movies/krampus/krampus.jpg", 
+		link: "https://www.imdb.com/title/tt3431630/",
+		trailer: "h6cVyoMH4QE"
 	}
 };
 
@@ -821,7 +875,7 @@ const exploreLists = {
         "Alien5", "HarryPotter8"
     ],
     seasonal: [	
-        "HarryPotter1", "HarryPotter2", "HarryPotter3", "HarryPotter4", "HarryPotter5", 
+        "ChristmasWithTheKranks", "HomeAlone", "Krampus", "HarryPotter4", "HarryPotter5", 
         "ForrestGump", "TheThing"
     ]
 };

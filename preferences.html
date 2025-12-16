@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartflix - Preferences</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="hero-background" style="height: 100vh; position: fixed; background: radial-gradient(circle at 50% 0%, #1a1a20, #0b0b0f);"></div>
+
+    <div id="topbar">
+        <img id="logo" height="40" src="logo.png" alt="Smartflix Logo">
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="explore.html">Explore</a>
+            <a href="lists.html">My Lists</a>
+            <a href="preferences.html" class="active">Preferences</a>
+        </nav>
+        
+        <div class="nav-right">
+            <p id="username"></p>
+            <button id="login">Sign In</button>
+        </div>
+    </div>
+
+    <div id="overlay">
+        <div id="loginModal">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="loginForm">
+                <h2>Welcome Back</h2>
+                <input type="text" id="loginUsername" placeholder="Username">
+                <input type="password" id="loginPassword" placeholder="Password">
+                <button>Sign In</button>
+                <span class="toggle-link" onclick="showSignup()">New to Smartflix? <b>Sign up now.</b></span>
+            </div>
+            <div id="signupForm" style="display: none;">
+                <h2>Create Account</h2>
+                <input type="text" id="signupUsername" placeholder="Username">
+                <input type="email" id="signupEmail" placeholder="Email">
+                <input type="password" id="signupPassword" placeholder="Password">
+                <button>Register</button>
+                <span class="toggle-link" onclick="showLogin()">Already have an account? <b>Sign in.</b></span>
+            </div>
+        </div>
+    </div>
+
+    <main id="mainContent">
+        <div class="preferences-container">
+            <h1 class="page-title">Settings & Preferences</h1>
+
+            <div class="pref-card">
+                <div class="pref-header">
+                    <h2>Recommendation Algorithm</h2>
+                    <p>Fine-tune how the AI selects movies for you.</p>
+                </div>
+                
+                <div class="pref-item">
+                    <div class="pref-label">
+                        <label>Randomness Factor</label>
+                        <input type="number" id="randomValDisplay" class="value-badge" value="25" min="0" max="100">
+                    </div>
+                    <input type="range" id="randomnessRange" min="0" max="100" value="25" class="slider">
+                    <div class="slider-labels">
+                        <span>Predictable</span>
+                        <span>Balanced</span>
+                        <span>Wild Card</span>
+                    </div>
+                    <p class="pref-desc">Lower values stick strictly to your ratings. Higher values introduce more variety and surprise picks.</p>
+                </div>
+            </div>
+
+            <div class="pref-card">
+                <div class="pref-header">
+                    <h2>Data Management</h2>
+                    <p>Manage your local data and personalization.</p>
+                </div>
+
+                <div class="pref-row">
+                    <div class="text-group">
+                        <h3>Clear Movie Ratings</h3>
+                        <p>Reset all your like/dislike history. Recommendations will reset to default.</p>
+                    </div>
+                    <button id="resetRatingsBtn" class="secondary-btn">Reset Ratings</button>
+                </div>
+
+                <div class="pref-row">
+                    <div class="text-group">
+                        <h3>Clear Watchlists</h3>
+                        <p>Delete all your custom lists and saved movies.</p>
+                    </div>
+                    <button id="clearListsBtn" class="secondary-btn delete-style">Clear Lists</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="login.js"></script>
+    <script src="preferences.js"></script>
+</body>
+</html>

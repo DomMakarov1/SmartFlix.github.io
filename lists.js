@@ -338,7 +338,13 @@ function openExpandedView(movieId, triggerElement) {
     document.getElementById("expand-year").textContent = movie.year;
     document.getElementById("expand-rating").textContent = `⭐ ${movie.rating}`;
     document.getElementById("expand-runtime").textContent = movie.runtime;
-    document.getElementById("expand-genres").textContent = movie.genres.join(" • ");
+    
+    if (typeof renderGenreList === "function") {
+        renderGenreList("expand-genres", movie.genres);
+    } else {
+        document.getElementById("expand-genres").textContent = movie.genres.join(" • ");
+    }
+
     document.getElementById("expand-desc").textContent = movie.desc;
     document.getElementById("expand-link").href = movie.link || "#";
     
