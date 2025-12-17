@@ -1022,11 +1022,17 @@ function populateExplorePage() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    initWatchlistDropdown();
-    initExplorePageInteractions();
-    initSidebarWatchlist();
-    initWatchlistDropdown();
-    updateHeroSection();
-    updateRecommendations();
-    populateExplorePage();
+    const savedTheme = localStorage.getItem("theme_christmas");
+    if (savedTheme === "true" || savedTheme === null) {
+        document.body.classList.add("christmas-theme");
+        if (savedTheme === null) localStorage.setItem("theme_christmas", "true");
+    }
+
+    if (typeof initSidebarWatchlist === "function") initSidebarWatchlist();
+    if (typeof initWatchlistDropdown === "function") initWatchlistDropdown();
+    if (typeof initExplorePageInteractions === "function") initExplorePageInteractions();
+    
+    if (document.getElementById("movietitle")) updateHeroSection();
+    if (document.getElementById("aipicked")) updateRecommendations();
+    if (document.getElementById("exploreTrending")) populateExplorePage();
 });

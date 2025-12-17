@@ -3,6 +3,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const randomSlider = document.getElementById("randomnessRange");
     const randomDisplay = document.getElementById("randomValDisplay");
 
+    const christmasToggle = document.getElementById("christmasToggle");
+    
+    if (christmasToggle) {
+        const savedTheme = localStorage.getItem("theme_christmas");
+        const isChristmas = savedTheme === "true" || savedTheme === null;
+        
+        christmasToggle.checked = isChristmas;
+        
+        christmasToggle.addEventListener("change", (e) => {
+            const enabled = e.target.checked;
+            localStorage.setItem("theme_christmas", enabled);
+            
+            if (enabled) document.body.classList.add("christmas-theme");
+            else document.body.classList.remove("christmas-theme");
+        });
+    }
+
     // HELPER: Visual Slider Position (0-100) -> Actual Value
     function sliderPosToRealValue(pos) {
         pos = parseInt(pos);

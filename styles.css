@@ -903,3 +903,165 @@ html {
     content: '🎄 ';
     font-size: 0.9em;
 }
+
+/* =========================================
+   THEME TOGGLE SWITCH (UI)
+   ========================================= */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+
+.switch input { opacity: 0; width: 0; height: 0; }
+
+.slider-round {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #333;
+    transition: .4s;
+    border-radius: 34px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.slider-round:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider-round { background-color: var(--primary-color); }
+input:checked + .slider-round:before { transform: translateX(20px); }
+
+/* =========================
+   CHRISTMAS THEME OVERRIDES
+   ========================= */
+
+body.christmas-theme {
+    --primary-color: #d42426;
+    --primary-hover: #165b33;
+    
+    background: linear-gradient(135deg, #1a0505 0%, #05100a 100%);
+    background-attachment: fixed;
+    color: #e0e0e0;
+}
+
+body.christmas-theme::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; 
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 0; 
+    
+    /* Snow particles */
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 50px 160px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0));
+    
+    background-repeat: repeat;
+    background-size: 200px 200px; 
+    opacity: 0.15;
+    animation: snowAnim 10s linear infinite;
+}
+
+/* 2. Top Bar - Glassy Greenish-Black */
+body.christmas-theme #topbar {
+    background-color: rgba(10, 25, 15, 0.85); /* Deep Pine tint */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+}
+
+/* 3. SIDEBAR - The Holiday Makeover */
+body.christmas-theme #movieSidebar {
+    background-color: #0b140e;
+    border-left: 6px solid transparent; 
+    border-image: repeating-linear-gradient(45deg, #d42426, #d42426 10px, #ffffff 10px, #ffffff 20px) 1;
+    
+    box-shadow: -10px 0 40px rgba(21, 91, 51, 0.3);
+}
+
+/* 4. Sidebar Content Styling */
+body.christmas-theme #sidebarTitle {
+    color: #ff8a80;
+    text-shadow: 0 0 10px rgba(212, 36, 38, 0.4);
+}
+
+body.christmas-theme #sidebarDesc {
+    color: #c8e6c9;
+}
+
+/* 5. Movie Cards Glow */
+body.christmas-theme .movie-container:hover .moviepicture {
+    border: 2px solid #d42426;
+    box-shadow: 0 0 20px rgba(212, 36, 38, 0.6);
+    transform: scale(1.05) translateY(-2px);
+}
+
+/* 6. Titles & Text */
+body.christmas-theme .section-title::after {
+    content: " 🎄";
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+body.christmas-theme h1, 
+body.christmas-theme h2 {
+    text-shadow: 0 2px 10px rgba(212, 36, 38, 0.5);
+}
+
+/* 7. Buttons */
+body.christmas-theme .primary-btn, 
+body.christmas-theme #watchMovieBtn {
+    background-color: #d42426;
+    color: white;
+    font-weight: 800;
+}
+body.christmas-theme .primary-btn:hover, 
+body.christmas-theme #watchMovieBtn:hover {
+    background-color: #ffffff;
+    color: #d42426;
+    box-shadow: 0 0 15px white;
+}
+
+body.christmas-theme #loginModal {
+    background: linear-gradient(to bottom, #0f2b1d, #050505); /* Green gradient */
+    border: 2px solid #d42426; /* Red Border */
+    box-shadow: 0 0 30px rgba(212, 36, 38, 0.4), inset 0 0 20px rgba(22, 91, 51, 0.3);
+}
+
+body.christmas-theme #loginModal h2 {
+    color: #ff8a80;
+    text-shadow: 0 0 10px #d42426;
+    position: relative;
+}
+/* Add a little hat to the Login Title */
+body.christmas-theme #loginModal h2::after {
+    content: " 🎅";
+    font-size: 0.8em;
+}
+
+body.christmas-theme #loginModal input {
+    border-color: #165b33;
+    background: rgba(0,0,0,0.5);
+}
+body.christmas-theme #loginModal input:focus {
+    border-color: #d42426;
+    box-shadow: 0 0 8px rgba(212, 36, 38, 0.5);
+}
+
+body.christmas-theme .highlight-text,
+body.christmas-theme .movie-title,
+body.christmas-theme a.active {
+    color: #c8e6c9; /* Icy Green */
+}
