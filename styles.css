@@ -971,15 +971,28 @@ body.christmas-theme::before {
     
     background-repeat: repeat;
     background-size: 200px 200px; 
-    opacity: 0.15;
-    animation: snowAnim 10s linear infinite;
+    opacity: 0.2; 
+    
+    /* This connects to the keyframes below */
+    animation: snowAnim 5s linear infinite;
 }
 
-/* 2. Top Bar - Glassy Greenish-Black */
+/* 2. Top Bar - Matching Red-to-Green Gradient */
 body.christmas-theme #topbar {
-    background-color: rgba(10, 25, 15, 0.85); /* Deep Pine tint */
+    background: linear-gradient(135deg, rgba(26, 5, 5, 0.5) 0%, rgba(5, 16, 10, 1) 100%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+/* 3. The Animation Keyframes (Critical for movement) */
+@keyframes snowAnim {
+    0% { 
+        background-position: 0 0; 
+    }
+    100% { 
+        background-position: 0 200px; /* Moves down 200px, then loops */
+    }
 }
 
 /* 3. SIDEBAR - The Holiday Makeover */
