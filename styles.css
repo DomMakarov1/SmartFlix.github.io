@@ -865,6 +865,26 @@ body.christmas-theme .movie-container {
     transform-origin: center center;
 }
 
+.movie-title {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#popularMovies {
+    overflow-x: auto;
+    padding-bottom: 40px;
+}
+
+#popularMovies .movie-container:hover .moviepicture {
+    transform: scale(1.10) translateY(10px);
+    box-shadow: 
+        0 0 0 3px var(--glow-color), 
+        0 0 25px var(--glow-color);
+}
+
+#popularMovies .movie-container:hover .movie-title {
+    transform: translateY(25px);
+}
+
 /*CHRISTMASSY!!!*/
 
 .genre-pill[data-genre="Christmas"] {
