@@ -78,10 +78,41 @@
             </section>
 
             <section id="genreResultsContainer" class="category-section" style="display: none;">
-                <p class="section-title" id="genreResultsTitle">Filtered Results</p>
-                <div id="genreResults" class="movie-flex-grid">
-                </div>
-            </section>
+			    
+			    <div class="results-header" style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+			        <p class="section-title" id="genreResultsTitle" style="margin-bottom: 0;">Filtered Results</p>
+			        
+			        <div class="sort-dropdown-wrapper" style="position: relative;">
+			            <button id="sortTriggerBtn" class="icon-btn" style="font-size: 1.2rem; transform: rotate(0deg); transition: transform 0.3s;">
+			                &#9660; </button>
+
+			            <div id="sortDropdown" class="action-menu" style="min-width: 220px; top: 100%; left: 0;">
+			                <div class="sort-option active" data-sort="relevance">
+			                    <span>Relevance</span>
+			                    <span class="sort-icon">✨</span>
+			                </div>
+			                <div class="sort-option" data-sort="discovery">
+			                    <span>Try Something New</span>
+			                    <span class="sort-icon">🎲</span>
+			                </div>
+			                <div class="sort-option" data-sort="year" data-dir="desc">
+			                    <span>Release Date</span>
+			                    <span class="dir-arrow">↓</span> </div>
+			                <div class="sort-option" data-sort="title" data-dir="asc">
+							    <span>Title</span>
+							    <span class="dir-arrow title-anim-box">
+							        <span class="letter-a">A</span>
+							        <span class="dash">-</span>
+							        <span class="letter-z">Z</span>
+							    </span>
+							</div>
+			            </div>
+			        </div>
+			    </div>
+
+			    <div id="genreResults" class="movie-flex-grid">
+			        </div>
+			</section>
 
             <div id="defaultExploreSections">
                 <section class="category-section">

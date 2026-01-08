@@ -105,7 +105,7 @@ html {
 .movie-flex-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 30px 15px;
     padding: 20px 20px;
     justify-content: flex-start;
 }
@@ -883,6 +883,148 @@ body.christmas-theme .movie-container {
 
 #popularMovies .movie-container:hover .movie-title {
     transform: translateY(25px);
+}
+
+#genreResults .movie-container:hover .moviepicture {
+    transform: scale(1.07);
+
+    box-shadow: 
+        0 0 0 3px var(--glow-color), 
+        0 0 25px var(--glow-color);
+}
+
+#genreResults .movie-container:hover .movie-title {
+    transform: translateY(6px);
+}
+
+.sort-dropdown-wrapper {
+    position: relative;
+    z-index: 100;
+}
+
+#sortTriggerBtn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    margin-top: 43px; 
+    
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    transition: transform 0.3s ease, color 0.2s;
+    transform-origin: center center;
+}
+
+#sortTriggerBtn:hover {
+    color: var(--primary-color);
+}
+
+#sortTriggerBtn.open {
+    transform: rotate(180deg) !important;
+}
+
+.sort-option {
+    padding: 12px 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.2s;
+}
+
+#sortDropdown {
+    top: 100%; 
+    left: 0;
+    min-width: 220px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+}
+
+#sortDropdown.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.sort-option:last-child { border-bottom: none; }
+
+.sort-option:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sort-option.active {
+    color: var(--primary-color);
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dir-arrow {
+    display: inline-block;
+    font-size: 0.9em;
+    opacity: 0.7;
+    transition: transform 0.3s ease;
+}
+
+.dir-arrow.flipped {
+    transform: rotate(180deg);
+}
+
+.title-anim-box {
+    display: inline-flex;
+    gap: 4px;
+    position: relative;
+    font-weight: bold;
+}
+
+.letter-a, .letter-z, .dash {
+    display: inline-block;
+    transform: translate(0, 0); 
+}
+
+.anim-fwd .letter-a {
+    animation: ghostSwapA_Fwd 0.6s ease-in-out forwards; 
+}
+
+.anim-fwd .letter-z {
+    animation: ghostSwapZ_Fwd 0.6s ease-in-out forwards;
+}
+
+.anim-rev .letter-a {
+    animation: ghostSwapA_Rev 0.6s ease-in-out forwards; 
+}
+
+.anim-rev .letter-z {
+    animation: ghostSwapZ_Rev 0.6s ease-in-out forwards;
+}
+
+@keyframes ghostSwapA_Fwd {
+    0%   { transform: translateX(0);     opacity: 1; }
+    50%  { transform: translateX(12px);  opacity: 0; }
+    100% { transform: translateX(25px);  opacity: 1; }
+}
+
+@keyframes ghostSwapZ_Fwd {
+    0%   { transform: translateX(0);      opacity: 1; }
+    50%  { transform: translateX(-12px);  opacity: 0; }
+    100% { transform: translateX(-25px);  opacity: 1; }
+}
+
+@keyframes ghostSwapA_Rev {
+    0%   { transform: translateX(25px);  opacity: 1; }
+    50%  { transform: translateX(12px);  opacity: 0; }
+    100% { transform: translateX(0);     opacity: 1; }
+}
+
+@keyframes ghostSwapZ_Rev {
+    0%   { transform: translateX(-25px); opacity: 1; }
+    50%  { transform: translateX(-12px); opacity: 0; }
+    100% { transform: translateX(0);     opacity: 1; }
 }
 
 /*CHRISTMASSY!!!*/

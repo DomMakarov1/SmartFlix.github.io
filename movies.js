@@ -465,9 +465,11 @@ function calculateSimilarity(targetMovieId, ratedMovieId) {
     return score;
 }
 
-function sortMoviesByUserTaste(movieIds) {
+function sortMoviesByUserTaste(movieIds, customRandomness = null) {
     const currentUser = localStorage.getItem("currentUser");
     const ratings = currentUser ? getRatings()[currentUser] : null;
+
+    let factor = customRandomness !== null ? customRandomness : randomnessFactor;
 
     if (!ratings || Object.keys(ratings).length === 0) {
         return movieIds.sort(() => 0.5 - Math.random());
@@ -487,7 +489,7 @@ function sortMoviesByUserTaste(movieIds) {
             }
         });
 
-        totalScore += (Math.random() * randomnessFactor);
+        totalScore += (Math.random() * factor);
 
         return { 
             id: id, 
@@ -958,7 +960,7 @@ function filterAndRenderMovies() {
         return true;
     });
 
-    const sortedMatches = sortMoviesByUserTaste(matches);
+    const sortedMatches = applySort(matches);
     resultsGrid.innerHTML = "";
 
     if (sortedMatches.length === 0) {
@@ -1021,6 +1023,127 @@ function populateExplorePage() {
     fillContainer(seasonalContainer, seasonalSorted);
 }
 
+let currentSortMode = 'relevance';
+let currentSortDir = 'desc'; 
+
+function initSortDropdown() {
+    const trigger = document.getElementById("sortTriggerBtn");
+    const dropdown = document.getElementById("sortDropdown");
+    const options = document.querySelectorAll(".sort-option");
+
+    if (!trigger || !dropdown) return;
+
+    function resetTitleVisuals() {
+        const titleBox = document.querySelector(".title-anim-box");
+        if (titleBox && titleBox.classList.contains("anim-fwd")) {
+            titleBox.classList.remove("anim-fwd");
+            titleBox.classList.add("anim-rev");
+        }
+    }
+
+    trigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        trigger.classList.toggle("open");
+        dropdown.classList.toggle("active");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!trigger.contains(e.target) && !dropdown.contains(e.target)) {
+            trigger.classList.remove("open");
+            dropdown.classList.remove("active");
+        }
+    });
+
+    options.forEach(opt => {
+        opt.addEventListener("click", () => {
+            const sortType = opt.dataset.sort;
+            const animBox = opt.querySelector(".title-anim-box") || opt.querySelector(".dir-arrow");
+
+            if (sortType === currentSortMode) {
+                if (sortType === 'year' || sortType === 'title') {
+                    currentSortDir = (currentSortDir === 'desc') ? 'asc' : 'desc';
+                }
+            } else {
+                if (currentSortMode === 'title') {
+                    resetTitleVisuals();
+                }
+
+                if (currentSortMode === 'year') {
+                    const yearArrow = document.querySelector('.sort-option[data-sort="year"] .dir-arrow');
+                    if (yearArrow) yearArrow.classList.remove("flipped");
+                }
+
+                currentSortMode = sortType;
+                
+                if (sortType === 'year') currentSortDir = 'desc'; 
+                if (sortType === 'title') currentSortDir = 'asc'; 
+            }
+
+            options.forEach(o => o.classList.remove("active"));
+            opt.classList.add("active");
+
+            if (sortType === 'year') {
+                animBox.textContent = "↓"; 
+                if (currentSortDir === 'asc') animBox.classList.add("flipped");
+                else animBox.classList.remove("flipped");
+            }
+            
+            if (sortType === 'title') {
+                const wasFwd = animBox.classList.contains("anim-fwd");
+                animBox.classList.remove("anim-fwd", "anim-rev");
+                void animBox.offsetWidth;
+
+                if (currentSortDir === 'desc') { 
+                    animBox.classList.add("anim-fwd");
+                } else {
+                    if (wasFwd) animBox.classList.add("anim-rev");
+                }
+            }
+
+            filterAndRenderMovies();
+        });
+    });
+}
+
+function applySort(movieIds) {
+    if (currentSortMode === 'relevance') {
+        return sortMoviesByUserTaste(movieIds);
+    }
+
+    if (currentSortMode === 'discovery') {
+        const boostedRandomness = (randomnessFactor * 2) + 10;
+        
+        const looseList = sortMoviesByUserTaste(movieIds, boostedRandomness);
+        
+        for (let i = 2; i < looseList.length - 1; i += 3) {
+            const swapIndex = Math.floor(Math.random() * (looseList.length - i)) + i;
+            [looseList[i], looseList[swapIndex]] = [looseList[swapIndex], looseList[i]];
+        }
+        
+        return looseList;
+    }
+
+    if (currentSortMode === 'year') {
+        return movieIds.sort((a, b) => {
+            const valA = movieData[a].year;
+            const valB = movieData[b].year;
+            return currentSortDir === 'asc' ? valA - valB : valB - valA;
+        });
+    }
+
+    if (currentSortMode === 'title') {
+        return movieIds.sort((a, b) => {
+            const valA = movieData[a].title.toLowerCase();
+            const valB = movieData[b].title.toLowerCase();
+            if (valA < valB) return currentSortDir === 'asc' ? -1 : 1;
+            if (valA > valB) return currentSortDir === 'asc' ? 1 : -1;
+            return 0;
+        });
+    }
+    
+    return movieIds;
+}
+
 function enableDynamicGlow() {
     document.addEventListener("mouseover", (e) => {
         
@@ -1065,4 +1188,5 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("aipicked")) updateRecommendations();
     if (document.getElementById("exploreTrending")) populateExplorePage();
     enableDynamicGlow();
+    initSortDropdown();
 });
