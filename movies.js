@@ -1021,6 +1021,35 @@ function populateExplorePage() {
     fillContainer(seasonalContainer, seasonalSorted);
 }
 
+function enableDynamicGlow() {
+    document.addEventListener("mouseover", (e) => {
+        
+        const card = e.target.closest(".movie-container");
+        if (!card) return;
+
+        if (card.dataset.hasGlow) return;
+
+        const img = card.querySelector("img");
+        
+        if (img && img.complete) {
+            try {
+                const rgb = calculateAverageColor(img);
+                
+                const r = Math.min(255, rgb.r + 30);
+                const g = Math.min(255, rgb.g + 30);
+                const b = Math.min(255, rgb.b + 30);
+
+                card.style.setProperty('--glow-color', `rgba(${r}, ${g}, ${b}, 1)`);
+                
+                card.dataset.hasGlow = "true";
+                
+            } catch (err) {
+                console.log("Could not calculate glow");
+            }
+        }
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem("theme_christmas");
     if (savedTheme === "true" || savedTheme === null) {
@@ -1035,4 +1064,5 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("movietitle")) updateHeroSection();
     if (document.getElementById("aipicked")) updateRecommendations();
     if (document.getElementById("exploreTrending")) populateExplorePage();
+    enableDynamicGlow();
 });

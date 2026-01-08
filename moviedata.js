@@ -1042,6 +1042,96 @@ const movieData = {
 		poster: "movies/pitchperfect/pitchperfect3.jpg", 
 		link: "https://www.netflix.com/title/80192837",
 		trailer: "qZkEdPAqip8"
+	},
+	"Frozen1": {
+		title: "Frozen",
+		year: 2013,
+		runtime: "1h 42m",
+		genres: ["Family", "Musical", "Animation", "Adventure"],
+		director: ["Jennifer Lee","Chris Buck"],
+		cast: ["Kristen Bell", "Idina Menzel", "Jonathan Groff", "Josh Gad", "Santino Fontana"],
+		franchise: "Frozen",
+		keywords: ["Cold", "Snow", "Sister", "Disney"],
+		ageRating: "PG",
+		rating: "7.9/10",
+		desc: "Fearless optimist Anna teams up with rugged mountain man Kristoff and his loyal reindeer Sven in an epic journey to find Anna's sister Elsa, whose icy powers have trapped the kingdom of Arendelle in eternal winter.",
+		similar: ["MonstersUniversity", "ThePirateFairy"],
+		sequels: ["Frozen2", "Frozen3"], 
+		poster: "movies/frozen/frozen1.jpg", 
+		link: "https://www.netflix.com/title/70279000",
+		trailer: "TbQm5doF_Uc"
+	},
+	"Frozen2": {
+		title: "Frozen 2",
+		year: 2019,
+		runtime: "1h 43m",
+		genres: ["Family", "Musical", "Animation", "Adventure", "Fantasy"],
+		director: ["Jennifer Lee","Chris Buck"],
+		cast: ["Kristen Bell", "Idina Menzel", "Jonathan Groff", "Josh Gad", "Santino Fontana", "Sterling K. Brown", "Alfred Molina", "Evan Rachel Wood"],
+		franchise: "Frozen",
+		keywords: ["Identity", "Magic", "Sister", "Disney"],
+		ageRating: "U",
+		rating: "8.4/10",
+		desc: "Anna, Elsa, Kristoff, Olaf and Sven leave Arendelle to travel to an ancient, autumn-bound forest of an enchanted land. They set out to find the origin of Elsa's powers in order to save their kingdom.",
+		similar: ["MonstersUniversity", "ThePirateFairy"],
+		sequels: ["Frozen1", "Frozen3"], 
+		poster: "movies/frozen/frozen2.jpg", 
+		link: "https://www.disneyplus.com/en-gb/browse/entity-3f9272e2-33f1-47db-bb2e-9aa2c7c85a96",
+		trailer: "Zi4LMpSDccc"
+	},
+	"Frozen3": {
+		title: "Frozen 3",
+		year: 2027,
+		runtime: "-h -m",
+		genres: ["Family", "Musical", "Animation", "Adventure", "Fantasy"],
+		director: ["Jennifer Lee","Marc Smith"],
+		cast: ["Kristen Bell", "Idina Menzel", "Jonathan Groff", "Josh Gad", "Santino Fontana", "Sterling K. Brown", "Alfred Molina", "Evan Rachel Wood"],
+		franchise: "Frozen",
+		keywords: ["Identity", "Magic", "Sister", "Disney"],
+		ageRating: "U",
+		rating: "8.4/10",
+		desc: "Elsa and Anna take Olaf, Kristoff, and Sven for another adventure.",
+		similar: ["MonstersUniversity", "ThePirateFairy"],
+		sequels: ["Frozen1", "Frozen2"], 
+		poster: "movies/frozen/frozen3.jpg", 
+		link: "",
+		trailer: ""
+	},
+	"MonstersUniversity": {
+		title: "Monsters University",
+		year: 2013,
+		runtime: "1h 44m",
+		genres: ["Family", "Comedy", "Animation", "Adventure"],
+		director: "Dan Scanlon",
+		cast: ["Billy Crystal", "John Goodman", "Steve Buscemi", "Helen Mirren", "Charlie Day", "Nathan Fillion"],
+		franchise: null,
+		keywords: ["Friendship", "Monsters", "University", "Disney"],
+		ageRating: "U",
+		rating: "8.1/10",
+		desc: "A look at the relationship between Mike Wazowski and James P. (Sully) Sullivan during their days at Monsters University, when they weren't necessarily the best of friends.",
+		similar: ["Frozen1", "ThePirateFairy"],
+		sequels: [], 
+		poster: "movies/monstersuniversity/mu.jpg", 
+		link: "https://www.disneyplus.com/en-gb/browse/entity-9b76e5cf-4005-4f0b-ae54-e65f3a6ccb61",
+		trailer: "xBzPioph8CI"
+	},
+	"ThePirateFairy": {
+		title: "The Pirate Fairy",
+		year: 2014,
+		runtime: "1h 30m",
+		genres: ["Family", "Fantasy", "Animation", "Adventure"],
+		director: "Peggy Holmes",
+		cast: ["Tom Hiddleston", "Christina Hendricks", "Mae Whitman", "Raven-Symone", "Angela Bartys", "Lucy Liu", "Pamela Adlon", "Jeff Bennett"],
+		franchise: null,
+		keywords: ["Fairy", "Disney", "Ocean"],
+		ageRating: "U",
+		rating: "6.4/10",
+		desc: "Tinker Bell and her friends embark on an adventure when former friend Zarina returns, the rest of Pixie Hollow put to sleep, they set out to face a band of pirates led by a cabin boy who'll soon be known as Captain Hook himself.",
+		similar: ["Frozen1", "MonstersUniversity"],
+		sequels: [], 
+		poster: "movies/piratefairy/pf.jpg", 
+		link: "https://www.disneyplus.com/en-gb/browse/entity-d6e23a1a-9e19-4a22-9b63-b0c6a1d4e2e6",
+		trailer: "Et4zsoUNb_0"
 	}
 };
 
@@ -1051,8 +1141,7 @@ const exploreLists = {
         "Wicked2", "Elf", "HappyGilmore2", "Zootropolis2", "TrainDreams"
     ],
     upcoming: [
-        "Avatar3", "Spiderman5", "Odyssey", "ToyStory5", "Scream7", 
-        "Alien5", "HarryPotter8"
+        "Avatar3", "Spiderman5", "Odyssey", "ToyStory5", "Scream7", "Frozen3"
     ],
     seasonal: [	
         "ChristmasWithTheKranks", "HomeAlone", "Krampus", "Elf", "HomeAlone2", 
