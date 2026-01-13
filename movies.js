@@ -912,6 +912,54 @@ function initExplorePageInteractions() {
     }
 }
 
+function levenshteinDistance(a, b) {
+    const matrix = [];
+
+    for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+    }
+    for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+    }
+
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) == a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1,
+                    Math.min(
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j] + 1
+                    )
+                );
+            }
+        }
+    }
+    return matrix[b.length][a.length];
+}
+
+function isFuzzyMatch(text, query) {
+    if (!text) return false;
+    const normalizedText = text.toLowerCase();
+    
+    if (normalizedText.includes(query)) return true;
+
+    if (query.length < 3) return false;
+
+    const tokens = normalizedText.split(/[\s-:,]+/);
+    
+    const maxDistance = query.length > 5 ? 2 : 1;
+
+    return tokens.some(token => {
+        if (Math.abs(token.length - query.length) > maxDistance) return false;
+        
+        const dist = levenshteinDistance(token, query);
+        return dist <= maxDistance;
+    });
+}
+
 function filterAndRenderMovies() {
     const searchInput = document.getElementById("searchInput");
     const defaultSections = document.getElementById("defaultExploreSections");
@@ -951,20 +999,25 @@ function filterAndRenderMovies() {
         }
         
         if (hasActiveSearch) {
-            const titleMatch = movie.title.toLowerCase().includes(query);
-            const castMatch = movie.cast.some(actor => actor.toLowerCase().includes(query));
-            const directorMatch = movie.director && typeof movie.director === 'string' && movie.director.toLowerCase().includes(query);
+            const titleMatch = isFuzzyMatch(movie.title, query);
+            
+            const castMatch = movie.cast.some(actor => isFuzzyMatch(actor, query));
+            
+            const directorMatch = movie.director && isFuzzyMatch(movie.director, query);
+            
             const genreTextMatch = movie.genres.some(g => g.toLowerCase().includes(query)); 
+
             if (!titleMatch && !castMatch && !directorMatch && !genreTextMatch) return false;
         }
         return true;
     });
 
-    const sortedMatches = applySort(matches);
+    const sortedMatches = typeof applySort === "function" ? applySort(matches) : matches;
+    
     resultsGrid.innerHTML = "";
 
     if (sortedMatches.length === 0) {
-        resultsGrid.innerHTML = `<p class="empty-state" style="grid-column: 1/-1; text-align: center;">No movies found matching your criteria.</p>`;
+        resultsGrid.innerHTML = `<p class="empty-state" style="grid-column: 1/-1; text-align: center; padding: 20px; color: #ccc;">No movies found matching your criteria.</p>`;
         return;
     }
 
@@ -980,9 +1033,10 @@ function filterAndRenderMovies() {
         `;
         
         div.addEventListener("click", (evt) => {
-            evt.stopPropagation(); 
-            showMovieDetails(id);
+            evt.stopPropagation();
+            if (typeof showMovieDetails === "function") showMovieDetails(id);
         });
+        
         resultsGrid.appendChild(div);
     });
 }
@@ -1177,7 +1231,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem("theme_christmas");
     if (savedTheme === "true" || savedTheme === null) {
         document.body.classList.add("christmas-theme");
-        if (savedTheme === null) localStorage.setItem("theme_christmas", "true");
+        if (savedTheme === null) localStorage.setItem("theme_christmas", "false");
     }
 
     if (typeof initSidebarWatchlist === "function") initSidebarWatchlist();

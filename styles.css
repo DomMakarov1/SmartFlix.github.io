@@ -875,10 +875,14 @@ body.christmas-theme .movie-container {
 }
 
 #popularMovies .movie-container:hover .moviepicture {
-    transform: scale(1.10) translateY(10px);
+    transform: scale(1.07) translateY(16px);
     box-shadow: 
         0 0 0 3px var(--glow-color), 
         0 0 25px var(--glow-color);
+}
+
+#exploreTrending .movie-container:hover .moviepicture {
+    transform: translateY(1px);
 }
 
 #popularMovies .movie-container:hover .movie-title {
@@ -886,10 +890,10 @@ body.christmas-theme .movie-container {
 }
 
 #genreResults .movie-container:hover .moviepicture {
-    transform: scale(1.07);
+    transform: scale(1.05);
 
     box-shadow: 
-        0 0 0 3px var(--glow-color), 
+        0 0 0 2px var(--glow-color), 
         0 0 25px var(--glow-color);
 }
 
@@ -1146,7 +1150,6 @@ body.christmas-theme::before {
     pointer-events: none;
     z-index: 0; 
     
-    /* Snow particles */
     background-image: 
         radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
         radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
@@ -1157,11 +1160,9 @@ body.christmas-theme::before {
     background-size: 200px 200px; 
     opacity: 0.2; 
     
-    /* This connects to the keyframes below */
     animation: snowAnim 5s linear infinite;
 }
 
-/* 2. Top Bar - Matching Red-to-Green Gradient */
 body.christmas-theme #topbar {
     background: linear-gradient(135deg, rgba(26, 5, 5, 0.5) 0%, rgba(5, 16, 10, 1) 100%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
@@ -1169,17 +1170,15 @@ body.christmas-theme #topbar {
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
-/* 3. The Animation Keyframes (Critical for movement) */
 @keyframes snowAnim {
     0% { 
         background-position: 0 0; 
     }
     100% { 
-        background-position: 0 200px; /* Moves down 200px, then loops */
+        background-position: 0 200px;
     }
 }
 
-/* 3. SIDEBAR - The Holiday Makeover */
 body.christmas-theme #movieSidebar {
     background-color: #0b140e;
     border-left: 6px solid transparent; 
@@ -1188,7 +1187,6 @@ body.christmas-theme #movieSidebar {
     box-shadow: -10px 0 40px rgba(21, 91, 51, 0.3);
 }
 
-/* 4. Sidebar Content Styling */
 body.christmas-theme #sidebarTitle {
     color: #ff8a80;
     text-shadow: 0 0 10px rgba(212, 36, 38, 0.4);
@@ -1198,14 +1196,14 @@ body.christmas-theme #sidebarDesc {
     color: #c8e6c9;
 }
 
-/* 5. Movie Cards Glow */
 body.christmas-theme .movie-container:hover .moviepicture {
-    border: 2px solid #d42426;
-    box-shadow: 0 0 20px rgba(212, 36, 38, 0.6);
+    box-shadow: 
+        0 0 0 2px #d42426,
+        0 0 20px rgba(212, 36, 38, 0.6);
+        
     transform: scale(1.05) translateY(-2px);
 }
 
-/* 6. Titles & Text */
 body.christmas-theme .section-title::after {
     content: " 🎄";
     font-size: 0.9em;
@@ -1217,7 +1215,6 @@ body.christmas-theme h2 {
     text-shadow: 0 2px 10px rgba(212, 36, 38, 0.5);
 }
 
-/* 7. Buttons */
 body.christmas-theme .primary-btn, 
 body.christmas-theme #watchMovieBtn {
     background-color: #d42426;
@@ -1232,8 +1229,8 @@ body.christmas-theme #watchMovieBtn:hover {
 }
 
 body.christmas-theme #loginModal {
-    background: linear-gradient(to bottom, #0f2b1d, #050505); /* Green gradient */
-    border: 2px solid #d42426; /* Red Border */
+    background: linear-gradient(to bottom, #0f2b1d, #050505);
+    border: 2px solid #d42426;
     box-shadow: 0 0 30px rgba(212, 36, 38, 0.4), inset 0 0 20px rgba(22, 91, 51, 0.3);
 }
 
@@ -1242,7 +1239,7 @@ body.christmas-theme #loginModal h2 {
     text-shadow: 0 0 10px #d42426;
     position: relative;
 }
-/* Add a little hat to the Login Title */
+
 body.christmas-theme #loginModal h2::after {
     content: " 🎅";
     font-size: 0.8em;
@@ -1260,5 +1257,5 @@ body.christmas-theme #loginModal input:focus {
 body.christmas-theme .highlight-text,
 body.christmas-theme .movie-title,
 body.christmas-theme a.active {
-    color: #c8e6c9; /* Icy Green */
+    color: #c8e6c9;
 }
