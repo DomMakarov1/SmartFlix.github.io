@@ -6,8 +6,8 @@ document.addEventListener("click", (e) => {
     if (sidebar && sidebar.classList.contains("open") && !sidebar.contains(e.target)) {
         closeSidebar();
     }
-});
-
+}); 
+ 
 const sidebarEl = document.getElementById("movieSidebar");
 if (sidebarEl) {
     sidebarEl.addEventListener("click", function() {
