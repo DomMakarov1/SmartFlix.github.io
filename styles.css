@@ -875,7 +875,7 @@ body.christmas-theme .movie-container {
 }
 
 #popularMovies .movie-container:hover .moviepicture {
-    transform: scale(1.07) translateY(16px);
+    transform: scale(1.03) translateY(8px);
     box-shadow: 
         0 0 0 3px var(--glow-color), 
         0 0 25px var(--glow-color);
@@ -886,7 +886,7 @@ body.christmas-theme .movie-container {
 }
 
 #popularMovies .movie-container:hover .movie-title {
-    transform: translateY(25px);
+    transform: translateY(12px);
 }
 
 #genreResults .movie-container:hover .moviepicture {
