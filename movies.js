@@ -937,7 +937,7 @@ function levenshteinDistance(a, b) {
             }
         }
     }
-    return matrix[b.length][a.length];
+    return matrix[b.length][a.length]; 
 }
 
 function isFuzzyMatch(text, query) {
@@ -960,6 +960,7 @@ function isFuzzyMatch(text, query) {
         return dist <= maxDistance;
     });
 }
+
 function filterAndRenderMovies() {
     const searchInput = document.getElementById("searchInput");
     const defaultSections = document.getElementById("defaultExploreSections");
